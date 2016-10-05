@@ -2,6 +2,7 @@ package domain;
 
 import java.math.BigDecimal;
 
+
 public class Pizza {
     private Long id;
     private String name;
@@ -14,6 +15,8 @@ public class Pizza {
         this.price = price;
         this.type = type;
     }
+
+
 
     @Override
     public String toString() {
