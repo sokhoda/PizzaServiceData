@@ -25,7 +25,10 @@ public class AppRunner {
 //        System.out.println(pizzaRepo.find(1L));
 
         OrderService orderService = context.getBean("orderService");
+//        PizzaRepository pizzaRepository = context.getBean("pizzaRepository");
+//        pizzaRepository.find(1L);
         order = orderService.placeNewOrder(customer, 1L, 2L, 3L);
+//
         System.out.println(order);
     }
 

@@ -3,6 +3,7 @@ package pizzaservice;
 import domain.Customer;
 import domain.Order;
 import domain.Pizza;
+import infrastructure.Benchmark;
 import repository.InMemOrderRepo;
 import repository.OrderRepository;
 
@@ -20,6 +21,7 @@ public class SimpleOrderService implements OrderService{
         this.orderRepo = orderRepo;
     }
 
+    @Benchmark(on = true)
     @Override
     public Order placeNewOrder(Customer customer, Long... pizzasID) {
         List<Pizza> pizzas = new ArrayList<>();
