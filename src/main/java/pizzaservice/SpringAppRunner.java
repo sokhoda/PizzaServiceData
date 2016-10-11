@@ -2,6 +2,7 @@ package pizzaservice;
 
 import domain.Customer;
 import domain.Order;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pizzaservice.states.OrderStateCycle;
@@ -39,6 +40,7 @@ public class SpringAppRunner {
         order.previousState();
         order.previousState();
         System.out.println(order);
+        System.out.println(orderService.getClass());
 
 //        System.out.println(repoContext.getBean("T1", SomeService.class).getString());
 //        System.out.println(appContext.getBean("T1", SomeService.class).getString());

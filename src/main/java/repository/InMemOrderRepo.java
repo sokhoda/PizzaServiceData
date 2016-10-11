@@ -1,10 +1,11 @@
 package repository;
 
 import domain.Order;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Repository
 public class InMemOrderRepo implements OrderRepository {
     private final List<Order> orderList = new ArrayList<>();
 

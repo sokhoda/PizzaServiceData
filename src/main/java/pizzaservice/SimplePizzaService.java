@@ -1,12 +1,17 @@
 package pizzaservice;
 
 import domain.Pizza;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import repository.PizzaRepository;
 
 public class SimplePizzaService implements PizzaService {
     private PizzaRepository pizzaRepo;
 
+    public SimplePizzaService() {
+    }
 
+    @Autowired
     public SimplePizzaService(PizzaRepository pizzaRepo) {
 //        InitialContext context = new InitialContext();
 //        this.pizzaRepo = (PizzaRepo)context.getInstance("pizzaRepository");
@@ -14,7 +19,7 @@ public class SimplePizzaService implements PizzaService {
     }
 
     @Override
-    public Pizza find(Long id){
+    public Pizza find(Long id) {
         return pizzaRepo.find(id);
     }
 

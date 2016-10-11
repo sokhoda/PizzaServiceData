@@ -4,16 +4,20 @@ import domain.Pizza;
 import domain.PizzaType;
 import infrastructure.Benchmark;
 import infrastructure.PostCreate;
+import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Repository
 public class InMemPizzaRepo implements PizzaRepository {
     private final List<Pizza> pizzaList = new ArrayList<>();
 
-    @PostCreate
+//    @PostCreate
+    @PostConstruct
     public void init() {
         pizzaList.add(new Pizza(1L, "Tomato", 90., PizzaType.VEGETERIAN));
         pizzaList.add(new Pizza(2L, "Chicken",120., PizzaType.MEAT));
