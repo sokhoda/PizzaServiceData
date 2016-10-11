@@ -2,6 +2,7 @@ package pizzaservice;
 
 import domain.Customer;
 import domain.Order;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pizzaservice.states.OrderStateCycle;
@@ -24,21 +25,23 @@ public class SpringAppRunner {
         System.out.println(Arrays.toString(appContext.getBeanDefinitionNames()));
 
         Customer customer = appContext.getBean("customer", Customer.class);
-        PizzaRepository pizzaRepository = (PizzaRepository) repoContext.getBean("pizzaRepository");
+        PizzaRepository pizzaRepository = (PizzaRepository) repoContext
+                .getBean("inMemPizzaRepo");
 
-        OrderService orderService = (OrderService) appContext.getBean("orderService");
-        Order order = orderService.placeNewOrder(customer, 1L, 2L, 3L);
-        order = orderService.addPizzas(order, 1L, 2L, 3L,5L);
-        System.out.println(order);
-        order.nextState();
-        System.out.println(order);
-        order.nextState();
-        order.cancel();
-        System.out.println(order);
-        order.previousState();
-        order.previousState();
-        order.previousState();
-        System.out.println(order);
+//        OrderService orderService = (OrderService) appContext.getBean("orderService");
+//        Order order = orderService.placeNewOrder(customer, 1L, 2L, 3L);
+//        order = orderService.addPizzas(order, 1L, 2L, 3L,5L);
+//        System.out.println(order);
+//        order.nextState();
+//        System.out.println(order);
+//        order.nextState();
+//        order.cancel();
+//        System.out.println(order);
+//        order.previousState();
+//        order.previousState();
+//        order.previousState();
+//        System.out.println(order);
+//        System.out.println(orderService.getClass());
 
 //        System.out.println(repoContext.getBean("T1", SomeService.class).getString());
 //        System.out.println(appContext.getBean("T1", SomeService.class).getString());

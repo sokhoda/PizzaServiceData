@@ -5,13 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-    <context:component-scan base-package="domain"/>
-    <context:component-scan base-package="pizzaservice"/>
-    <bean name="Pizza" class="MyFactoryBean"/>
-
-
-    <bean class="infrastructure.BenchmarkBeanPostProcessor"/>
-
+    <context:component-scan base-package="domain.*"/>
     <!--customer description-->
     <bean id="customer" class="domain.Customer">
         <constructor-arg name="name" value="Maria Petrenko"/>
@@ -35,8 +29,10 @@
 
     <!--pizzaservice.states description-->
     <!--service description-->
-
-    <bean name="orderService" class="pizzaservice.SimpleOrderService">
+    <bean name="pizzaService" class="pizzaservice.SimplePizzaService"
+          autowire="constructor"/>
+    <bean name="orderService" class="pizzaservice.SimpleOrderService"
+          autowire="constructor">
         <lookup-method name="createNewOrder" bean="order"/>
     </bean>
 

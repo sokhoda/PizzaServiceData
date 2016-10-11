@@ -1,17 +1,24 @@
 package domain;
 
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import pizzaservice.states.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+@Component
+@Scope("prototype")
 public class Order {
     private static Long counter = 0L;
     private Long id;
     private Customer customer;
     private List<Pizza> pizzaList;
     private OrderStateCycle orderStateCycle;
+
+    public Order() {
+    }
 
     public Order(Customer customer, List<Pizza> pizzaList, OrderStateCycle orderStateCycle) {
         this.id = counter + 1L;
@@ -92,5 +99,13 @@ public class Order {
 
     public void setPizzaList(List<Pizza> pizzaList) {
         this.pizzaList = pizzaList;
+    }
+
+    public OrderStateCycle getOrderStateCycle() {
+        return orderStateCycle;
+    }
+
+    public void setOrderStateCycle(OrderStateCycle orderStateCycle) {
+        this.orderStateCycle = orderStateCycle;
     }
 }
