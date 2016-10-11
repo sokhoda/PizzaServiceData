@@ -1,0 +1,21 @@
+package pizzaservice.states;
+
+/**
+ * Created by s_okhoda on 10.10.2016.
+ */
+public class NewState extends State {
+
+    public NewState() {
+        name = StateEn.NEW;
+    }
+
+    @Override
+    public State nextState(OrderStateCycle context) {
+        return setStateAndReturn(context, OrderStateCycle.getInProgressSt());
+    }
+
+    @Override
+    public State previousState(OrderStateCycle context) {
+        return context.getCurState();
+    }
+}

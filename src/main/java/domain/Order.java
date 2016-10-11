@@ -1,25 +1,72 @@
 package domain;
 
+import pizzaservice.states.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Order {
-    private static Long counter = -1L;
+    private static Long counter = 0L;
     private Long id;
-    private List<Pizza> pizzaList;
     private Customer customer;
+    private List<Pizza> pizzaList;
+    private OrderStateCycle orderStateCycle;
 
-    public Order (Customer customer, List<Pizza> pizzaList) {
+    public Order(Customer customer, List<Pizza> pizzaList, OrderStateCycle orderStateCycle) {
         this.id = counter + 1L;
+        this.orderStateCycle = orderStateCycle;
         this.customer = customer;
         this.pizzaList = pizzaList;
+    }
+
+    public Order(Customer customer, List<Pizza> pizzaList) {
+        this(customer, pizzaList, null);
+    }
+
+    public Double calcTotalSum() {
+        Double sum = 0.;
+        for (Pizza pizza : pizzaList) {
+            sum += pizza.getPrice();
+        }
+        return sum;
+    }
+
+    public Pizza getTheMostExpensivePizza() {
+        List<Pizza> clonePizzas = new ArrayList<>(pizzaList);
+        Collections.sort(clonePizzas, (Pizza o1, Pizza o2) -> {
+            return Double.compare(o2.getPrice(), o1.getPrice());
+        });
+        return clonePizzas.get(0);
+    }
+
+
+    public void addTotalSumToCustomerLCard(){
+        LoyaltyCard loyaltyCard = customer.getLoyaltyCard();
+        if (loyaltyCard != null) {
+            loyaltyCard.setSum(loyaltyCard.getSum() + calcTotalSum());
+        }
+    }
+
+    public State nextState( ){
+        return orderStateCycle.nextState();
+    }
+
+    public State previousState(){
+        return orderStateCycle.previousState();
+    }
+
+    public void cancel(){
+        orderStateCycle.setCurState(OrderStateCycle.getCancelledSt());
     }
 
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", pizzaList=" + pizzaList +
                 ", customer=" + customer +
+                ", pizzaList=" + pizzaList +
+                ", orderStateCycle=" + orderStateCycle +
                 '}';
     }
 

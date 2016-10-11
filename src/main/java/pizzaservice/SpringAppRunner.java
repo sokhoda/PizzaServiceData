@@ -4,13 +4,13 @@ import domain.Customer;
 import domain.Order;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import pizzaservice.states.OrderStateCycle;
 import repository.PizzaRepository;
 
 import java.util.Arrays;
 
 public class SpringAppRunner {
     public static void main(String[] args) {
-        Customer customer = null;
         ConfigurableApplicationContext repoContext = new
                 ClassPathXmlApplicationContext("repoContext.xml");
 
@@ -23,13 +23,25 @@ public class SpringAppRunner {
         System.out.print("appContext::");
         System.out.println(Arrays.toString(appContext.getBeanDefinitionNames()));
 
-PizzaRepository pizzaRepository = (PizzaRepository) repoContext.getBean("pizzaRepository");
-        System.out.println(pizzaRepository.find(1L));
-        OrderService orderService = (OrderService)appContext.getBean("orderService");
+        Customer customer = appContext.getBean("customer", Customer.class);
+        PizzaRepository pizzaRepository = (PizzaRepository) repoContext.getBean("pizzaRepository");
+
+        OrderService orderService = (OrderService) appContext.getBean("orderService");
         Order order = orderService.placeNewOrder(customer, 1L, 2L, 3L);
+        order = orderService.addPizzas(order, 1L, 2L, 3L,5L);
         System.out.println(order);
-        System.out.println(repoContext.getBean("T1", SomeService.class).getString());
-        System.out.println(appContext.getBean("T1", SomeService.class).getString());
+        order.nextState();
+        System.out.println(order);
+        order.nextState();
+        order.cancel();
+        System.out.println(order);
+        order.previousState();
+        order.previousState();
+        order.previousState();
+        System.out.println(order);
+
+//        System.out.println(repoContext.getBean("T1", SomeService.class).getString());
+//        System.out.println(appContext.getBean("T1", SomeService.class).getString());
 
         repoContext.close();
         appContext.close();

@@ -1,15 +1,13 @@
 package domain;
 
-import java.math.BigDecimal;
-
 
 public class Pizza {
     private Long id;
     private String name;
-    private BigDecimal price;
+    private Double price;
     private PizzaType type;
 
-    public Pizza(Long id, String name, BigDecimal price, PizzaType type) {
+    public Pizza(Long id, String name, Double price, PizzaType type) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -44,11 +42,11 @@ public class Pizza {
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

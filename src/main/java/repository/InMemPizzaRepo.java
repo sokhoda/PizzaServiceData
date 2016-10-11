@@ -15,9 +15,9 @@ public class InMemPizzaRepo implements PizzaRepository {
 
     @PostCreate
     public void init() {
-        pizzaList.add(new Pizza(1L, "Tomato", BigDecimal.valueOf(90), PizzaType.VEGETERIAN));
-        pizzaList.add(new Pizza(2L, "Chicken", BigDecimal.valueOf(120), PizzaType.MEAT));
-        pizzaList.add(new Pizza(3L, "Fish", BigDecimal.valueOf(220), PizzaType.SEA));
+        pizzaList.add(new Pizza(1L, "Tomato", 90., PizzaType.VEGETERIAN));
+        pizzaList.add(new Pizza(2L, "Chicken",120., PizzaType.MEAT));
+        pizzaList.add(new Pizza(3L, "Fish", 220., PizzaType.SEA));
     }
 
     @Benchmark(on = false)

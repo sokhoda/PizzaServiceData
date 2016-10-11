@@ -7,6 +7,27 @@
 
     <bean  name="T1" class="pizzaservice.Test2SomeService"/>
 
+    <!--customer description-->
+    <bean id="customer" class="domain.Customer">
+        <constructor-arg name="name" value="Maria Petrenko"/>
+        <constructor-arg name="address" ref="address"/>
+        <property name="loyaltyCard" ref="loyaltyCard"/>
+
+    </bean>
+    
+    <bean id="address" class="domain.Address">
+        <constructor-arg name="name" value="Kudryashova"/>
+        <constructor-arg name="type" value="str"/>
+        <constructor-arg name="buildingNo" value="18-A"/>
+        <constructor-arg name="appNo" value="1"/>
+    </bean>
+    <bean id="loyaltyCard" class="domain.LoyaltyCard">
+        <constructor-arg name="sum" value="0."/>
+    </bean>
+    
+    
+    <!--pizzaservice.states description-->
+    <!--service description-->
     <bean name="pizzaService" class="pizzaservice.SimplePizzaService">
         <constructor-arg ref="pizzaRepository"/>
     </bean>
@@ -15,10 +36,10 @@
         <constructor-arg ref="orderRepository"/>
     </bean>
 
-    <bean class="pizzaservice.UsageSomeService" init-method="init">
-        <constructor-arg>
-            <bean name="inner" class="pizzaservice.Test2SomeService"/>
-            <!--<ref parent="T1"/>-->
-        </constructor-arg>
-    </bean>
+    <!--<bean class="pizzaservice.UsageSomeService" init-method="init">-->
+        <!--<constructor-arg>-->
+            <!--<bean name="inner" class="pizzaservice.Test2SomeService"/>-->
+            <!--&lt;!&ndash;<ref parent="T1"/>&ndash;&gt;-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
 </beans>
