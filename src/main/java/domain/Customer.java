@@ -1,11 +1,20 @@
 package domain;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
+@Scope("prototype")
 public class Customer {
     private static Long counter = 0L;
     private Long id;
     private String name;
     private Address address;
     private LoyaltyCard loyaltyCard;
+
+    public Customer() {
+    }
 
     public Customer(String name, Address address, LoyaltyCard loyaltyCard) {
         this.id = counter + 1L;

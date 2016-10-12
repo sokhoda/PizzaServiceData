@@ -4,6 +4,7 @@ import domain.Pizza;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repository.PizzaRepository;
+
 @Service
 public class SimplePizzaService implements PizzaService {
     private PizzaRepository pizzaRepo;

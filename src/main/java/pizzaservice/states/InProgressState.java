@@ -15,12 +15,12 @@ public class InProgressState extends State {
 
     @Override
     public State nextState(OrderStateCycle context) {
-        return setStateAndReturn(context, OrderStateCycle.getDoneSt());
+        return setStateAndReturn(context, context.getDoneSt());
     }
 
     @Override
     public State previousState(OrderStateCycle context) {
-        return setStateAndReturn(context, OrderStateCycle.getNewSt());
+        return setStateAndReturn(context, context.getNewSt());
     }
 
 

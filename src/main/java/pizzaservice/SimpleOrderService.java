@@ -47,7 +47,7 @@ public class SimpleOrderService implements OrderService, ApplicationContextAware
         Order newOrder = createNewOrder();
         newOrder.setCustomer(customer);
         newOrder.setPizzaList(pizzas);
-        newOrder.setOrderStateCycle(new OrderStateCycle());
+//        newOrder.setOrderStateCycle(new OrderStateCycle());
 //                new Order(customer, pizzas, new OrderStateCycle());
 
         saveOrder(newOrder);

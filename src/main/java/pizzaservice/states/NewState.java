@@ -14,7 +14,7 @@ public class NewState extends State {
 
     @Override
     public State nextState(OrderStateCycle context) {
-        return setStateAndReturn(context, OrderStateCycle.getInProgressSt());
+        return setStateAndReturn(context, context.getInProgressSt());
     }
 
     @Override

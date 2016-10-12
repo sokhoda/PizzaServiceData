@@ -12,28 +12,33 @@
 
     <!--<bean class="infrastructure.BenchmarkBeanPostProcessor"/>-->
 
-
+    <bean id="orderStateCycle"
+          class="pizzaservice.states.OrderStateCycle">
+        <constructor-arg name="cancelledSt" ref="cancelledState"/>
+        <constructor-arg name="doneSt" ref="doneState"/>
+        <constructor-arg name="inProgressSt" ref="inProgressState"/>
+        <constructor-arg name="newSt" ref="newState"/>
+    </bean>
 
     <!--customer description-->
-    <bean id="customer" class="domain.Customer">
-        <constructor-arg name="name" value="Maria Petrenko"/>
-        <constructor-arg name="address" ref="address"/>
-        <property name="loyaltyCard" ref="loyaltyCard"/>
+    <!--<bean id="customer" class="domain.Customer">-->
+        <!--<constructor-arg name="name" value="Maria Petrenko"/>-->
+        <!--<constructor-arg name="address" ref="address"/>-->
+        <!--<property name="loyaltyCard" ref="loyaltyCard"/>-->
+    <!--</bean>-->
 
-    </bean>
+    <!--<bean id="address" class="domain.Address">-->
+        <!--<constructor-arg name="name" value="Kudryashova"/>-->
+        <!--<constructor-arg name="type" value="str"/>-->
+        <!--<constructor-arg name="buildingNo" value="18-A"/>-->
+        <!--<constructor-arg name="appNo" value="1"/>-->
+    <!--</bean>-->
 
-    <bean id="address" class="domain.Address">
-        <constructor-arg name="name" value="Kudryashova"/>
-        <constructor-arg name="type" value="str"/>
-        <constructor-arg name="buildingNo" value="18-A"/>
-        <constructor-arg name="appNo" value="1"/>
-    </bean>
+    <!--<bean id="loyaltyCard" class="domain.LoyaltyCard">-->
+        <!--<constructor-arg name="sum" value="0."/>-->
+    <!--</bean>-->
 
-    <bean id="loyaltyCard" class="domain.LoyaltyCard">
-        <constructor-arg name="sum" value="0."/>
-    </bean>
-
-    <bean name="order" class="domain.Order" scope="prototype"/>
+    <!--<bean name="order" class="domain.Order" scope="prototype"/>-->
 
     <!--pizzaservice.states description-->
     <!--service description-->
@@ -41,6 +46,10 @@
           <!--autowire="constructor"/>-->
     <bean name="orderService" class="pizzaservice.SimpleOrderService">
         <lookup-method name="createNewOrder" bean="order"/>
+    </bean>
+
+    <bean name="customerService" class="pizzaservice.SimpleCustomerService">
+        <lookup-method name="createNewCustomer" bean="customer"/>
     </bean>
 
 </beans>

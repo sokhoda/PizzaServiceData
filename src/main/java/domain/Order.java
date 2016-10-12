@@ -1,5 +1,6 @@
 package domain;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -8,6 +9,7 @@ import pizzaservice.states.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 @Component
 @Scope("prototype")
 public class Order {
@@ -64,7 +66,7 @@ public class Order {
     }
 
     public void cancel(){
-        orderStateCycle.setCurState(OrderStateCycle.getCancelledSt());
+        orderStateCycle.setCurState(orderStateCycle.getCancelledSt());
     }
 
     @Override
@@ -105,6 +107,7 @@ public class Order {
         return orderStateCycle;
     }
 
+    @Autowired
     public void setOrderStateCycle(OrderStateCycle orderStateCycle) {
         this.orderStateCycle = orderStateCycle;
     }

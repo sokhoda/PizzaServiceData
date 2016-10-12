@@ -1,8 +1,13 @@
 package domain;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 /**
  * Created by s_okhoda on 10.10.2016.
  */
+@Component
+@Scope("prototype")
 public class LoyaltyCard {
     private static Long counter = 0L;
     private Long id;

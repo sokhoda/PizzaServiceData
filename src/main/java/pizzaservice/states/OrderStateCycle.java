@@ -1,34 +1,38 @@
 package pizzaservice.states;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
 
 /**
  * Created by s_okhoda on 10.10.2016.
  */
-@Component
+
 public class OrderStateCycle {
-    private static final State newSt;
-    private static final State inProgressSt;
-    private static final State cancelledSt;
-    private static final State doneSt;
+    private State newSt;
+    private State inProgressSt;
+    private State cancelledSt;
+    private State doneSt;
     private State curState;
 
-    static {
-        newSt = new NewState();
-        inProgressSt = new InProgressState();
-        cancelledSt = new CancelledState();
-        doneSt = new DoneState();
+    public OrderStateCycle(State newSt, State inProgressSt, State cancelledSt, State doneSt) {
+        this.newSt = newSt;
+        this.inProgressSt = inProgressSt;
+        this.cancelledSt = cancelledSt;
+        this.doneSt = doneSt;
     }
 
-    public OrderStateCycle() {
+    @PostConstruct
+    public void init() {
         this.curState = newSt;
     }
 
-    public State nextState(){
+    public State nextState() {
         return curState.nextState(this);
     }
 
-    public State previousState(){
+    public State previousState() {
         return curState.previousState(this);
     }
 
@@ -47,19 +51,35 @@ public class OrderStateCycle {
         this.curState = curState;
     }
 
-    public static State getCancelledSt() {
-        return cancelledSt;
-    }
-
-    public static State getNewSt() {
+    public State getNewSt() {
         return newSt;
     }
 
-    public static State getInProgressSt() {
+    public void setNewSt(State newSt) {
+        this.newSt = newSt;
+    }
+
+    public State getInProgressSt() {
         return inProgressSt;
     }
 
-    public static State getDoneSt() {
+    public void setInProgressSt(State inProgressSt) {
+        this.inProgressSt = inProgressSt;
+    }
+
+    public State getCancelledSt() {
+        return cancelledSt;
+    }
+
+    public void setCancelledSt(State cancelledSt) {
+        this.cancelledSt = cancelledSt;
+    }
+
+    public State getDoneSt() {
         return doneSt;
+    }
+
+    public void setDoneSt(State doneSt) {
+        this.doneSt = doneSt;
     }
 }

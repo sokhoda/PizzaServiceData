@@ -19,6 +19,6 @@ public class DoneState extends State {
 
     @Override
     public State previousState(OrderStateCycle context) {
-        return setStateAndReturn(context, OrderStateCycle.getInProgressSt());
+        return setStateAndReturn(context, context.getInProgressSt());
     }
 }

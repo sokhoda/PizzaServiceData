@@ -2,7 +2,6 @@ package pizzaservice;
 
 import domain.Customer;
 import domain.Order;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pizzaservice.states.OrderStateCycle;
@@ -24,14 +23,21 @@ public class SpringAppRunner {
         System.out.print("appContext::");
         System.out.println(Arrays.toString(appContext.getBeanDefinitionNames()));
 
-        Customer customer = appContext.getBean("customer", Customer.class);
+        CustomerService customerService = appContext.getBean("customerService",
+                CustomerService.class);
+        Customer customer = customerService.findById(1L);
+        System.out.println(customer);
+
         PizzaRepository pizzaRepository = (PizzaRepository) repoContext
                 .getBean("inMemPizzaRepo");
+OrderStateCycle orderStateCycle = appContext.getBean("orderStateCycle",
+        OrderStateCycle.class);
+        System.out.println(orderStateCycle.toString());
 
-//        OrderService orderService = (OrderService) appContext.getBean("orderService");
-//        Order order = orderService.placeNewOrder(customer, 1L, 2L, 3L);
+        OrderService orderService = (OrderService) appContext.getBean("orderService");
+        Order order = orderService.placeNewOrder(customer, 1L, 2L, 3L);
 //        order = orderService.addPizzas(order, 1L, 2L, 3L,5L);
-//        System.out.println(order);
+        System.out.println(order);
 //        order.nextState();
 //        System.out.println(order);
 //        order.nextState();
