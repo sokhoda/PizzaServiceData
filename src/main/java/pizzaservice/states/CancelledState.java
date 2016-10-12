@@ -1,8 +1,11 @@
 package pizzaservice.states;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Created by s_okhoda on 10.10.2016.
  */
+@Component
 public class CancelledState extends State {
 
     public CancelledState() {

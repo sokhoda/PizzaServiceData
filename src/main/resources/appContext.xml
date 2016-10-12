@@ -10,7 +10,9 @@
     <bean name="Pizza" class="MyFactoryBean"/>
 
 
-    <bean class="infrastructure.BenchmarkBeanPostProcessor"/>
+    <!--<bean class="infrastructure.BenchmarkBeanPostProcessor"/>-->
+
+
 
     <!--customer description-->
     <bean id="customer" class="domain.Customer">
