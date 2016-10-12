@@ -35,7 +35,8 @@
 
     <!--pizzaservice.states description-->
     <!--service description-->
-
+    <!--<bean name="pizzaService" class="pizzaservice.SimplePizzaService"-->
+          <!--autowire="constructor"/>-->
     <bean name="orderService" class="pizzaservice.SimpleOrderService">
         <lookup-method name="createNewOrder" bean="order"/>
     </bean>

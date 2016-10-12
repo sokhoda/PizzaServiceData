@@ -2,10 +2,9 @@ package pizzaservice;
 
 import domain.Pizza;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import repository.PizzaRepository;
-@Component
+@Service
 public class SimplePizzaService implements PizzaService {
     private PizzaRepository pizzaRepo;
 
