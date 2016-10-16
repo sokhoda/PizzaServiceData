@@ -44,6 +44,10 @@
     <!--service description-->
     <!--<bean name="pizzaService" class="pizzaservice.SimplePizzaService"-->
           <!--autowire="constructor"/>-->
+
+    <bean id="chequeProducer" class="pizzaservice.cheque.SimpleChequeProducer">
+        <lookup-method name="createNewCheque" bean="cheque"/>
+    </bean>
     <bean name="orderService" class="pizzaservice.SimpleOrderService">
         <lookup-method name="createNewOrder" bean="order"/>
     </bean>

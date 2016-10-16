@@ -30,7 +30,7 @@ public class InMemCustomerRepo implements CustomerRepository {
     }
 
     @Override
-    public Customer saveCustomer(Customer newCustomer) {
+    public Customer save(Customer newCustomer) {
             customerList.add(newCustomer);
             return newCustomer;
     }

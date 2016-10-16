@@ -18,6 +18,11 @@ public class SimpleCustomerService implements CustomerService {
     }
 
     @Override
+    public Customer save(Customer customer){
+        return customerRepository.save(customer);
+    }
+
+    @Override
     public Customer findById(Long id){
         return customerRepository.findById(id);
     }

@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
-import pizzaservice.states.OrderStateCycle;
-import repository.InMemOrderRepo;
 import repository.OrderRepository;
 
 import java.util.ArrayList;
@@ -49,7 +47,6 @@ public class SimpleOrderService implements OrderService, ApplicationContextAware
         newOrder.setPizzaList(pizzas);
 //        newOrder.setOrderStateCycle(new OrderStateCycle());
 //                new Order(customer, pizzas, new OrderStateCycle());
-
         saveOrder(newOrder);
         return newOrder;
     }
@@ -114,7 +111,7 @@ public class SimpleOrderService implements OrderService, ApplicationContextAware
 
 
     private Order saveOrder(Order newOrder) {
-        return orderRepo.saveOrder(newOrder);
+        return orderRepo.save(newOrder);
     }
 
     private Pizza getPizzaByID(Long id) {

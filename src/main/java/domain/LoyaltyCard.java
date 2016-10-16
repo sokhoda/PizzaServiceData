@@ -14,10 +14,17 @@ public class LoyaltyCard {
     private Double sum;
 
     public LoyaltyCard(Double sum) {
-        this.id = counter + 1L;
+        this.id = ++counter;
         this.sum = sum;
     }
 
+    @Override
+    public String toString() {
+        return "LoyaltyCard{" +
+                "id=" + id +
+                ", sum=" + sum +
+                '}';
+    }
 
     public Long getId() {
         return id;

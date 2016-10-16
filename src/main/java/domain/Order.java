@@ -1,7 +1,6 @@
 package domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pizzaservice.states.*;
@@ -15,15 +14,18 @@ import java.util.List;
 public class Order {
     private static Long counter = 0L;
     private Long id;
+    private Long chequeId;
     private Customer customer;
     private List<Pizza> pizzaList;
     private OrderStateCycle orderStateCycle;
 
     public Order() {
+        this.id = ++counter;
+
     }
 
     public Order(Customer customer, List<Pizza> pizzaList, OrderStateCycle orderStateCycle) {
-        this.id = counter + 1L;
+        this.id = ++counter;
         this.orderStateCycle = orderStateCycle;
         this.customer = customer;
         this.pizzaList = pizzaList;
@@ -73,10 +75,28 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
+                ", chequeId=" + chequeId +
                 ", customer=" + customer +
                 ", pizzaList=" + pizzaList +
                 ", orderStateCycle=" + orderStateCycle +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (customer != null ? customer.hashCode() : 0);
+        result = 31 * result + (pizzaList != null ? pizzaList.hashCode() : 0);
+        result = 31 * result + (orderStateCycle != null ? orderStateCycle.hashCode() : 0);
+        return result;
+    }
+
+    public Long getChequeId() {
+        return chequeId;
+    }
+
+    public void setChequeId(Long chequeId) {
+        this.chequeId = chequeId;
     }
 
     public Customer getCustomer() {

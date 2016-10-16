@@ -10,7 +10,7 @@ public class InMemOrderRepo implements OrderRepository {
     private final List<Order> orderList = new ArrayList<>();
 
     @Override
-    public Order saveOrder(Order newOrder) {
+    public Order save(Order newOrder) {
         orderList.add(newOrder);
         return newOrder;
     }

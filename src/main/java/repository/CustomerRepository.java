@@ -9,7 +9,7 @@ import java.util.List;
 public interface CustomerRepository {
     Customer findById(Long id);
 
-    Customer saveCustomer(Customer newCustomer);
+    Customer save(Customer newCustomer);
 
     List<Customer> getCustomerList();
 }

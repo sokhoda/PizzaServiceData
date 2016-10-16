@@ -17,7 +17,7 @@ public class Customer {
     }
 
     public Customer(String name, Address address, LoyaltyCard loyaltyCard) {
-        this.id = counter + 1L;
+        this.id = ++counter;
         this.name = name;
         this.address = address;
         this.loyaltyCard = loyaltyCard;
@@ -36,7 +36,8 @@ public class Customer {
         return "Customer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
+                ", address=" + address +
+                ", loyaltyCard=" + loyaltyCard +
                 '}';
     }
 
