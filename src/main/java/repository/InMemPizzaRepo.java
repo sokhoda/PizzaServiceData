@@ -16,11 +16,11 @@ import java.util.List;
 public class InMemPizzaRepo implements PizzaRepository {
     private final List<Pizza> pizzaList = new ArrayList<>();
 
-//    @PostCreate
+    //    @PostCreate
     @PostConstruct
     public void init() {
         pizzaList.add(new Pizza(1L, "Tomato", 90., PizzaType.VEGETERIAN));
-        pizzaList.add(new Pizza(2L, "Chicken",120., PizzaType.MEAT));
+        pizzaList.add(new Pizza(2L, "Chicken", 120., PizzaType.MEAT));
         pizzaList.add(new Pizza(3L, "Fish", 220., PizzaType.SEA));
     }
 

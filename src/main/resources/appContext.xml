@@ -7,6 +7,8 @@
 
     <context:component-scan base-package="domain"/>
     <context:component-scan base-package="pizzaservice"/>
+    <context:component-scan base-package="config"/>
+
     <bean name="Pizza" class="MyFactoryBean"/>
 
 
