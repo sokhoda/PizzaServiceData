@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class SimpleOrderService implements OrderService, ApplicationContextAware {
+public class SimpleOrderService implements OrderService {
     public static final int DISCOUNT_THRESHOLD = 4;
     public static final int DISCOUNT_MOST_EXPENS_PIZZA_PERCENTAGE = 30;
     public static final int DISCOUNT_MAX_ORDER_SUM_PERCENTAGE = 30;
@@ -57,11 +57,6 @@ public class SimpleOrderService implements OrderService, ApplicationContextAware
 //    }
      Order createNewOrder() {
         throw new IllegalStateException("Container couldnt");
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
     }
 
     @Override

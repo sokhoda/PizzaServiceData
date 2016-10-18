@@ -1,7 +1,12 @@
 package domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.io.Serializable;
 
-public class Pizza {
+@Entity
+public class Pizza implements Serializable{
+    @Id
     private Long id;
     private String name;
     private Double price;
@@ -14,7 +19,8 @@ public class Pizza {
         this.type = type;
     }
 
-
+    public Pizza() {
+    }
 
     @Override
     public String toString() {

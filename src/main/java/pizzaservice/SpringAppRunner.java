@@ -43,6 +43,7 @@ OrderStateCycle orderStateCycle = appContext.getBean("orderStateCycle",
         ChequeProducer chequeProducer = appContext.getBean("chequeProducer",
                 SimpleChequeProducer.class);
         OrderService orderService = (OrderService) appContext.getBean("orderService");
+        System.out.println(orderService);
         Order order = orderService.placeNewOrder(customer, 1L, 2L, 3L);
         order = orderService.addPizzas(order, 1L, 2L);
 

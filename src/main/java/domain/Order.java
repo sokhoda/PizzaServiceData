@@ -26,9 +26,9 @@ public class Order {
 
     public Order(Customer customer, List<Pizza> pizzaList, OrderStateCycle orderStateCycle) {
         this.id = ++counter;
-        this.orderStateCycle = orderStateCycle;
         this.customer = customer;
         this.pizzaList = pizzaList;
+        this.orderStateCycle = orderStateCycle;
     }
 
     public Order(Customer customer, List<Pizza> pizzaList) {
