@@ -1,5 +1,6 @@
 package infrastructure;
 
+import domain.Oak;
 import domain.Pizza;
 import domain.PizzaType;
 
@@ -13,10 +14,16 @@ public class JPAAppRunner {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory
                 ("jpa");
         EntityManager em = emf.createEntityManager();
-        Pizza pizza = new Pizza(5L, "Tomato", 90., PizzaType.VEGETERIAN);
+        Pizza pizza = new Pizza(null, "Tomato", 90., PizzaType.VEGETERIAN);
+        Oak oak = new Oak(null, "ukrainian", 20);
         EntityTransaction et = em.getTransaction();
         et.begin();
+        System.out.println("before persist " +  pizza.getId());
         em.persist(pizza);
+        em.flush();
+        pizza.setName("224324234");
+        System.out.println("after persist " +  pizza.getId());
+        em.persist(oak);
         et.commit();
         em.clear();
 
