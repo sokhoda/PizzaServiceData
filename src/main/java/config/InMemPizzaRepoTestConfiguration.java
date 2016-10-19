@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import static org.mockito.Mockito.spy;
 
 //@Profile(value = "withoutAppRunnerTests")
-@Configuration
+//@Configuration
 public class InMemPizzaRepoTestConfiguration {
     private  PizzaRepository spyPizzaRepo;
 

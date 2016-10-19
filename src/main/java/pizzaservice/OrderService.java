@@ -9,7 +9,4 @@ public interface OrderService {
 
     Order addPizzas(Order order, Long... idNoPair);
 
-    Double calcDiscountByPizzaQuantity(Order order);
-
-    Double calcDiscountByLCardPercentage(Order order);
 }

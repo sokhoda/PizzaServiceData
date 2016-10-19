@@ -24,6 +24,12 @@ public class Order {
 
     }
 
+    public Order(Long id, Customer customer, List<Pizza> pizzaList){
+        this.id = id;
+        this.customer = customer;
+        this.pizzaList = pizzaList;
+    }
+
     public Order(Customer customer, List<Pizza> pizzaList, OrderStateCycle orderStateCycle) {
         this.id = ++counter;
         this.customer = customer;
@@ -89,6 +95,24 @@ public class Order {
         result = 31 * result + (pizzaList != null ? pizzaList.hashCode() : 0);
         result = 31 * result + (orderStateCycle != null ? orderStateCycle.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Order order = (Order) o;
+
+        if (id != null ? !id.equals(order.id) : order.id != null) return false;
+        if (chequeId != null ? !chequeId.equals(order.chequeId) : order.chequeId != null)
+            return false;
+        if (customer != null ? !customer.equals(order.customer) : order.customer != null)
+            return false;
+        if (pizzaList != null ? !pizzaList.equals(order.pizzaList) : order.pizzaList != null)
+            return false;
+        return orderStateCycle != null ? orderStateCycle.equals(order.orderStateCycle) : order.orderStateCycle == null;
+
     }
 
     public Long getChequeId() {

@@ -10,7 +10,7 @@ import repository.OrderRepository;
 import repository.PizzaRepository;
 
 //@Profile("withoutAppRunnerTests")
-@Configuration
+//@Configuration
 public class InMemOrderRepoTestConfiguration {
 
     @Bean (name = "inMemOrderRepo")

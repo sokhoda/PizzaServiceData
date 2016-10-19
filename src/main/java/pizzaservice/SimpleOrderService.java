@@ -81,30 +81,6 @@ public class SimpleOrderService implements OrderService {
         return order;
     }
 
-    @Override
-    public Double calcDiscountByPizzaQuantity(Order order) {
-        Double result = 0.;
-        if (order.getPizzaList().size() > DISCOUNT_THRESHOLD) {
-            result = order.getTheMostExpensivePizza().getPrice() *
-                    DISCOUNT_MOST_EXPENS_PIZZA_PERCENTAGE / 100.;
-        }
-        return result;
-    }
-
-    @Override
-    public Double calcDiscountByLCardPercentage(Order order) {
-        Double result = 0.;
-        LoyaltyCard loyaltyCard = order.getCustomer().getLoyaltyCard();
-        if (loyaltyCard != null) {
-            Double discount1 = order.calcTotalSum() *
-                    DISCOUNT_MAX_ORDER_SUM_PERCENTAGE / 100.;
-            Double discount2 = loyaltyCard.getSum() * DISCOUNT_LOYALTY_CARD_SUM_PERCENTAGE / 100.;
-            result = discount2 > discount1 ? discount1 : discount2;
-        }
-        return result;
-    }
-
-
     private Order saveOrder(Order newOrder) {
         return orderRepo.save(newOrder);
     }

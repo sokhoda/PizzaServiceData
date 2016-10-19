@@ -13,14 +13,14 @@ public class JPAAppRunner {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory
                 ("jpa");
         EntityManager em = emf.createEntityManager();
-        Pizza pizza = new Pizza(4L, "Tomato", 90., PizzaType.VEGETERIAN);
+        Pizza pizza = new Pizza(5L, "Tomato", 90., PizzaType.VEGETERIAN);
         EntityTransaction et = em.getTransaction();
         et.begin();
         em.persist(pizza);
         et.commit();
         em.clear();
 
-        Pizza pizza1 = em.find(Pizza.class, 4L);
+        Pizza pizza1 = em.find(Pizza.class, 5L);
         System.out.println(pizza == pizza1);
 
         em.close();

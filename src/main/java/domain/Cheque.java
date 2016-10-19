@@ -47,6 +47,38 @@ public class Cheque {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Cheque cheque = (Cheque) o;
+
+        if (id != null ? !id.equals(cheque.id) : cheque.id != null)
+            return false;
+        if (title != null ? !title.equals(cheque.title) : cheque.title != null)
+            return false;
+        if (date != null ? !date.equals(cheque.date) : cheque.date != null)
+            return false;
+        if (orderId != null ? !orderId.equals(cheque.orderId) : cheque.orderId != null)
+            return false;
+        if (totalSum != null ? !totalSum.equals(cheque.totalSum) : cheque.totalSum != null)
+            return false;
+        return discountList != null ? discountList.equals(cheque.discountList) : cheque.discountList == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (orderId != null ? orderId.hashCode() : 0);
+        result = 31 * result + (totalSum != null ? totalSum.hashCode() : 0);
+        result = 31 * result + (discountList != null ? discountList.hashCode() : 0);
+        return result;
+    }
+
     public Double getTotalSum() {
         return totalSum;
     }
@@ -60,8 +92,11 @@ public class Cheque {
         for (DiscountRecord discountRecord : discountList) {
             discountSum += discountRecord.getSum();
         }
-        Double dueSum = totalSum - discountSum;
-        return dueSum > 0 ? dueSum : 0.;
+        if (totalSum != null) {
+            Double dueSum = totalSum - discountSum;
+            return dueSum > 0 ? dueSum : 0.;
+        }
+        return discountSum;
     }
 
     public Cheque(LocalDate date, Long orderId) {
