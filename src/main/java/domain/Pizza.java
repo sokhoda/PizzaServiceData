@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @Entity
 public class Pizza implements Serializable{
+
     @Id
     @GeneratedValue(strategy= GenerationType.TABLE)
     private Long id;

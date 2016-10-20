@@ -29,15 +29,11 @@ public class SimpleChequeProducerTest {
         scp = new SimpleChequeProducer(discountCalculator, chequeService);
     }
 
+
+
     @Test
     public void testPlaceCheque() throws Exception {
-        final List<Pizza> pizzaList = new ArrayList<>();
-        Pizza pizza = new Pizza(2L, "Chicken", 120., PizzaType.MEAT);
-        Address address = new Address("Customer", "Str", "18", "2");
-        Customer customer = new Customer("Alex", address, new LoyaltyCard(0.));
-
-        pizzaList.add(new Pizza(1L, "Tomato", 90., PizzaType.VEGETERIAN));
-        Order order = new Order(null, customer, pizzaList);
+        Order order = getSimpleOrder();
 
         Cheque cheque = new Cheque();
         System.out.println(cheque);
@@ -52,6 +48,18 @@ public class SimpleChequeProducerTest {
         Cheque actualCheque = scpSpy.placeCheque(order);
 //      THEN
         assertThat(actualCheque, is(cheque));
+        verify(scpSpy).createNewCheque();
+        verify(discountCalculator).handleDiscount(order, cheque);
+        verify(chequeService).save(cheque);
+    }
 
+    private Order getSimpleOrder() {
+        final List<Pizza> pizzaList = new ArrayList<>();
+        Pizza pizza = new Pizza(2L, "Chicken", 120., PizzaType.MEAT);
+        Address address = new Address("Customer", "Str", "18", "2");
+        Customer customer = new Customer("Alex", address, new LoyaltyCard(0.));
+
+        pizzaList.add(new Pizza(1L, "Tomato", 90., PizzaType.VEGETERIAN));
+        return new Order(null, customer, pizzaList);
     }
 }
