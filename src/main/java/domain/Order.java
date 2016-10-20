@@ -41,7 +41,7 @@ public class Order {
 
     public Double calcTotalSum() {
         Double sum = 0.;
-        for (Pizza pizza : pizzaMap) {
+        for (Pizza pizza : pizzaMap.keySet()) {
             sum += pizza.getPrice();
         }
         return sum;
@@ -49,7 +49,7 @@ public class Order {
 
     public Pizza getTheMostExpensivePizza() {
         SortedSet<Map.Entry<Pizza, Integer>> pizzaSortedSet = new TreeSet<>(
-                (Comparator<Map.Entry<Pizza, Integer>>) (o1, o2) -> {
+                (o1, o2) -> {
                     return o2.getValue().compareTo(o1.getValue());
                 });
         pizzaSortedSet.addAll(pizzaMap.entrySet());

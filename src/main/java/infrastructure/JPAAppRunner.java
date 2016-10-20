@@ -20,7 +20,6 @@ public class JPAAppRunner {
         et.begin();
         System.out.println("before persist " +  pizza.getId());
         em.persist(pizza);
-        em.flush();
         pizza.setName("224324234");
         System.out.println("after persist " +  pizza.getId());
         em.persist(oak);

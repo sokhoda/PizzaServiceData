@@ -7,9 +7,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pizzaservice.discount.DiscountCalculator;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -28,8 +26,6 @@ public class SimpleChequeProducerTest {
         MockitoAnnotations.initMocks(this);
         scp = new SimpleChequeProducer(discountCalculator, chequeService);
     }
-
-
 
     @Test
     public void testPlaceCheque() throws Exception {
@@ -54,12 +50,12 @@ public class SimpleChequeProducerTest {
     }
 
     private Order getSimpleOrder() {
-        final List<Pizza> pizzaList = new ArrayList<>();
+        final Map<Pizza, Integer> pizzaMap  = new HashMap<>();
         Pizza pizza = new Pizza(2L, "Chicken", 120., PizzaType.MEAT);
         Address address = new Address("Customer", "Str", "18", "2");
         Customer customer = new Customer("Alex", address, new LoyaltyCard(0.));
 
-        pizzaList.add(new Pizza(1L, "Tomato", 90., PizzaType.VEGETERIAN));
-        return new Order(null, customer, pizzaList);
+        pizzaMap.put(new Pizza(1L, "Tomato", 90., PizzaType.VEGETERIAN), 1);
+        return new Order(null, customer, pizzaMap);
     }
 }

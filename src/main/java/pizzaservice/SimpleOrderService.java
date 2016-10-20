@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import repository.OrderRepository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SimpleOrderService implements OrderService {
@@ -35,14 +37,17 @@ public class SimpleOrderService implements OrderService {
     @Benchmark(on = true)
     @Override
     public Order placeNewOrder(Customer customer, Long... pizzasID) {
-        List<Pizza> pizzas = new ArrayList<>();
-
+        Map<Pizza, Integer> pizzaMap = new HashMap<>();
+        Pizza pizza;
         for (Long id : pizzasID) {
-            pizzas.add(getPizzaByID(id));
+            pizza = getPizzaByID(id);
+            if (pizza != null) {
+                pizzaMap.put(pizza, 1);
+            }
         }
         Order newOrder = createNewOrder();
         newOrder.setCustomer(customer);
-        newOrder.setPizzaMap(pizzas);
+        newOrder.setPizzaMap(pizzaMap);
 //        newOrder.setOrderStateCycle(new OrderStateCycle());
 //                new Order(customer, pizzas, new OrderStateCycle());
         saveOrder(newOrder);
@@ -50,25 +55,27 @@ public class SimpleOrderService implements OrderService {
     }
 
 
-//    private Order createNewOrder() {
+    //    private Order createNewOrder() {
 //        return (Order)applicationContext.getBean("order");
 //    }
-     Order createNewOrder() {
+    Order createNewOrder() {
         throw new IllegalStateException("Container couldnt");
     }
 
     @Override
     public Order addPizzas(Order order, Long... idNoPair) {
         Long id = null;
-        int quantity = 0;
+        Integer quantity = 0;
+        Pizza currentPizza = null;
         if (order != null) {
-            List<Pizza> pizzas = order.getPizzaMap();
+            Map<Pizza, Integer> pizzaMap = order.getPizzaMap();
             try {
                 for (int i = 0; i < idNoPair.length; i = i + 2) {
-                    quantity = idNoPair[i + 1].intValue();
                     id = idNoPair[i];
-                    for (int k = 0; k < quantity; k++) {
-                        pizzas.add(getPizzaByID(id));
+                    quantity = idNoPair[i + 1].intValue();
+                    currentPizza = getPizzaByID(id);
+                    if (currentPizza != null) {
+                        pizzaMap.put(currentPizza, quantity);
                     }
                 }
             }
@@ -84,7 +91,11 @@ public class SimpleOrderService implements OrderService {
     }
 
     private Pizza getPizzaByID(Long id) {
-        return pizzaService.find(id);
+        Pizza result = null;
+        if (id != null) {
+            result = pizzaService.find(id);
+        }
+        return result;
     }
 
 

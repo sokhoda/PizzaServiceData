@@ -27,11 +27,15 @@ public class InMemPizzaRepo implements PizzaRepository {
     @Benchmark(on = false)
     @Override
     public Pizza find(Long id) {
-        int i = 0;
-        while (i < pizzaList.size() && !pizzaList.get(i).getId().equals(id)) {
-            i++;
+        Pizza result = null;
+        if (id != null) {
+            int i = 0;
+            while (i < pizzaList.size() && !pizzaList.get(i).getId().equals(id)) {
+                i++;
+            }
+            result = i < pizzaList.size() ? pizzaList.get(i) : null;
         }
-        return i < pizzaList.size() ? pizzaList.get(i) : null;
+        return result;
     }
 
     @Override

@@ -10,7 +10,9 @@ import pizzaservice.PizzaService;
 import pizzaservice.SimpleOrderService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -18,8 +20,10 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 public class SimpleOrderServiceTest {
-    @Mock    private OrderRepository inMemOrderRepo;
-    @Mock    private PizzaService pizzaService;
+    @Mock
+    private OrderRepository inMemOrderRepo;
+    @Mock
+    private PizzaService pizzaService;
     private OrderService orderService;
 
     @Before
@@ -30,11 +34,11 @@ public class SimpleOrderServiceTest {
 
     @Test
     public void testAddPizzas() throws Exception {
-        final List<Pizza> pizzaList = new ArrayList<>();
+        final Map<Pizza, Integer> pizzaMap = new HashMap<>();
         Pizza pizza = new Pizza(2L, "Chicken", 120., PizzaType.MEAT);
-        pizzaList.add(new Pizza(1L, "Tomato", 90., PizzaType.VEGETERIAN));
-        Order order = new Order(null, null, pizzaList);
-        pizzaList.add(pizza);
+        pizzaMap.put(new Pizza(1L, "Tomato", 90., PizzaType.VEGETERIAN), 1);
+        Order order = new Order(null, null, pizzaMap);
+        pizzaMap.put(pizza, 1);
 
         //GIVEN
         given(pizzaService.find(2L)).willReturn(pizza);
@@ -43,13 +47,24 @@ public class SimpleOrderServiceTest {
         Order actualOrder = orderService.addPizzas(order, 2L, 1L);
 
         //THEN
-        assertThat(actualOrder, is(new Order(null, null, pizzaList)));
+        assertThat(actualOrder, is(new Order(null, null, pizzaMap)));
         verify(pizzaService).find(2L);
     }
 
+    @Test
+    public void testPlaceNewOrder() throws Exception {
 
-    private void generateOrder() {
+//      GIVEN
+
+//      WHEN
+        Order expectedOrder = orderService.placeNewOrder(generateCustomer(),
+                1L);
+//      THEN
+
+    }
+
+    private Customer generateCustomer() {
         Address address = new Address("Customer", "Str", "18", "2");
-        Customer customer = new Customer("Alex", address, new LoyaltyCard(0.));
+        return new Customer("Alex", address, new LoyaltyCard(0.));
     }
 }
