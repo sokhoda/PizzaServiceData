@@ -1,13 +1,11 @@
 package pizzaservice;
 
 import domain.Customer;
-import domain.LoyaltyCard;
 import domain.Order;
 import domain.Pizza;
 import infrastructure.Benchmark;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import repository.OrderRepository;
 
@@ -44,7 +42,7 @@ public class SimpleOrderService implements OrderService {
         }
         Order newOrder = createNewOrder();
         newOrder.setCustomer(customer);
-        newOrder.setPizzaList(pizzas);
+        newOrder.setPizzaMap(pizzas);
 //        newOrder.setOrderStateCycle(new OrderStateCycle());
 //                new Order(customer, pizzas, new OrderStateCycle());
         saveOrder(newOrder);
@@ -64,7 +62,7 @@ public class SimpleOrderService implements OrderService {
         Long id = null;
         int quantity = 0;
         if (order != null) {
-            List<Pizza> pizzas = order.getPizzaList();
+            List<Pizza> pizzas = order.getPizzaMap();
             try {
                 for (int i = 0; i < idNoPair.length; i = i + 2) {
                     quantity = idNoPair[i + 1].intValue();

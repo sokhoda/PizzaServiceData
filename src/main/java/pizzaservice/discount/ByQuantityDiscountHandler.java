@@ -15,7 +15,7 @@ public class ByQuantityDiscountHandler implements DiscountHandler {
 
     @Override
     public void handleDiscount(Order order, Cheque cheque) {
-        if (order.getPizzaList().size() > DISCOUNT_THRESHOLD) {
+        if (order.getPizzaMap().size() > DISCOUNT_THRESHOLD) {
             Double discountSum = order.getTheMostExpensivePizza().getPrice() *
                     DISCOUNT_MOST_EXPENS_PIZZA_PERCENTAGE / 100.;
             String discountName = this.getClass().getSimpleName() + ", order size > " + DISCOUNT_THRESHOLD;

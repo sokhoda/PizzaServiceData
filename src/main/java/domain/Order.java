@@ -5,9 +5,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pizzaservice.states.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Component
 @Scope("prototype")
@@ -16,7 +14,7 @@ public class Order {
     private Long id;
     private Long chequeId;
     private Customer customer;
-    private List<Pizza> pizzaList;
+    private Map<Pizza, Integer> pizzaMap;
     private OrderStateCycle orderStateCycle;
 
     public Order() {
@@ -24,56 +22,58 @@ public class Order {
 
     }
 
-    public Order(Long id, Customer customer, List<Pizza> pizzaList){
+    public Order(Long id, Customer customer, Map<Pizza, Integer> pizzaMap) {
         this.id = id;
         this.customer = customer;
-        this.pizzaList = pizzaList;
+        this.pizzaMap = pizzaMap;
     }
 
-    public Order(Customer customer, List<Pizza> pizzaList, OrderStateCycle orderStateCycle) {
+    public Order(Customer customer, Map<Pizza, Integer> pizzaMap, OrderStateCycle orderStateCycle) {
         this.id = ++counter;
         this.customer = customer;
-        this.pizzaList = pizzaList;
+        this.pizzaMap = pizzaMap;
         this.orderStateCycle = orderStateCycle;
     }
 
-    public Order(Customer customer, List<Pizza> pizzaList) {
-        this(customer, pizzaList, null);
+    public Order(Customer customer, Map<Pizza, Integer> pizzaMap) {
+        this(customer, pizzaMap, null);
     }
 
     public Double calcTotalSum() {
         Double sum = 0.;
-        for (Pizza pizza : pizzaList) {
+        for (Pizza pizza : pizzaMap) {
             sum += pizza.getPrice();
         }
         return sum;
     }
 
     public Pizza getTheMostExpensivePizza() {
-        List<Pizza> clonePizzas = new ArrayList<>(pizzaList);
-        Collections.sort(clonePizzas, (Pizza o1, Pizza o2) -> {
-            return Double.compare(o2.getPrice(), o1.getPrice());
-        });
-        return clonePizzas.get(0);
+        SortedSet<Map.Entry<Pizza, Integer>> pizzaSortedSet = new TreeSet<>(
+                (Comparator<Map.Entry<Pizza, Integer>>) (o1, o2) -> {
+                    return o2.getValue().compareTo(o1.getValue());
+                });
+        pizzaSortedSet.addAll(pizzaMap.entrySet());
+
+        return pizzaSortedSet.first().getKey();
     }
 
 
-    public void addTotalSumToCustomerLCard(){
+    public void addTotalSumToCustomerLCard() {
         LoyaltyCard loyaltyCard = customer.getLoyaltyCard();
         if (loyaltyCard != null) {
             loyaltyCard.setSum(loyaltyCard.getSum() + calcTotalSum());
         }
     }
 
-    public State nextState( ){
+    public State nextState() {
         return orderStateCycle.nextState();
     }
 
-    public State previousState(){
+    public State previousState() {
         return orderStateCycle.previousState();
     }
 
-    public void cancel(){
+    public void cancel() {
         orderStateCycle.setCurState(orderStateCycle.getCancelledSt());
     }
 
@@ -83,7 +83,7 @@ public class Order {
                 "id=" + id +
                 ", chequeId=" + chequeId +
                 ", customer=" + customer +
-                ", pizzaList=" + pizzaList +
+                ", pizzaMap=" + pizzaMap +
                 ", orderStateCycle=" + orderStateCycle +
                 '}';
     }
@@ -92,7 +92,7 @@ public class Order {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (customer != null ? customer.hashCode() : 0);
-        result = 31 * result + (pizzaList != null ? pizzaList.hashCode() : 0);
+        result = 31 * result + (pizzaMap != null ? pizzaMap.hashCode() : 0);
         result = 31 * result + (orderStateCycle != null ? orderStateCycle.hashCode() : 0);
         return result;
     }
@@ -109,7 +109,7 @@ public class Order {
             return false;
         if (customer != null ? !customer.equals(order.customer) : order.customer != null)
             return false;
-        if (pizzaList != null ? !pizzaList.equals(order.pizzaList) : order.pizzaList != null)
+        if (pizzaMap != null ? !pizzaMap.equals(order.pizzaMap) : order.pizzaMap != null)
             return false;
         return orderStateCycle != null ? orderStateCycle.equals(order.orderStateCycle) : order.orderStateCycle == null;
 
@@ -139,12 +139,12 @@ public class Order {
         this.id = id;
     }
 
-    public List<Pizza> getPizzaList() {
-        return pizzaList;
+    public Map<Pizza, Integer> getPizzaMap() {
+        return pizzaMap;
     }
 
-    public void setPizzaList(List<Pizza> pizzaList) {
-        this.pizzaList = pizzaList;
+    public void setPizzaMap(Map<Pizza, Integer> pizzaMap) {
+        this.pizzaMap = pizzaMap;
     }
 
     public OrderStateCycle getOrderStateCycle() {
