@@ -35,10 +35,12 @@ public class BenchmarkBeanPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        Object proxy =createBeanProxy(bean);
-        System.out.println("Initialized " + beanName + " " + ObjectUtils
-                .identityToString(proxy));
+//        Object proxy =createBeanProxy(bean);
+//        System.out.println("Initialized " + beanName + " " + ObjectUtils
+//                .identityToString(proxy));
 //        return proxy;
+        System.out.println("Initialized " + beanName + " " + ObjectUtils
+                .identityToString(bean));
         return bean;
     }
 }
