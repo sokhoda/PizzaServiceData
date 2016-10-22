@@ -62,6 +62,7 @@ public class ApplicationContext implements Context {
             }
             bean = proxy;
         }
+
         public void callPostCreateMethod() {
             Class<?> clazz = bean.getClass();
             Method[] methods = clazz.getMethods();

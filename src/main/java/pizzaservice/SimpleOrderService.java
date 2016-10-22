@@ -4,25 +4,26 @@ import domain.Customer;
 import domain.Order;
 import domain.Pizza;
 import infrastructure.Benchmark;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import repository.OrderRepository;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
-public class SimpleOrderService implements OrderService {
+public class SimpleOrderService implements OrderService, InitializingBean, DisposableBean {
     public static final int DISCOUNT_THRESHOLD = 4;
     public static final int DISCOUNT_MOST_EXPENS_PIZZA_PERCENTAGE = 30;
     public static final int DISCOUNT_MAX_ORDER_SUM_PERCENTAGE = 30;
     public static final int DISCOUNT_LOYALTY_CARD_SUM_PERCENTAGE = 10;
     private PizzaService pizzaService = null;
     private OrderRepository orderRepo = null;
-    private ApplicationContext applicationContext;
 
     public SimpleOrderService() {
     }
@@ -98,5 +99,29 @@ public class SimpleOrderService implements OrderService {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "SimpleOrderService{" +
+                "orderRepo=" + orderRepo +
+                ", pizzaService=" + pizzaService +
+                '}';
+    }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+//        System.out.println(this.getClass().getCanonicalName() + " " +
+//                "afterPropertiesSet\n toString()=" + toString() );
+    }
+
+    @PostConstruct
+    public void doMyPostConstruct(){
+//        System.out.println(this.getClass().getCanonicalName() + " " +
+//                "doMyPostConstruct()");
+    }
+
+    @Override
+    public void destroy() throws Exception {
+//        System.out.println(this.getClass().getCanonicalName() + " destroy\n " +
+//                "toString()= " + toString());
+    }
 }

@@ -1,5 +1,9 @@
 package domain;
 
+import infrastructure.Benchmark;
+import infrastructure.PostCreate;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -9,7 +13,7 @@ import java.util.*;
 
 @Component
 @Scope("prototype")
-public class Order {
+public class Order implements InitializingBean, DisposableBean {
     private static Long counter = 0L;
     private Long id;
     private Long chequeId;
@@ -39,6 +43,19 @@ public class Order {
         this(customer, pizzaMap, null);
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+//        System.out.println(this.getClass().getCanonicalName() + " " +
+//                "afterPropertiesSet\n toString()=" + toString() );
+    }
+
+    @Override
+    public void destroy() throws Exception {
+//        System.out.println(this.getClass().getCanonicalName() + " destroy\n " +
+//                "toString()= " + toString());
+    }
+
+    @Benchmark(on = true)
     public Double calcTotalSum() {
         Double sum = 0.;
         for (Pizza pizza : pizzaMap.keySet()) {
@@ -155,4 +172,6 @@ public class Order {
     public void setOrderStateCycle(OrderStateCycle orderStateCycle) {
         this.orderStateCycle = orderStateCycle;
     }
+
+
 }

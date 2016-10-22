@@ -5,7 +5,7 @@ import org.springframework.beans.factory.FactoryBean;
 public class MyFactoryBean implements FactoryBean<Pizza> {
     @Override
     public Pizza getObject() throws Exception {
-        return new Pizza(1L, "name", 1222.,PizzaType.MEAT);
+        return new Pizza(1L, "name", 1222., PizzaType.MEAT);
     }
 
     @Override

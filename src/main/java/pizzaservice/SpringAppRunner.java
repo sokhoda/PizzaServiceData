@@ -3,8 +3,10 @@ package pizzaservice;
 import domain.Cheque;
 import domain.Customer;
 import domain.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 import pizzaservice.cheque.ChequeProducer;
 import pizzaservice.cheque.ChequeService;
 import pizzaservice.cheque.SimpleChequeProducer;
@@ -14,7 +16,10 @@ import repository.PizzaRepository;
 
 import java.util.Arrays;
 
+
 public class SpringAppRunner {
+
+
     public static void main(String[] args) {
         ConfigurableApplicationContext repoContext = new
                 ClassPathXmlApplicationContext("repoContext.xml");
@@ -28,8 +33,8 @@ public class SpringAppRunner {
         System.out.print("appContext::");
         System.out.println(Arrays.toString(appContext.getBeanDefinitionNames()));
 
-        CustomerService customerService = appContext.getBean("customerService",
-                CustomerService.class);
+        CustomerService customerService = appContext.getBean
+                ("customerService", CustomerService.class);
         Customer customer = customerService.findById(1L);
         System.out.println(customer);
 
@@ -41,8 +46,8 @@ OrderStateCycle orderStateCycle = appContext.getBean("orderStateCycle",
 
 
         ChequeProducer chequeProducer = appContext.getBean("chequeProducer",
-                SimpleChequeProducer.class);
-        OrderService orderService = (OrderService) appContext.getBean("orderService");
+                ChequeProducer.class);
+        OrderService orderService =  appContext.getBean("orderService", OrderService.class);
         System.out.println(orderService);
         Order order = orderService.placeNewOrder(customer, 1L, 2L, 3L);
         order = orderService.addPizzas(order, 1L, 2L);
@@ -64,7 +69,7 @@ OrderStateCycle orderStateCycle = appContext.getBean("orderStateCycle",
                 ("simpleChequeService", SimpleChequeService.class);
 
         System.out.println("found Cheque:\n" + chequeService.findById(2L));
-
+//        System.out.println(appContext.getBean("Pizza"));
 //        order.nextState();
 //        System.out.println(order);
 //        order.nextState();
@@ -82,4 +87,5 @@ OrderStateCycle orderStateCycle = appContext.getBean("orderStateCycle",
         repoContext.close();
         appContext.close();
     }
+
 }

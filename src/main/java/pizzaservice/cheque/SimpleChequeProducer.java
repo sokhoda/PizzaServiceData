@@ -2,6 +2,7 @@ package pizzaservice.cheque;
 
 import domain.Cheque;
 import domain.Order;
+import infrastructure.Benchmark;
 import org.springframework.beans.factory.annotation.Autowired;
 import pizzaservice.discount.DiscountCalculator;
 
@@ -14,7 +15,7 @@ public class SimpleChequeProducer implements ChequeProducer {
         this.discountCalculator = discountCalculator;
         this.chequeService = chequeService;
     }
-
+    @Benchmark(on = true)
     @Override
     public Cheque placeCheque(Order order){
         Cheque cheque = createNewCheque();

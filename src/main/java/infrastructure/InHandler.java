@@ -19,7 +19,7 @@ public class InHandler implements InvocationHandler {
 
             Benchmark bm = beanMethod.getAnnotation(Benchmark.class);
 
-            if (bm.on()) {
+            if ( bm != null && bm.on()) {
                 long start = System.nanoTime();
                 result = beanMethod.invoke(bean, args);
                 long end = System.nanoTime();
