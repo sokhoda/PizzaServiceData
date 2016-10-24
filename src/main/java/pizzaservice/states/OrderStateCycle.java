@@ -24,6 +24,9 @@ public class OrderStateCycle {
         this.doneSt = doneSt;
     }
 
+    public OrderStateCycle() {
+    }
+
     @PostConstruct
     public void init() {
         this.curState = newSt;

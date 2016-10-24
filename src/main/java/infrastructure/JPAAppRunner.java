@@ -16,14 +16,17 @@ public class JPAAppRunner {
         EntityManager em = emf.createEntityManager();
         Pizza pizza = new Pizza(null, "Tomato", 90., PizzaType.VEGETERIAN);
         Oak oak = new Oak(null, "ukrainian", 20);
+
         EntityTransaction et = em.getTransaction();
         et.begin();
         System.out.println("before persist " +  pizza.getId());
-        em.persist(pizza);
-        pizza.setName("224324234");
+//        em.persist(pizza);
+        em.merge(pizza);
+//        pizza.setName("224324234");
         System.out.println("after persist " +  pizza.getId());
-        em.persist(oak);
+//        em.persist(oak);
         et.commit();
+
         em.clear();
 
         Pizza pizza1 = em.find(Pizza.class, 5L);

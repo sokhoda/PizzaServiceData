@@ -1,24 +1,48 @@
 package domain;
 
 import infrastructure.Benchmark;
-import infrastructure.PostCreate;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import pizzaservice.states.*;
+import pizzaservice.states.OrderStateCycle;
+import pizzaservice.states.State;
 
-import java.util.*;
+import javax.persistence.*;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 @Component
 @Scope("prototype")
+@Entity
 public class Order implements InitializingBean, DisposableBean {
     private static Long counter = 0L;
+    @Id
+    @TableGenerator(
+            name = "orderGen",
+            table = "ID_GEN",
+            pkColumnName = "GEN_KEY",
+            pkColumnValue = "ORDER_ID",
+            valueColumnName = "GEN_VALUE",
+            initialValue = 0,
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "orderGen")
     private Long id;
     private Long chequeId;
+
+    @ManyToOne
+    @JoinColumn(name = "CUST_ID")
     private Customer customer;
+
+    @ElementCollection
+    @CollectionTable(name = "PIZZA_QUANT")
+    @MapKeyColumn(name = "PIZZA_ID")
+    @Column(name = "QUANTITY")
     private Map<Pizza, Integer> pizzaMap;
+
+    @Transient
     private OrderStateCycle orderStateCycle;
 
     public Order() {

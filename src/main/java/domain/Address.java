@@ -3,14 +3,31 @@ package domain;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
+
 
 @Component
 @Scope("prototype")
+@Entity
 public class Address {
+    @Id
+    @TableGenerator(
+            name = "addressGen",
+            table = "ID_GEN",
+            pkColumnName = "GEN_KEY",
+            pkColumnValue = "ADDRESS_ID",
+            valueColumnName = "GEN_VALUE",
+            initialValue = 0,
+            allocationSize = 1)
+    @GeneratedValue(strategy= GenerationType.TABLE, generator = "addressGen")
+    private Long id;
     private String name;
     private String type;
     private String buildingNo;
     private String appNo;
+
+    public Address() {
+    }
 
     public Address(String name, String type, String buildingNo, String appNo) {
         this.name = name;
@@ -59,5 +76,13 @@ public class Address {
 
     public void setAppNo(String appNo) {
         this.appNo = appNo;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

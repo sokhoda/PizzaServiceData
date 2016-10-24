@@ -1,19 +1,30 @@
 package domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 public class Pizza implements Serializable{
 
     @Id
-    @GeneratedValue(strategy= GenerationType.TABLE)
+    @TableGenerator(
+            name = "pizzaGen",
+            table = "ID_GEN",
+            pkColumnName = "GEN_KEY",
+            pkColumnValue = "PIZZA_ID",
+            valueColumnName = "GEN_VALUE",
+            initialValue = 0,
+    allocationSize = 1)
+    @GeneratedValue(strategy= GenerationType.TABLE, generator = "pizzaGen")
+//    @SequenceGenerator(name = "PIZZA_SEQ_GEN", sequenceName = "PIZZA_SEQ",
+//            allocationSize = 1, initialValue = 1)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator =
+//            "PIZZA_SEQ_GEN")
     private Long id;
     private String name;
     private Double price;
+
+    @Enumerated(EnumType.STRING)
     private PizzaType type;
 
     public Pizza(Long id, String name, Double price, PizzaType type) {
