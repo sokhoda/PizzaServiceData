@@ -40,8 +40,8 @@ public class Order implements InitializingBean, DisposableBean {
     private Customer customer;
 
     @ElementCollection
-    @CollectionTable(name = "PIZZA_QUANT")
-    @MapKeyColumn(name = "PIZZA_ID")
+    @CollectionTable(name = "PIZZA_QUANT", joinColumns = @JoinColumn(name = "Ord_ID"))
+    @MapKeyJoinColumn(name = "PIZZA_ID")
     @Column(name = "QUANTITY")
     private Map<Pizza, Integer> pizzaMap;
 

@@ -12,6 +12,10 @@ public class SimpleOrderDao implements OrderDao {
 
     @Override
     public Order find(Long id) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory
+                ("jpa");
+        EntityManager em = emf.createEntityManager();
+
         return null;
     }
 
@@ -21,6 +25,7 @@ public class SimpleOrderDao implements OrderDao {
         if (order == null) {
             return id;
         }
+        customerDao.save(order.getCustomer());
         EntityManagerFactory emf = Persistence.createEntityManagerFactory
                 ("jpa");
         EntityManager em = emf.createEntityManager();

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Repository
+@Repository("inMemPizzaRepo")
 public class InMemPizzaRepo implements PizzaRepository {
     private final List<Pizza> pizzaList = new ArrayList<>();
 
@@ -36,6 +36,11 @@ public class InMemPizzaRepo implements PizzaRepository {
             result = i < pizzaList.size() ? pizzaList.get(i) : null;
         }
         return result;
+    }
+
+    @Override
+    public Pizza save(Pizza pizza) {
+        return null;
     }
 
     @Override
