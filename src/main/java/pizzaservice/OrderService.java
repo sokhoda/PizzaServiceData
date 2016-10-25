@@ -9,4 +9,6 @@ public interface OrderService {
 
     Order addPizzas(Order order, Long... idNoPair);
 
+    Long save(Order order);
+
 }

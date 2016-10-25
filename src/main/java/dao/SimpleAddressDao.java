@@ -1,24 +1,24 @@
 package dao;
 
-import domain.Order;
+import domain.Address;
+import domain.Customer;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public class SimpleOrderDao implements OrderDao {
-    CustomerDao customerDao = new SimpleCustomerDao();
+public class SimpleAddressDao implements AddressDao {
 
     @Override
-    public Order find(Long id) {
+    public Address find(Long id) {
         return null;
     }
 
     @Override
-    public Long save(Order order) {
+    public Long save(Address address) {
         Long id = null;
-        if (order == null) {
+        if (address == null) {
             return id;
         }
         EntityManagerFactory emf = Persistence.createEntityManagerFactory
@@ -26,16 +26,16 @@ public class SimpleOrderDao implements OrderDao {
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
         et.begin();
-        if (order.getId() == null) {
-            em.persist(order);
+        if (address.getId() == null) {
+            em.persist(address);
         }
         else {
-            em.merge(order);
+            em.merge(address);
         }
         et.commit();
 
         em.close();
         emf.close();
-        return order.getId();
+        return address.getId();
     }
 }

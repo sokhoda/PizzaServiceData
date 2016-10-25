@@ -39,7 +39,8 @@ public class Address {
     @Override
     public String toString() {
         return "Address{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", buildingNo='" + buildingNo + '\'' +
                 ", appNo='" + appNo + '\'' +

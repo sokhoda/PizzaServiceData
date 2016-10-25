@@ -11,7 +11,14 @@ import java.util.List;
 public class SimplePizzaDao implements PizzaDao {
     @Override
     public Pizza find(Long id) {
-        return null;
+        Pizza result = null;
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory
+                ("jpa");
+        EntityManager em = emf.createEntityManager();
+        result = em.find(Pizza.class, id);
+        em.close();
+        emf.close();
+        return result;
     }
 
     @Override
@@ -36,17 +43,25 @@ public class SimplePizzaDao implements PizzaDao {
     @Override
     public Long save(Pizza pizza) {
         Long id = null;
+        if (pizza == null) {
+            return id;
+        }
         EntityManagerFactory emf = Persistence.createEntityManagerFactory
                 ("jpa");
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
         et.begin();
-        em.persist(pizza);
+        if (pizza.getId() == null) {
+            em.persist(pizza);
+        }
+        else {
+            em.merge(pizza);
+        }
         et.commit();
 
         em.close();
         emf.close();
-        return id;
+        return pizza.getId();
     }
 
 }

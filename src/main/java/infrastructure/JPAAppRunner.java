@@ -20,8 +20,8 @@ public class JPAAppRunner {
         EntityTransaction et = em.getTransaction();
         et.begin();
         System.out.println("before persist " +  pizza.getId());
-//        em.persist(pizza);
-        em.merge(pizza);
+        em.persist(pizza);
+//        em.merge(pizza);
 //        pizza.setName("224324234");
         System.out.println("after persist " +  pizza.getId());
 //        em.persist(oak);

@@ -17,8 +17,10 @@ import java.util.TreeSet;
 @Component
 @Scope("prototype")
 @Entity
+@Table(name = "TB_ORDER")
 public class Order implements InitializingBean, DisposableBean {
-    private static Long counter = 0L;
+//    private static Long counter = 0L;
+
     @Id
     @TableGenerator(
             name = "orderGen",
@@ -30,6 +32,7 @@ public class Order implements InitializingBean, DisposableBean {
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "orderGen")
     private Long id;
+
     private Long chequeId;
 
     @ManyToOne
@@ -46,8 +49,7 @@ public class Order implements InitializingBean, DisposableBean {
     private OrderStateCycle orderStateCycle;
 
     public Order() {
-        this.id = ++counter;
-
+//        this.id = ++counter;
     }
 
     public Order(Long id, Customer customer, Map<Pizza, Integer> pizzaMap) {
@@ -57,7 +59,7 @@ public class Order implements InitializingBean, DisposableBean {
     }
 
     public Order(Customer customer, Map<Pizza, Integer> pizzaMap, OrderStateCycle orderStateCycle) {
-        this.id = ++counter;
+//        this.id = ++counter;
         this.customer = customer;
         this.pizzaMap = pizzaMap;
         this.orderStateCycle = orderStateCycle;
@@ -79,7 +81,7 @@ public class Order implements InitializingBean, DisposableBean {
 //                "toString()= " + toString());
     }
 
-    @Benchmark(on = true)
+//    @Benchmark(on = true)
     public Double calcTotalSum() {
         Double sum = 0.;
         for (Pizza pizza : pizzaMap.keySet()) {

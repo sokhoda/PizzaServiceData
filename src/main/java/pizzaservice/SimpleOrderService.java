@@ -7,14 +7,10 @@ import infrastructure.Benchmark;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Service;
 import repository.OrderRepository;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class SimpleOrderService implements OrderService, InitializingBean, DisposableBean {
@@ -33,6 +29,11 @@ public class SimpleOrderService implements OrderService, InitializingBean, Dispo
                               OrderRepository orderRepo) {
         this.pizzaService = pizzaService;
         this.orderRepo = orderRepo;
+    }
+
+    @Override
+    public Long save(Order order){
+        return null;
     }
 
     @Benchmark(on = true)

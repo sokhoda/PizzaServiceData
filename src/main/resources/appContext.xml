@@ -11,7 +11,7 @@
 
     <bean name="Pizza" class="MyFactoryBean"/>
 
-    <bean class="infrastructure.BenchmarkBeanPostProcessor"/>
+    <!--<bean class="infrastructure.BenchmarkBeanPostProcessor"/>-->
 
     <bean id="orderStateCycle"
           class="pizzaservice.states.OrderStateCycle">

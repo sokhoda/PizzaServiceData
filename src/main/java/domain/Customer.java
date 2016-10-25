@@ -39,7 +39,7 @@ public class Customer {
     }
 
     public Customer(String name, Address address, LoyaltyCard loyaltyCard) {
-        this.id = ++counter;
+//        this.id = ++counter;
         this.name = name;
         this.address = address;
         this.loyaltyCard = loyaltyCard;

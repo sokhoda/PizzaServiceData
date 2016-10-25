@@ -31,7 +31,7 @@ public class LoyaltyCard {
     }
 
     public LoyaltyCard(Double sum) {
-        this.id = ++counter;
+//        this.id = ++counter;
         this.sum = sum;
     }
 
