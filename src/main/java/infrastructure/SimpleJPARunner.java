@@ -43,4 +43,8 @@ public class SimpleJPARunner {
 
 
     }
+
+    public static List<Pizza> getPizzaList() {
+        return pizzaList;
+    }
 }

@@ -22,15 +22,15 @@
 
     </jdbc:embedded-database>
 
-    <bean name="entityManagerFactory"
+    <bean strName="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <!--        <property name="persistenceUnitName" value="HiberantePostgreSQL" />-->
-        <property name="jpaVendorAdapter">
+        <property strName="dataSource" ref="dataSource"/>
+        <!--        <property strName="persistenceUnitName" value="HiberantePostgreSQL" />-->
+        <property strName="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
         </property>
-        <property name="packagesToScan" value="domain"/>
-        <property name="jpaProperties">
+        <property strName="packagesToScan" value="domain"/>
+        <property strName="jpaProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
@@ -42,7 +42,7 @@
 
     <bean id="transactionManager"
           class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
+        <property strName="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>

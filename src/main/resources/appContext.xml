@@ -23,27 +23,27 @@
 
     <!--customer description-->
     <!--<bean id="customer" class="domain.Customer">-->
-        <!--<constructor-arg name="name" value="Maria Petrenko"/>-->
-        <!--<constructor-arg name="address" ref="address"/>-->
-        <!--<property name="loyaltyCard" ref="loyaltyCard"/>-->
+        <!--<constructor-arg strName="strName" value="Maria Petrenko"/>-->
+        <!--<constructor-arg strName="address" ref="address"/>-->
+        <!--<property strName="loyaltyCard" ref="loyaltyCard"/>-->
     <!--</bean>-->
 
     <!--<bean id="address" class="domain.Address">-->
-        <!--<constructor-arg name="name" value="Kudryashova"/>-->
-        <!--<constructor-arg name="type" value="str"/>-->
-        <!--<constructor-arg name="buildingNo" value="18-A"/>-->
-        <!--<constructor-arg name="appNo" value="1"/>-->
+        <!--<constructor-arg strName="strName" value="Kudryashova"/>-->
+        <!--<constructor-arg strName="type" value="str"/>-->
+        <!--<constructor-arg strName="buildingNo" value="18-A"/>-->
+        <!--<constructor-arg strName="appNo" value="1"/>-->
     <!--</bean>-->
 
     <!--<bean id="loyaltyCard" class="domain.LoyaltyCard">-->
-        <!--<constructor-arg name="sum" value="0."/>-->
+        <!--<constructor-arg strName="sum" value="0."/>-->
     <!--</bean>-->
 
-    <!--<bean name="order" class="domain.Order" scope="prototype"/>-->
+    <!--<bean strName="order" class="domain.Order" scope="prototype"/>-->
 
     <!--pizzaservice.states description-->
     <!--service description-->
-    <!--<bean name="pizzaService" class="pizzaservice.SimplePizzaService"-->
+    <!--<bean strName="pizzaService" class="pizzaservice.SimplePizzaService"-->
           <!--autowire="constructor"/>-->
 
     <bean id="chequeProducer" class="pizzaservice.cheque.SimpleChequeProducer">

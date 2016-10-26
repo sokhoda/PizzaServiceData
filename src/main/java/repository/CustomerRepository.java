@@ -7,9 +7,9 @@ import domain.Pizza;
 import java.util.List;
 
 public interface CustomerRepository {
-    Customer findById(Long id);
+    Customer find(Long id);
 
-    Customer save(Customer newCustomer);
+    Customer save(Customer customer);
 
-    List<Customer> getCustomerList();
+//    List<Customer> getCustomerList();
 }

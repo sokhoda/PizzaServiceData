@@ -8,20 +8,22 @@ import javax.persistence.*;
 
 @Component
 @Scope("prototype")
-@Entity
+@Embeddable @Access(AccessType.FIELD)
 public class Address {
-    @Id
-    @TableGenerator(
-            name = "addressGen",
-            table = "ID_GEN",
-            pkColumnName = "GEN_KEY",
-            pkColumnValue = "ADDRESS_ID",
-            valueColumnName = "GEN_VALUE",
-            initialValue = 0,
-            allocationSize = 1)
-    @GeneratedValue(strategy= GenerationType.TABLE, generator = "addressGen")
-    private Long id;
-    private String name;
+//    @TableGenerator(
+//            strName = "addressGen",
+//            table = "ID_GEN",
+//            pkColumnName = "GEN_KEY",
+//            pkColumnValue = "ADDRESS_ID",
+//            valueColumnName = "GEN_VALUE",
+//            initialValue = 0,
+//            allocationSize = 1)
+//    @GeneratedValue(strategy= GenerationType.TABLE, generator = "addressGen")
+//    private Long id;
+
+    private String zipCode;
+    private String City;
+    private String strName;
     private String type;
     private String buildingNo;
     private String appNo;
@@ -29,8 +31,10 @@ public class Address {
     public Address() {
     }
 
-    public Address(String name, String type, String buildingNo, String appNo) {
-        this.name = name;
+    public Address(String zipCode, String city, String strName, String type, String buildingNo, String appNo) {
+        this.zipCode = zipCode;
+        City = city;
+        this.strName = strName;
         this.type = type;
         this.buildingNo = buildingNo;
         this.appNo = appNo;
@@ -39,20 +43,21 @@ public class Address {
     @Override
     public String toString() {
         return "Address{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "zipCode='" + zipCode + '\'' +
+                ", City='" + City + '\'' +
+                ", strName='" + strName + '\'' +
                 ", type='" + type + '\'' +
                 ", buildingNo='" + buildingNo + '\'' +
                 ", appNo='" + appNo + '\'' +
                 '}';
     }
 
-    public String getName() {
-        return name;
+    public String getStrName() {
+        return strName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStrName(String strName) {
+        this.strName = strName;
     }
 
     public String getType() {
@@ -79,11 +84,19 @@ public class Address {
         this.appNo = appNo;
     }
 
-    public Long getId() {
-        return id;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getCity() {
+        return City;
+    }
+
+    public void setCity(String city) {
+        City = city;
     }
 }

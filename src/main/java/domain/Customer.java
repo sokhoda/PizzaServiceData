@@ -12,7 +12,6 @@ import java.util.Set;
 @Scope("prototype")
 @Entity
 public class Customer {
-    private static Long counter = 0L;
     @Id
     @TableGenerator(
             name = "customerGen",
@@ -26,10 +25,11 @@ public class Customer {
     private Long id;
     private String name;
 
-    @OneToOne(orphanRemoval = true)
+    @Embedded
     private Address address;
 
     @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "LoyalCard_ID")
     private LoyaltyCard loyaltyCard;
 
     @OneToMany(mappedBy = "customer")
@@ -39,7 +39,6 @@ public class Customer {
     }
 
     public Customer(String name, Address address, LoyaltyCard loyaltyCard) {
-//        this.id = ++counter;
         this.name = name;
         this.address = address;
         this.loyaltyCard = loyaltyCard;
@@ -60,6 +59,7 @@ public class Customer {
                 ", name='" + name + '\'' +
                 ", address=" + address +
                 ", loyaltyCard=" + loyaltyCard +
+                ", orders=" + orders +
                 '}';
     }
 

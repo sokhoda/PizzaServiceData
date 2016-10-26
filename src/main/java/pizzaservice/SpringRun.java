@@ -42,7 +42,7 @@
 //
 ////        CustomerService customerService = appContext.getBean
 ////                ("customerService", CustomerService.class);
-//        Customer customer = customerService.findById(1L);
+//        Customer customer = customerService.find(1L);
 //        System.out.println(customer);
 //
 //        PizzaRepository pizzaRepository = (PizzaRepository) repoContext
@@ -75,7 +75,7 @@
 //        ChequeService chequeService = appContext.getBean
 //                ("simpleChequeService", SimpleChequeService.class);
 //
-//        System.out.println("found Cheque:\n" + chequeService.findById(2L));
+//        System.out.println("found Cheque:\n" + chequeService.find(2L));
 ////        System.out.println(appContext.getBean("Pizza"));
 ////        order.nextState();
 ////        System.out.println(order);

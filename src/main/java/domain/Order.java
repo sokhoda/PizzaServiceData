@@ -19,8 +19,6 @@ import java.util.TreeSet;
 @Entity
 @Table(name = "TB_ORDER")
 public class Order implements InitializingBean, DisposableBean {
-//    private static Long counter = 0L;
-
     @Id
     @TableGenerator(
             name = "orderGen",
@@ -49,7 +47,6 @@ public class Order implements InitializingBean, DisposableBean {
     private OrderStateCycle orderStateCycle;
 
     public Order() {
-//        this.id = ++counter;
     }
 
     public Order(Long id, Customer customer, Map<Pizza, Integer> pizzaMap) {
@@ -59,7 +56,6 @@ public class Order implements InitializingBean, DisposableBean {
     }
 
     public Order(Customer customer, Map<Pizza, Integer> pizzaMap, OrderStateCycle orderStateCycle) {
-//        this.id = ++counter;
         this.customer = customer;
         this.pizzaMap = pizzaMap;
         this.orderStateCycle = orderStateCycle;

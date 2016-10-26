@@ -64,7 +64,8 @@ public class SimpleOrderServiceTest {
     }
 
     private Customer generateCustomer() {
-        Address address = new Address("Customer", "Str", "18", "2");
+        Address address = new Address("03004","Kyiv","Customer", "Str", "18",
+                "2");
         return new Customer("Alex", address, new LoyaltyCard(0.));
     }
 }

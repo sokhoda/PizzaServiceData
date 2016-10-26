@@ -52,7 +52,8 @@ public class SimpleChequeProducerTest {
     private Order getSimpleOrder() {
         final Map<Pizza, Integer> pizzaMap  = new HashMap<>();
         Pizza pizza = new Pizza(2L, "Chicken", 120., PizzaType.MEAT);
-        Address address = new Address("Customer", "Str", "18", "2");
+        Address address = new Address("0343", "Kyov","Customer", "Str", "18",
+                "2");
         Customer customer = new Customer("Alex", address, new LoyaltyCard(0.));
 
         pizzaMap.put(new Pizza(1L, "Tomato", 90., PizzaType.VEGETERIAN), 1);

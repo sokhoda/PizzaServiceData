@@ -22,7 +22,7 @@ public class JPAAppRunner {
         System.out.println("before persist " +  pizza.getId());
         em.persist(pizza);
 //        em.merge(pizza);
-//        pizza.setName("224324234");
+//        pizza.setStrName("224324234");
         System.out.println("after persist " +  pizza.getId());
 //        em.persist(oak);
         et.commit();

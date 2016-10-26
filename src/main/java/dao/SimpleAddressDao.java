@@ -26,16 +26,11 @@ public class SimpleAddressDao implements AddressDao {
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
         et.begin();
-        if (address.getId() == null) {
-            em.persist(address);
-        }
-        else {
             em.merge(address);
-        }
         et.commit();
 
         em.close();
         emf.close();
-        return address.getId();
+        return id;
     }
 }

@@ -14,14 +14,15 @@ public class InMemCustomerRepo implements CustomerRepository {
 
     @PostConstruct
     public void init() {
-        customerList.add(new Customer("Anna Guyvan", new Address("Kyiv, Iwana " +
+        customerList.add(new Customer("Anna Guyvan", new Address
+                ("01032","Kyiv", "Iwana " +
                 "Pidkovy", "Str.", "8","18"), new LoyaltyCard(0.)));
     }
 
 
     @Benchmark(on = false)
     @Override
-    public Customer findById(Long id) {
+    public Customer find(Long id) {
         int i = 0;
         while (i < customerList.size() && !customerList.get(i).getId().equals(id)) {
             i++;
@@ -35,8 +36,8 @@ public class InMemCustomerRepo implements CustomerRepository {
             return newCustomer;
     }
 
-    @Override
-    public List<Customer> getCustomerList() {
-        return customerList;
-    }
+//    @Override
+//    public List<Customer> getCustomerList() {
+//        return customerList;
+//    }
 }

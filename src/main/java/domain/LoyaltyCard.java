@@ -25,6 +25,8 @@ public class LoyaltyCard {
     @GeneratedValue(strategy= GenerationType.TABLE, generator =
             "LOYALTYCARDGen")
     private Long id;
+    @OneToOne(mappedBy = "loyaltyCard")
+    private Customer customer;
     private Double sum;
 
     public LoyaltyCard() {
