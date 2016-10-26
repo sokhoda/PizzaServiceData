@@ -1,6 +1,5 @@
 package domain;
 
-import infrastructure.Benchmark;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,8 @@ public class Order implements InitializingBean, DisposableBean {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "orderGen")
     private Long id;
 
-    private Long chequeId;
+    @OneToOne(mappedBy="order")
+    private Cheque cheque;
 
     @ManyToOne
     @JoinColumn(name = "CUST_ID")
@@ -120,7 +120,7 @@ public class Order implements InitializingBean, DisposableBean {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", chequeId=" + chequeId +
+                ", cheque=" + cheque +
                 ", customer=" + customer +
                 ", pizzaMap=" + pizzaMap +
                 ", orderStateCycle=" + orderStateCycle +
@@ -144,7 +144,7 @@ public class Order implements InitializingBean, DisposableBean {
         Order order = (Order) o;
 
         if (id != null ? !id.equals(order.id) : order.id != null) return false;
-        if (chequeId != null ? !chequeId.equals(order.chequeId) : order.chequeId != null)
+        if (cheque != null ? !cheque.equals(order.cheque) : order.cheque != null)
             return false;
         if (customer != null ? !customer.equals(order.customer) : order.customer != null)
             return false;
@@ -154,12 +154,12 @@ public class Order implements InitializingBean, DisposableBean {
 
     }
 
-    public Long getChequeId() {
-        return chequeId;
+    public Cheque getCheque() {
+        return cheque;
     }
 
-    public void setChequeId(Long chequeId) {
-        this.chequeId = chequeId;
+    public void setCheque(Cheque cheque) {
+        this.cheque = cheque;
     }
 
     public Customer getCustomer() {

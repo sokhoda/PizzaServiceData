@@ -1,7 +1,6 @@
 package repository;
 
 import domain.Cheque;
-import domain.Customer;
 import infrastructure.Benchmark;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +20,7 @@ public class InMemChequeRepo implements ChequeRepository {
         }
         return i < chequeList.size() ? chequeList.get(i) : null;
     }
+
 
     @Override
     public Cheque save(Cheque newCheque) {

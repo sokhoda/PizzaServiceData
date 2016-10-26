@@ -59,6 +59,7 @@ public class SpringJPAAppRunner {
         }
 
         Pizza pizza = pizzaRepository.read(5L);
+
         System.out.println(pizza);
 //        Pizza pizza = new Pizza();
 //        pizza.setStrName("Customized");

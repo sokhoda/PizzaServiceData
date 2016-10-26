@@ -10,13 +10,14 @@ public class InMemOrderRepo implements OrderRepository {
     private final List<Order> orderList = new ArrayList<>();
 
     @Override
+    public Order find(Long id) {
+        return null;
+    }
+
+    @Override
     public Order save(Order newOrder) {
         orderList.add(newOrder);
         return newOrder;
     }
 
-    @Override
-    public List<Order> getOrderList() {
-        return orderList;
-    }
 }

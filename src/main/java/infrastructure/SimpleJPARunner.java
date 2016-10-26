@@ -37,7 +37,7 @@ public class SimpleJPARunner {
 //        pizzaMap.put(pizza1, 1);
 //        pizzaMap.put(pizza2, 3);
 //        Order order = new Order(customer, pizzaMap);
-//        order.setChequeId(110L);
+//        order.setCheque(110L);
 //        System.out.println(order);
 //        orderDao.save(order);
 

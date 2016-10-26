@@ -1,7 +1,6 @@
 package pizzaservice.cheque;
 
 import domain.Cheque;
-import domain.Pizza;
 
 public interface ChequeService {
 

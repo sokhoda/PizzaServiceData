@@ -1,7 +1,6 @@
 package repository;
 
 import domain.Cheque;
-import domain.Customer;
 
 import java.util.List;
 

@@ -19,8 +19,8 @@ public class SimpleChequeProducer implements ChequeProducer {
     @Override
     public Cheque placeCheque(Order order){
         Cheque cheque = createNewCheque();
-        order.setChequeId(cheque.getId());
-        cheque.setOrderId(order.getId());
+        order.setCheque(cheque);
+        cheque.setOrder(order);
         cheque.setTotalSum(order.calcTotalSum());
         discountCalculator.handleDiscount(order, cheque);
         order.addTotalSumToCustomerLCard();
