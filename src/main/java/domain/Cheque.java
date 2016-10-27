@@ -2,9 +2,9 @@ package domain;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import pizzaservice.discount.DiscountRecord;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,8 @@ import java.util.List;
 @Component
 @Scope("prototype")
 @Entity
-public class Cheque {
+public class Cheque implements Serializable{
+    @Transient
     private static final String DEFAULT_TITLE = "Simple Pizza Cheque #";
     @Id
     @TableGenerator(
@@ -23,7 +24,7 @@ public class Cheque {
             valueColumnName = "GEN_VALUE",
             initialValue = 0,
             allocationSize = 1)
-    private Cheque id;
+    private Long id;
 
     private String title;
 
@@ -34,7 +35,7 @@ public class Cheque {
     private Order order;
 
     private Double totalSum;
-
+    @OneToMany(mappedBy = "cheque", fetch = FetchType.LAZY)
     private List<DiscountRecord> discountList = new ArrayList<>();
 
     public Cheque() {
@@ -121,11 +122,11 @@ public class Cheque {
         this(DEFAULT_TITLE, LocalDate.now(), orderId);
     }
 
-    public Cheque getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Cheque id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

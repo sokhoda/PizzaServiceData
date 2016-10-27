@@ -21,7 +21,7 @@ public class SimpleCustomerDao implements CustomerDao {
         if (customer == null) {
             return id;
         }
-        addressDao.save(customer.getAddress());
+//        addressDao.save(customer.getAddress());
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory
                 ("jpa");

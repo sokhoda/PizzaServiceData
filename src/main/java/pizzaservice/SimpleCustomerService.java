@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import repository.CustomerRepository;
 import repository.LoyaltyCardRepository;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by s_okhoda on 13.10.2016.
  */
@@ -40,7 +44,8 @@ public class SimpleCustomerService implements CustomerService {
 
        Customer customer = createNewCustomer();
         customer.setName(name);
-        customer.setAddress(address);
+        Set<Address> addresses = new HashSet<>(Arrays.asList(address));
+        customer.setAddress(new HashSet<Address>(addresses));
         customer.setLoyaltyCard(loyaltyCard);
         return null;
     }

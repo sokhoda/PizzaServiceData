@@ -5,13 +5,15 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Component
 @Scope("prototype")
 @Entity
-public class Customer {
+public class Customer implements Serializable{
     @Id
     @TableGenerator(
             name = "customerGen",
@@ -25,22 +27,19 @@ public class Customer {
     private Long id;
     private String name;
 
-    @Embedded
-    private Address address;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE)
+    private Set<Address> address = new HashSet<>();
 
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "LoyalCard_ID")
     private LoyaltyCard loyaltyCard;
-
-    @OneToMany(mappedBy = "customer")
-    private Set<Order> orders;
 
     public Customer() {
     }
 
     public Customer(String name, Address address, LoyaltyCard loyaltyCard) {
         this.name = name;
-        this.address = address;
+        this.address.add(address);
         this.loyaltyCard = loyaltyCard;
     }
 
@@ -59,15 +58,14 @@ public class Customer {
                 ", name='" + name + '\'' +
                 ", address=" + address +
                 ", loyaltyCard=" + loyaltyCard +
-                ", orders=" + orders +
                 '}';
     }
 
-    public Address getAddress() {
+    public Set<Address> getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(Set<Address> address) {
         this.address = address;
     }
 
@@ -95,11 +93,4 @@ public class Customer {
         this.loyaltyCard = loyaltyCard;
     }
 
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
-    }
 }

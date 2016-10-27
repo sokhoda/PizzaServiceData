@@ -21,8 +21,10 @@ public class JPAAppRunner {
         et.begin();
         System.out.println("before persist " +  pizza.getId());
         em.persist(pizza);
+        Pizza pizza2 = em.getReference(Pizza.class, 25L);
 //        em.merge(pizza);
 //        pizza.setStrName("224324234");
+        System.out.println(pizza2);
         System.out.println("after persist " +  pizza.getId());
 //        em.persist(oak);
         et.commit();

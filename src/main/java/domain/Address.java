@@ -4,22 +4,24 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Component
 @Scope("prototype")
-@Embeddable @Access(AccessType.FIELD)
-public class Address {
-//    @TableGenerator(
-//            strName = "addressGen",
-//            table = "ID_GEN",
-//            pkColumnName = "GEN_KEY",
-//            pkColumnValue = "ADDRESS_ID",
-//            valueColumnName = "GEN_VALUE",
-//            initialValue = 0,
-//            allocationSize = 1)
-//    @GeneratedValue(strategy= GenerationType.TABLE, generator = "addressGen")
-//    private Long id;
+@Entity
+public class Address implements Serializable {
+    @Id
+    @TableGenerator(
+            name =  "addressGen",
+            table = "ID_GEN",
+            pkColumnName = "GEN_KEY",
+            pkColumnValue = "ADDRESS_ID",
+            valueColumnName = "GEN_VALUE",
+            initialValue = 0,
+            allocationSize = 1)
+    @GeneratedValue(strategy= GenerationType.TABLE, generator = "addressGen")
+    private Long id;
 
     private String zipCode;
     private String City;
@@ -27,7 +29,9 @@ public class Address {
     private String type;
     private String buildingNo;
     private String appNo;
-
+    @ManyToOne
+    @JoinColumn(name = "Cust_ID")
+    private Customer customer;
     public Address() {
     }
 

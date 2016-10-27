@@ -4,9 +4,11 @@ import domain.Customer;
 import domain.Order;
 import domain.Pizza;
 import infrastructure.Benchmark;
+import org.omg.CosNaming._NamingContextExtStub;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import repository.OrderRepository;
 
 import javax.annotation.PostConstruct;
@@ -19,12 +21,13 @@ public class SimpleOrderService implements OrderService, InitializingBean, Dispo
     public static final int DISCOUNT_MAX_ORDER_SUM_PERCENTAGE = 30;
     public static final int DISCOUNT_LOYALTY_CARD_SUM_PERCENTAGE = 10;
     private PizzaService pizzaService = null;
+    @Autowired
+    @Qualifier(value = "orderRepository")
     private OrderRepository orderRepo = null;
 
     public SimpleOrderService() {
     }
 
-    @Autowired
     public SimpleOrderService(PizzaService pizzaService,
                               OrderRepository orderRepo) {
         this.pizzaService = pizzaService;

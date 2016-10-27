@@ -1,6 +1,7 @@
 package pizzaservice.discount;
 
 import domain.Cheque;
+import domain.DiscountRecord;
 import domain.LoyaltyCard;
 import domain.Order;
 import org.springframework.stereotype.Component;
