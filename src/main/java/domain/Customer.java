@@ -27,7 +27,7 @@ public class Customer implements Serializable{
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Set<Address> address = new HashSet<>();
 
     @OneToOne(orphanRemoval = true)
