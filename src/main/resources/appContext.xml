@@ -7,8 +7,6 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
@@ -23,36 +21,36 @@
 
     <bean id="orderStateCycle" scope="prototype"
           class="pizzaservice.states.OrderStateCycle">
-        <constructor-arg name="cancelledSt" ref="cancelledState"/>
-        <constructor-arg name="doneSt" ref="doneState"/>
-        <constructor-arg name="inProgressSt" ref="inProgressState"/>
-        <constructor-arg name="newSt" ref="newState"/>
+        <constructor-arg index="0" ref="newState"/>
+        <constructor-arg index="1" ref="inProgressState"/>
+        <constructor-arg index="2" ref="cancelledState"/>
+        <constructor-arg index="3" ref="doneState"/>
     </bean>
 
 
     <!--customer description-->
     <!--<bean id="customer" class="domain.Customer">-->
-        <!--<constructor-arg strName="strName" value="Maria Petrenko"/>-->
-        <!--<constructor-arg strName="address" ref="address"/>-->
-        <!--<property strName="loyaltyCard" ref="loyaltyCard"/>-->
+        <!--<constructor-arg name="name" value="Maria Petrenko"/>-->
+        <!--<constructor-arg name="address" ref="address"/>-->
+        <!--<property name="loyaltyCard" ref="loyaltyCard"/>-->
     <!--</bean>-->
 
     <!--<bean id="address" class="domain.Address">-->
-        <!--<constructor-arg strName="strName" value="Kudryashova"/>-->
-        <!--<constructor-arg strName="type" value="str"/>-->
-        <!--<constructor-arg strName="buildingNo" value="18-A"/>-->
-        <!--<constructor-arg strName="appNo" value="1"/>-->
+        <!--<constructor-arg name="name" value="Kudryashova"/>-->
+        <!--<constructor-arg name="type" value="str"/>-->
+        <!--<constructor-arg name="buildingNo" value="18-A"/>-->
+        <!--<constructor-arg name="appNo" value="1"/>-->
     <!--</bean>-->
 
     <!--<bean id="loyaltyCard" class="domain.LoyaltyCard">-->
-        <!--<constructor-arg strName="sum" value="0."/>-->
+        <!--<constructor-arg name="sum" value="0."/>-->
     <!--</bean>-->
 
-    <!--<bean strName="order" class="domain.Order" scope="prototype"/>-->
+    <!--<bean name="order" class="domain.Order" scope="prototype"/>-->
 
     <!--pizzaservice.states description-->
     <!--service description-->
-    <!--<bean strName="pizzaService" class="pizzaservice.SimplePizzaService"-->
+    <!--<bean name="pizzaService" class="pizzaservice.SimplePizzaService"-->
           <!--autowire="constructor"/>-->
 
     <bean id="chequeProducer" class="pizzaservice.cheque.SimpleChequeProducer">

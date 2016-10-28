@@ -79,6 +79,7 @@ public class SpringJPAAppRunner {
         Order order2 = orderService.placeNewOrder(customer,  3L, 6L);
         order2 = chequeProducer.placeCheque(order2);
         order2.nextState();
+        order2 = orderService.save(order2);
         System.out.println(order2);
         System.out.println("Cheque::\n" + order2.getCheque());
 
