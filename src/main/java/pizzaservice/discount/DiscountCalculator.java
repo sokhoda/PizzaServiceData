@@ -2,6 +2,7 @@ package pizzaservice.discount;
 
 import domain.Cheque;
 import domain.Order;
+import infrastructure.DomainHandleHelper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -27,7 +28,9 @@ public class DiscountCalculator {
         prevHandler = handler;
     }
 
-    public void handleDiscount(Order order, Cheque cheque){
-        firstHandler.handleDiscount(order, cheque);
+    public Cheque handleDiscount(Order order, Cheque cheque){
+        Cheque newCheque = DomainHandleHelper.clone(cheque);
+        firstHandler.handleDiscount(order, newCheque);
+        return newCheque;
     }
 }

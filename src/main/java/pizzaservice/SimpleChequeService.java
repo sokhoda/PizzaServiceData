@@ -1,9 +1,11 @@
 package pizzaservice;
 
 import domain.Cheque;
+import infrastructure.DomainHandleHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import repository.ChequeRepository;
 
 @Service
@@ -19,9 +21,11 @@ public class SimpleChequeService implements ChequeService {
         this.chequeRepository = chequeRepository;
     }
 
+    @Transactional
     @Override
-    public Cheque save(Cheque newCheque) {
-        return chequeRepository.save(newCheque);
+    public Cheque save(Cheque cheque) {
+        return chequeRepository.save(cheque);
+
     }
 
 

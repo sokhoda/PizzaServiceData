@@ -53,9 +53,9 @@ public class SpringJPAAppRunner {
                 ("pizzaRepository");
         PizzaService pizzaService = (PizzaService) appContext.getBean
                 ("pizzaService");
-        for (int i = 0; i < 3; i++) {
-            init(pizzaService, customerService);
-        }
+//        for (int i = 0; i < 3; i++) {
+//            init(pizzaService, customerService);
+//        }
 
         Pizza pizza = pizzaRepository.read(5L);
         System.out.println(pizza);
@@ -70,14 +70,20 @@ public class SpringJPAAppRunner {
 
         ChequeProducer chequeProducer = appContext.getBean("chequeProducer",
                 ChequeProducer.class);
-
+        System.out.println("Customer::\n" + customer);
         order = chequeProducer.placeCheque(order);
         System.out.println(order);
         System.out.println("Cheque::\n" + order.getCheque());
 
-//        Order order2 = orderService.placeNewOrder(customer,  3L, 6L);
+        System.out.println("Customer::" + customer);
+        Order order2 = orderService.placeNewOrder(customer,  3L, 6L);
+        order2 = chequeProducer.placeCheque(order2);
+        order2.nextState();
+        System.out.println(order2);
+        System.out.println("Cheque::\n" + order2.getCheque());
+
+
 //        System.out.println(order + "\n" + order2);
-//        order.nextState();
 //        order = orderService.save(order);
 //        System.out.println(order + "\n" + order2);
 //

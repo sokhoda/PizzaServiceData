@@ -61,11 +61,11 @@ public class OrderStateCycle implements Serializable{
     @Override
     public String toString() {
         return "OrderStateCycle{" +
-                "newSt=" + newSt +
+                "curState=" + curState +
+                ", newSt=" + newSt +
                 ", inProgressSt=" + inProgressSt +
                 ", cancelledSt=" + cancelledSt +
                 ", doneSt=" + doneSt +
-                ", curState=" + curState +
                 '}';
     }
 

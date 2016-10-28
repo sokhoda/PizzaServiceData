@@ -21,11 +21,12 @@ public class SimpleChequeProducerTest {
     @Mock
     private OrderService orderService;
     private SimpleChequeProducer scp;
+    private ChequeService chequeService;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        scp = new SimpleChequeProducer(discountCalculator, orderService);
+        scp = new SimpleChequeProducer(discountCalculator, orderService, chequeService);
     }
 
     @Test

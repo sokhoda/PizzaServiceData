@@ -32,14 +32,7 @@ public class JPAOrderRepo implements OrderRepository {
     @Override
     @Transactional
     public Order save(Order order) {
-        Order newOrder = null;
-        if (order != null){
-            OrderStateCycle orderStateCycle = order.getOrderStateCycle();
-            order.setState(orderStateCycle.getCurState().getName());
-            newOrder = em.merge(order);
-            newOrder.setOrderStateCycle(orderStateCycle);
-        }
-        return newOrder;
+        return em.merge(order);
     }
 
 

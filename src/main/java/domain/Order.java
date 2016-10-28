@@ -16,7 +16,7 @@ import java.util.TreeSet;
 @Component
 @Scope("prototype")
 @Entity
-@Table(name = "TB_ORDER")
+@Table(name = "TB_ORDER") @Access(AccessType.FIELD)
 public class Order implements Serializable {
     @Id
     @TableGenerator(
@@ -34,7 +34,7 @@ public class Order implements Serializable {
     @JoinColumn(name = "CHEQUE_ID")
     private Cheque cheque;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "CUST_ID")
     private Customer customer;
 
@@ -54,7 +54,6 @@ public class Order implements Serializable {
     private OrderStateCycle orderStateCycle;
 
     public Order() {
-
     }
 
     public Order(Long id, Customer customer, Map<Pizza, Integer> pizzaMap) {
@@ -77,28 +76,9 @@ public class Order implements Serializable {
     public Double calcTotalSum() {
         Double sum = 0.;
         for (Pizza pizza : pizzaMap.keySet()) {
-            sum += pizza.getPrice();
+            sum += pizza.getPrice() * pizzaMap.get(pizza);
         }
         return sum;
-    }
-
-    public Order clone() {
-        try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
-            oos.writeObject((Object) this);
-            oos.flush();
-            oos.close();
-            bos.close();
-            byte[] byteData = bos.toByteArray();
-
-            ByteArrayInputStream bais = new ByteArrayInputStream(byteData);
-            return  (Order) new ObjectInputStream(bais).readObject();
-        }
-        catch (IOException | ClassNotFoundException  e) {
-            throw(new RuntimeException(e));
-        }
-
     }
 
     public Pizza getTheMostExpensivePizza() {
@@ -138,7 +118,7 @@ public class Order implements Serializable {
                 ", cheque=" + cheque +
                 ", customer=" + customer +
                 ", pizzaMap=" + pizzaMap +
-                ",\n orderStateCycle=" + orderStateCycle +
+                ",\norderStateCycle=" + orderStateCycle +
                 '}';
     }
 

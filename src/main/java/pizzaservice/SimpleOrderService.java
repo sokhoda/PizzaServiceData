@@ -105,8 +105,14 @@ public class SimpleOrderService implements OrderService {
 
     @Transactional
     @Override
-    public Order save(Order newOrder) {
-        return orderRepo.save(newOrder);
+    public Order save(Order order) {
+        if (order != null){
+            OrderStateCycle orderStateCycle = order.getOrderStateCycle();
+            order.setState(orderStateCycle.getCurState().getName());
+            order = orderRepo.save(order);
+            order.setOrderStateCycle(orderStateCycle);
+        }
+        return order;
     }
 
     @Override

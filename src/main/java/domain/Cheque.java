@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 public class Cheque implements Serializable{
     @Transient
-    private static final String DEFAULT_TITLE = "Simple Pizza Cheque #";
+    public static final String DEFAULT_TITLE = "Simple Pizza Cheque #";
     @Id
     @TableGenerator(
             name = "chequeGen",
@@ -29,7 +29,7 @@ public class Cheque implements Serializable{
 
     private String title;
 
-    private LocalDate date;
+    private LocalDateTime date;
 
     private Double totalSum;
 
@@ -39,11 +39,14 @@ public class Cheque implements Serializable{
 
 
     public Cheque() {
-        this.title = DEFAULT_TITLE + id;
-        this.date = LocalDate.now();
+        onCreateNew();
     }
 
-    public Cheque(String title, LocalDate date) {
+    private void onCreateNew() {
+        this.date = LocalDateTime.now();
+    }
+
+    public Cheque(String title, LocalDateTime date) {
         this.title = title;
         this.date = date;
     }
@@ -109,7 +112,7 @@ public class Cheque implements Serializable{
         return discountSum;
     }
 
-    public Cheque(LocalDate date) {
+    public Cheque(LocalDateTime date) {
         this(DEFAULT_TITLE, date);
     }
 
@@ -129,11 +132,11 @@ public class Cheque implements Serializable{
         this.title = title;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
