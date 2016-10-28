@@ -1,18 +1,20 @@
-package pizzaservice.cheque;
+package pizzaservice;
 
 import domain.Cheque;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import repository.ChequeRepository;
 
 @Service
 public class SimpleChequeService implements ChequeService {
+    @Autowired
+    @Qualifier("chequeRepository")
     private ChequeRepository chequeRepository;
 
     public SimpleChequeService() {
     }
 
-    @Autowired
     public SimpleChequeService(ChequeRepository chequeRepository) {
         this.chequeRepository = chequeRepository;
     }
@@ -24,7 +26,7 @@ public class SimpleChequeService implements ChequeService {
 
 
     @Override
-    public Cheque findById(Long id) {
-        return chequeRepository.findById(id);
+    public Cheque find(Long id) {
+        return chequeRepository.find(id);
     }
 }

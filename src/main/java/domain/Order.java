@@ -1,14 +1,14 @@
 package domain;
 
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pizzaservice.states.OrderStateCycle;
 import pizzaservice.states.State;
+import pizzaservice.states.StateEn;
 
 import javax.persistence.*;
+import java.io.*;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -17,7 +17,7 @@ import java.util.TreeSet;
 @Scope("prototype")
 @Entity
 @Table(name = "TB_ORDER")
-public class Order implements InitializingBean, DisposableBean {
+public class Order implements Serializable {
     @Id
     @TableGenerator(
             name = "orderGen",
@@ -30,23 +30,31 @@ public class Order implements InitializingBean, DisposableBean {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "orderGen")
     private Long id;
 
-    @OneToOne(mappedBy="order")
+    @OneToOne(cascade = CascadeType.MERGE, orphanRemoval = true)
+    @JoinColumn(name = "CHEQUE_ID")
     private Cheque cheque;
 
     @ManyToOne
     @JoinColumn(name = "CUST_ID")
     private Customer customer;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PIZZA_QUANT", joinColumns = @JoinColumn(name = "Ord_ID"))
     @MapKeyJoinColumn(name = "PIZZA_ID")
     @Column(name = "QUANTITY")
     private Map<Pizza, Integer> pizzaMap;
 
+    @Enumerated(EnumType.STRING)
+    private StateEn state;
+
+    //    @OneToOne
+//    @JoinColumn(name = "OrderStateCycle_ID")
     @Transient
+    @Autowired
     private OrderStateCycle orderStateCycle;
 
     public Order() {
+
     }
 
     public Order(Long id, Customer customer, Map<Pizza, Integer> pizzaMap) {
@@ -62,28 +70,35 @@ public class Order implements InitializingBean, DisposableBean {
     }
 
     public Order(Customer customer, Map<Pizza, Integer> pizzaMap) {
-        this(customer, pizzaMap, null);
+        this.customer = customer;
+        this.pizzaMap = pizzaMap;
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-//        System.out.println(this.getClass().getCanonicalName() + " " +
-//                "afterPropertiesSet\n toString()=" + toString() );
-    }
-
-    @Override
-    public void destroy() throws Exception {
-//        System.out.println(this.getClass().getCanonicalName() + " destroy\n " +
-//                "toString()= " + toString());
-    }
-
-//    @Benchmark(on = true)
     public Double calcTotalSum() {
         Double sum = 0.;
         for (Pizza pizza : pizzaMap.keySet()) {
             sum += pizza.getPrice();
         }
         return sum;
+    }
+
+    public Order clone() {
+        try {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            oos.writeObject((Object) this);
+            oos.flush();
+            oos.close();
+            bos.close();
+            byte[] byteData = bos.toByteArray();
+
+            ByteArrayInputStream bais = new ByteArrayInputStream(byteData);
+            return  (Order) new ObjectInputStream(bais).readObject();
+        }
+        catch (IOException | ClassNotFoundException  e) {
+            throw(new RuntimeException(e));
+        }
+
     }
 
     public Pizza getTheMostExpensivePizza() {
@@ -123,7 +138,7 @@ public class Order implements InitializingBean, DisposableBean {
                 ", cheque=" + cheque +
                 ", customer=" + customer +
                 ", pizzaMap=" + pizzaMap +
-                ", orderStateCycle=" + orderStateCycle +
+                ",\n orderStateCycle=" + orderStateCycle +
                 '}';
     }
 
@@ -190,10 +205,16 @@ public class Order implements InitializingBean, DisposableBean {
         return orderStateCycle;
     }
 
-    @Autowired
+
     public void setOrderStateCycle(OrderStateCycle orderStateCycle) {
         this.orderStateCycle = orderStateCycle;
     }
 
+    public StateEn getState() {
+        return state;
+    }
 
+    public void setState(StateEn state) {
+        this.state = state;
+    }
 }

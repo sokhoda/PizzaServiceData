@@ -32,6 +32,7 @@ public class Address implements Serializable {
     @ManyToOne
     @JoinColumn(name = "Cust_ID")
     private Customer customer;
+
     public Address() {
     }
 

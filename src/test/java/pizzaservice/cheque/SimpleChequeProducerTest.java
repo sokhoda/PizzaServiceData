@@ -5,26 +5,27 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import pizzaservice.ChequeService;
+import pizzaservice.OrderService;
 import pizzaservice.discount.DiscountCalculator;
 
 import java.util.*;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 public class SimpleChequeProducerTest {
     @Mock
     private DiscountCalculator discountCalculator;
     @Mock
-    private ChequeService chequeService;
+    private OrderService orderService;
     private SimpleChequeProducer scp;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        scp = new SimpleChequeProducer(discountCalculator, chequeService);
+        scp = new SimpleChequeProducer(discountCalculator, orderService);
     }
 
     @Test
@@ -41,12 +42,14 @@ public class SimpleChequeProducerTest {
         doReturn(cheque).when(scpSpy).createNewCheque();
 
 //      WHEN
-        Cheque actualCheque = scpSpy.placeCheque(order);
+        order = scpSpy.placeCheque(order);
+        Cheque actualCheque = order.getCheque();
+
 //      THEN
         assertThat(actualCheque, is(cheque));
         verify(scpSpy).createNewCheque();
         verify(discountCalculator).handleDiscount(order, cheque);
-        verify(chequeService).save(cheque);
+        verify(orderService).save(order);
     }
 
     private Order getSimpleOrder() {

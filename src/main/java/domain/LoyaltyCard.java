@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by s_okhoda on 10.10.2016.
@@ -11,8 +12,7 @@ import javax.persistence.*;
 @Component
 @Scope("prototype")
 @Entity
-public class LoyaltyCard {
-    private static Long counter = 0L;
+public class LoyaltyCard implements Serializable{
     @Id
     @TableGenerator(
             name = "LOYALTYCARDGen",
@@ -25,15 +25,16 @@ public class LoyaltyCard {
     @GeneratedValue(strategy= GenerationType.TABLE, generator =
             "LOYALTYCARDGen")
     private Long id;
-    @OneToOne(mappedBy = "loyaltyCard")
+
+    @OneToOne(mappedBy = "loyaltyCard" )
     private Customer customer;
+
     private Double sum;
 
     public LoyaltyCard() {
     }
 
     public LoyaltyCard(Double sum) {
-//        this.id = ++counter;
         this.sum = sum;
     }
 
@@ -41,7 +42,9 @@ public class LoyaltyCard {
     public String toString() {
         return "LoyaltyCard{" +
                 "id=" + id +
-                ", sum=" + sum +
+                ", customer={name=" + customer.getName() +
+                ", address=" + customer.getAddress() +
+                "}, sum=" + sum +
                 '}';
     }
 
@@ -59,5 +62,13 @@ public class LoyaltyCard {
 
     public void setSum(Double sum) {
         this.sum = sum;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

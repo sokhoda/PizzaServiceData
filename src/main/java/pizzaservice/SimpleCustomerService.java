@@ -5,49 +5,52 @@ import domain.Customer;
 import domain.LoyaltyCard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.transaction.annotation.Transactional;
 import repository.CustomerRepository;
-import repository.LoyaltyCardRepository;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
 
-/**
- * Created by s_okhoda on 13.10.2016.
- */
 public class SimpleCustomerService implements CustomerService {
     @Autowired
     @Qualifier("customerRepository")
     private CustomerRepository customerRepository;
-    @Autowired
-    private LoyaltyCardRepository loyaltyCardRepository;
+//    @Autowired
+//    private LoyaltyCardService loyaltyCardService;
 
     public SimpleCustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
+    @Transactional
     @Override
     public Customer save(Customer customer){
-        customer.setLoyaltyCard(loyaltyCardRepository.save(customer
-                .getLoyaltyCard()));
         return customerRepository.save(customer);
-
     }
 
     @Override
-    public Customer findById(Long id){
+    public Customer find(Long id){
         return customerRepository.find(id);
     }
 
     @Override
-    public Customer placeNewCustomer(String name, Address address, LoyaltyCard loyaltyCard) {
+    public Customer findByName(String name) {
+        return customerRepository.findByName(name);
+    }
 
+    @Override
+    public Customer findByLoyaltyCard(LoyaltyCard loyaltyCard) {
+        return customerRepository.findByLoyaltyCard(loyaltyCard);
+    }
+
+    @Transactional
+    @Override
+    public Customer placeNewCustomer(String name, Address address, LoyaltyCard loyaltyCard) {
        Customer customer = createNewCustomer();
         customer.setName(name);
-        Set<Address> addresses = new HashSet<>(Arrays.asList(address));
-        customer.setAddress(new HashSet<Address>(addresses));
+        customer.setAddress(new HashSet<>(Arrays.asList(address)));
         customer.setLoyaltyCard(loyaltyCard);
-        return null;
+        return save(customer);
     }
 
      Customer createNewCustomer() {

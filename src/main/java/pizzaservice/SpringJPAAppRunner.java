@@ -1,15 +1,11 @@
 package pizzaservice;
 
 import domain.*;
-import infrastructure.SimpleJPARunner;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pizzaservice.cheque.ChequeProducer;
-import pizzaservice.cheque.ChequeService;
-import pizzaservice.cheque.SimpleChequeService;
 import pizzaservice.states.OrderStateCycle;
 import repository.CustomerRepository;
-import repository.JPAPizzaRepo;
 import repository.PizzaRepository;
 
 import java.util.Arrays;
@@ -18,17 +14,18 @@ import java.util.Random;
 
 public class SpringJPAAppRunner {
     private static Random random = new Random();
-    public static void init(PizzaRepository pizzaRepository,
+    public static void init(PizzaService pizzaService,
                             CustomerService customerService) {
-        if (pizzaRepository == null) return;
-        pizzaRepository.save(new Pizza(null, "Tomato", (double)random.nextInt
+        if (pizzaService == null) return;
+        pizzaService.save(new Pizza(null, "Tomato", (double)random.nextInt
                 (1000), PizzaType.VEGETERIAN));
-        pizzaRepository.save(new Pizza(null, "Chicken", (double)random.nextInt
+        pizzaService.save(new Pizza(null, "Chicken", (double)random.nextInt
                 (1000), PizzaType.MEAT));
-        pizzaRepository.save(new Pizza(null, "Fish", (double)random.nextInt
+        pizzaService.save(new Pizza(null, "Fish", (double)random.nextInt
                 (1000), PizzaType.SEA));
         Customer customer = new Customer("Anna Guyvan", new Address
-                ("01032","Kyiv", "Iwana Pidkovy", "Str.", "8","18"), new
+                ("01032","Kyiv", "Iwana Pidkovy", "Str.",  String.valueOf
+                        (random.nextInt(1000)), "18"), new
                 LoyaltyCard(0.));
         customerService.save(customer);
     }
@@ -54,17 +51,47 @@ public class SpringJPAAppRunner {
                 appContext.getBean("customerRepository");
         PizzaRepository pizzaRepository = (PizzaRepository)appContext.getBean
                 ("pizzaRepository");
+        PizzaService pizzaService = (PizzaService) appContext.getBean
+                ("pizzaService");
         for (int i = 0; i < 3; i++) {
-            init(pizzaRepository, customerService);
+            init(pizzaService, customerService);
         }
 
         Pizza pizza = pizzaRepository.read(5L);
-
         System.out.println(pizza);
+        Customer customer = customerRepository.find(2L);
+        OrderStateCycle orderStateCycle = (OrderStateCycle)appContext.getBean
+                ("orderStateCycle");
+        System.out.println(orderStateCycle+ "!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println();
+        OrderService orderService =  appContext.getBean("orderService", OrderService.class);
+        Order order = orderService.placeNewOrder(customer, 1L, 2L, 4L);
+        order = orderService.addPizzas(order, 1L, 2L);
+
+        ChequeProducer chequeProducer = appContext.getBean("chequeProducer",
+                ChequeProducer.class);
+
+        order = chequeProducer.placeCheque(order);
+        System.out.println(order);
+        System.out.println("Cheque::\n" + order.getCheque());
+
+//        Order order2 = orderService.placeNewOrder(customer,  3L, 6L);
+//        System.out.println(order + "\n" + order2);
+//        order.nextState();
+//        order = orderService.save(order);
+//        System.out.println(order + "\n" + order2);
+//
+//
+//        Order order11 = orderService.find(1L);
+//        System.out.println("order11::\n" + order11);
+//
+//        Order order22 = orderService.find(2L);
+//        System.out.println("order22::\n" + order22);
+
 //        Pizza pizza = new Pizza();
 //        pizza.setStrName("Customized");
 //        pizza.setType(PizzaType.MEAT);
-//        pizza = pizzaRepository.save(pizza);
+//        pizza = pizzaService.save(pizza);
 //        System.out.println(pizza);
 //        System.out.println(pizza.getId());
 //OrderStateCycle orderStateCycle = appContext.getBean("orderStateCycle",

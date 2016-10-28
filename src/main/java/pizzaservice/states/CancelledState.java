@@ -2,11 +2,13 @@ package pizzaservice.states;
 
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
+
 /**
  * Created by s_okhoda on 10.10.2016.
  */
 @Component
-public class CancelledState extends State {
+public class CancelledState extends State  {
 
     public CancelledState() {
         name = StateEn.CANCELED;

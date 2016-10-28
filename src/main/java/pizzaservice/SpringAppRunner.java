@@ -3,14 +3,9 @@ package pizzaservice;
 import domain.Cheque;
 import domain.Customer;
 import domain.Order;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
 import pizzaservice.cheque.ChequeProducer;
-import pizzaservice.cheque.ChequeService;
-import pizzaservice.cheque.SimpleChequeProducer;
-import pizzaservice.cheque.SimpleChequeService;
 import pizzaservice.states.OrderStateCycle;
 import repository.PizzaRepository;
 
@@ -35,7 +30,7 @@ public class SpringAppRunner {
 
         CustomerService customerService = appContext.getBean
                 ("customerService", CustomerService.class);
-        Customer customer = customerService.findById(1L);
+        Customer customer = customerService.find(1L);
         System.out.println(customer);
 
         PizzaRepository pizzaRepository = (PizzaRepository) repoContext
@@ -52,7 +47,8 @@ OrderStateCycle orderStateCycle = appContext.getBean("orderStateCycle",
         Order order = orderService.placeNewOrder(customer, 1L, 2L, 3L);
         order = orderService.addPizzas(order, 1L, 2L);
 
-        Cheque cheque = chequeProducer.placeCheque(order);
+        order = chequeProducer.placeCheque(order);
+        Cheque cheque = order.getCheque();
         System.out.println(order);
         System.out.println(cheque);
         System.out.println(customer);
@@ -60,7 +56,8 @@ OrderStateCycle orderStateCycle = appContext.getBean("orderStateCycle",
         System.out.println("\n\n\n----------Order II----------\n");
         order = orderService.placeNewOrder(customer, 2L, 2L, 3L);
 
-        cheque = chequeProducer.placeCheque(order);
+        order = chequeProducer.placeCheque(order);
+        cheque = order.getCheque();
         System.out.println(order);
         System.out.println(cheque);
         System.out.println(customer);
@@ -68,7 +65,7 @@ OrderStateCycle orderStateCycle = appContext.getBean("orderStateCycle",
         ChequeService chequeService = appContext.getBean
                 ("simpleChequeService", SimpleChequeService.class);
 
-        System.out.println("found Cheque:\n" + chequeService.findById(2L));
+        System.out.println("found Cheque:\n" + chequeService.find(2L));
 //        System.out.println(appContext.getBean("Pizza"));
 //        order.nextState();
 //        System.out.println(order);

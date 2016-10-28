@@ -49,7 +49,7 @@ public class InMemPizzaRepo implements PizzaRepository {
     }
 
     @Override
-    public List<Pizza> getPizzaList() {
+    public List<Pizza> findAll() {
         return pizzaList;
     }
 

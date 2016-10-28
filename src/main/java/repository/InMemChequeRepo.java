@@ -13,7 +13,7 @@ public class InMemChequeRepo implements ChequeRepository {
 
     @Benchmark(on = false)
     @Override
-    public Cheque findById(Long id) {
+    public Cheque find(Long id) {
         int i = 0;
         while (i < chequeList.size() && !chequeList.get(i).getId().equals(id)) {
             i++;
@@ -28,8 +28,4 @@ public class InMemChequeRepo implements ChequeRepository {
         return newCheque;
     }
 
-    @Override
-    public List<Cheque> getChequeList() {
-        return chequeList;
-    }
 }

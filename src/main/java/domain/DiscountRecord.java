@@ -1,14 +1,15 @@
 package domain;
 
-import domain.Cheque;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.io.Serializable;
+
 @Component
 @Scope("prototype")
 @Entity
-public class DiscountRecord {
+public class DiscountRecord implements Serializable{
     @Id
     @TableGenerator(
             name = "discountRecGen",
@@ -18,6 +19,7 @@ public class DiscountRecord {
             valueColumnName = "GEN_VALUE",
             initialValue = 0,
             allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "discountRecGen")
     private Long id;
 
     private String name;

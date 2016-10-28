@@ -5,16 +5,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.*;
+import java.io.Serializable;
+//
+//@Entity
+@Component
+public class OrderStateCycle implements Serializable{
+//    @Id
+//    @TableGenerator(
+//            name = "orderStateCycleGen",
+//            table = "ID_GEN",
+//            pkColumnName = "GEN_KEY",
+//            pkColumnValue = "ORDERSTATECYCLE_ID",
+//            valueColumnName = "GEN_VALUE",
+//            initialValue = 0,
+//            allocationSize = 1)
+//    @GeneratedValue(strategy = GenerationType.TABLE, generator =
+//            "orderStateCycleGen")
+//    private Long id;
 
-/**
- * Created by s_okhoda on 10.10.2016.
- */
-
-public class OrderStateCycle {
     private State newSt;
+
     private State inProgressSt;
+
     private State cancelledSt;
+
     private State doneSt;
+
+//    @Enumerated(EnumType.STRING)
     private State curState;
 
     public OrderStateCycle(State newSt, State inProgressSt, State cancelledSt, State doneSt) {
@@ -43,9 +61,20 @@ public class OrderStateCycle {
     @Override
     public String toString() {
         return "OrderStateCycle{" +
-                "curState=" + curState +
+                "newSt=" + newSt +
+                ", inProgressSt=" + inProgressSt +
+                ", cancelledSt=" + cancelledSt +
+                ", doneSt=" + doneSt +
+                ", curState=" + curState +
                 '}';
     }
+
+    //    @Override
+//    public String toString() {
+//        return "OrderStateCycle{" +
+//                "curState=" + curState +
+//                '}';
+//    }
 
     public State getCurState() {
         return curState;

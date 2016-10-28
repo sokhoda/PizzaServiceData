@@ -24,36 +24,34 @@ public class Cheque implements Serializable{
             valueColumnName = "GEN_VALUE",
             initialValue = 0,
             allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "chequeGen")
     private Long id;
 
     private String title;
 
     private LocalDate date;
 
-    @OneToOne
-    @JoinColumn(name = "ORDER_ID")
-    private Order order;
-
     private Double totalSum;
-    @OneToMany(mappedBy = "cheque", fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "cheque", cascade = CascadeType.MERGE, fetch =
+            FetchType.EAGER, orphanRemoval = true)
     private List<DiscountRecord> discountList = new ArrayList<>();
+
 
     public Cheque() {
         this.title = DEFAULT_TITLE + id;
         this.date = LocalDate.now();
     }
 
-    public Cheque(String title, LocalDate date, Order orderId) {
+    public Cheque(String title, LocalDate date) {
         this.title = title;
         this.date = date;
-        this.order = orderId;
     }
 
     @Override
     public String toString() {
         return "Cheque{" +
                 "id=" + id +
-                ", order=" + order +
                 ", title='" + title + '\'' +
                 ", date=" + date +
                 ", discountList=" + discountList +
@@ -75,8 +73,6 @@ public class Cheque implements Serializable{
             return false;
         if (date != null ? !date.equals(cheque.date) : cheque.date != null)
             return false;
-        if (order != null ? !order.equals(cheque.order) : cheque.order != null)
-            return false;
         if (totalSum != null ? !totalSum.equals(cheque.totalSum) : cheque.totalSum != null)
             return false;
         return discountList != null ? discountList.equals(cheque.discountList) : cheque.discountList == null;
@@ -88,7 +84,6 @@ public class Cheque implements Serializable{
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (order != null ? order.hashCode() : 0);
         result = 31 * result + (totalSum != null ? totalSum.hashCode() : 0);
         result = 31 * result + (discountList != null ? discountList.hashCode() : 0);
         return result;
@@ -114,12 +109,8 @@ public class Cheque implements Serializable{
         return discountSum;
     }
 
-    public Cheque(LocalDate date, Order orderId) {
-        this(DEFAULT_TITLE, date, orderId);
-    }
-
-    public Cheque(Order orderId) {
-        this(DEFAULT_TITLE, LocalDate.now(), orderId);
+    public Cheque(LocalDate date) {
+        this(DEFAULT_TITLE, date);
     }
 
     public Long getId() {
@@ -146,13 +137,6 @@ public class Cheque implements Serializable{
         this.date = date;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 
     public List<DiscountRecord> getDiscountList() {
         return discountList;

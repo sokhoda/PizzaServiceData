@@ -13,6 +13,9 @@ import java.util.Set;
 @Component
 @Scope("prototype")
 @Entity
+@NamedQueries({
+@NamedQuery(name = "Customer.findByName", query = "SELECT c from Customer c WHERE c.name = :name")
+})
 public class Customer implements Serializable{
     @Id
     @TableGenerator(
@@ -30,7 +33,7 @@ public class Customer implements Serializable{
     @OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Set<Address> address = new HashSet<>();
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.MERGE)
     @JoinColumn(name = "LoyalCard_ID")
     private LoyaltyCard loyaltyCard;
 

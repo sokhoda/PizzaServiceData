@@ -31,6 +31,16 @@ public class InMemCustomerRepo implements CustomerRepository {
     }
 
     @Override
+    public Customer findByName(String name) {
+        return null;
+    }
+
+    @Override
+    public Customer findByLoyaltyCard(LoyaltyCard loyaltyCard) {
+        return null;
+    }
+
+    @Override
     public Customer save(Customer newCustomer) {
             customerList.add(newCustomer);
             return newCustomer;

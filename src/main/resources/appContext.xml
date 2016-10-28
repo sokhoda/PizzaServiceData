@@ -21,13 +21,14 @@
 
     <!--<bean class="infrastructure.BenchmarkBeanPostProcessor"/>-->
 
-    <bean id="orderStateCycle"
+    <bean id="orderStateCycle" scope="prototype"
           class="pizzaservice.states.OrderStateCycle">
         <constructor-arg name="cancelledSt" ref="cancelledState"/>
         <constructor-arg name="doneSt" ref="doneState"/>
         <constructor-arg name="inProgressSt" ref="inProgressState"/>
         <constructor-arg name="newSt" ref="newState"/>
     </bean>
+
 
     <!--customer description-->
     <!--<bean id="customer" class="domain.Customer">-->
@@ -59,6 +60,7 @@
     </bean>
     <bean name="orderService" class="pizzaservice.SimpleOrderService">
         <lookup-method name="createNewOrder" bean="order"/>
+        <lookup-method name="createNewOrderStateCycle" bean="orderStateCycle"/>
     </bean>
 
     <bean name="customerService" class="pizzaservice.SimpleCustomerService">

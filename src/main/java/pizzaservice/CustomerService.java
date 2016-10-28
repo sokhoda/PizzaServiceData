@@ -10,7 +10,11 @@ import domain.LoyaltyCard;
 public interface CustomerService {
     Customer save(Customer customer);
 
-    Customer findById(Long id);
+    Customer find(Long id);
+
+    Customer findByName(String name);
+
+    Customer findByLoyaltyCard(LoyaltyCard loyaltyCard);
 
     Customer placeNewCustomer(String name, Address address, LoyaltyCard
             loyaltyCard);

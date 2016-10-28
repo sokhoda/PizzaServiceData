@@ -3,11 +3,11 @@ package domain;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@Access(AccessType.FIELD)
+//@Entity
+//@Access(AccessType.FIELD)
 public class Oak implements Serializable{
-    @Id
-    @GeneratedValue(strategy= GenerationType.TABLE)
+//    @Id
+//    @GeneratedValue(strategy= GenerationType.TABLE)
     private Long id;
     private String type;
     private Integer height;

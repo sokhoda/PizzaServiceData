@@ -11,5 +11,5 @@ public interface PizzaRepository {
 
     Pizza save(Pizza pizza);
 
-    List<Pizza> getPizzaList();
+    List<Pizza> findAll();
 }

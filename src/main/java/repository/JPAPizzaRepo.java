@@ -1,15 +1,15 @@
 package repository;
 
 import domain.Pizza;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.*;
+import org.springframework.stereotype.Repository;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository("pizzaRepository")
 public class JPAPizzaRepo implements PizzaRepository {
-
     @PersistenceContext
     private EntityManager em;
 
@@ -28,14 +28,12 @@ public class JPAPizzaRepo implements PizzaRepository {
     }
 
     @Override
-    @Transactional
     public Pizza save(Pizza pizza) {
-        Pizza newPizza = em.merge(pizza);
-        return newPizza;
+        return em.merge(pizza);
     }
 
     @Override
-    public List<Pizza> getPizzaList() {
-        return null;
+    public List<Pizza> findAll() {
+        return em.createQuery("SELECT p FROM Pizza", Pizza.class).getResultList();
     }
 }

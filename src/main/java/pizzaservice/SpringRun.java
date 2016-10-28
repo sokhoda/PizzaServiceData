@@ -8,8 +8,8 @@
 //import org.springframework.context.support.ClassPathXmlApplicationContext;
 //import org.springframework.stereotype.Component;
 //import pizzaservice.cheque.ChequeProducer;
-//import pizzaservice.cheque.ChequeService;
-//import pizzaservice.cheque.SimpleChequeService;
+//import pizzaservice.ChequeService;
+//import pizzaservice.SimpleChequeService;
 //import pizzaservice.states.OrderStateCycle;
 //import repository.PizzaRepository;
 //

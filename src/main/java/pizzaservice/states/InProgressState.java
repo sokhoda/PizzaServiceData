@@ -3,6 +3,8 @@ package pizzaservice.states;
 import org.springframework.stereotype.Component;
 import repository.OrderRepository;
 
+import java.io.Serializable;
+
 /**
  * Created by s_okhoda on 10.10.2016.
  */
