@@ -53,13 +53,13 @@ public class SpringJPAAppRunner {
                 ("pizzaRepository");
         PizzaService pizzaService = (PizzaService) appContext.getBean
                 ("pizzaService");
-//        for (int i = 0; i < 3; i++) {
-//            init(pizzaService, customerService);
-//        }
+        for (int i = 0; i < 3; i++) {
+            init(pizzaService, customerService);
+        }
 
         Pizza pizza = pizzaRepository.read(5L);
         System.out.println(pizza);
-        Customer customer = customerRepository.find(2L);
+        Customer customer = customerRepository.find(1L);
         OrderStateCycle orderStateCycle = (OrderStateCycle)appContext.getBean
                 ("orderStateCycle");
         System.out.println(orderStateCycle+ "!!!!!!!!!!!!!!!!!!!!!!");
@@ -83,6 +83,7 @@ public class SpringJPAAppRunner {
         System.out.println(order2);
         System.out.println("Cheque::\n" + order2.getCheque());
 
+        System.out.println(orderService.findByCustomer(customer));
 
 //        System.out.println(order + "\n" + order2);
 //        order = orderService.save(order);

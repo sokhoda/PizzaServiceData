@@ -1,5 +1,6 @@
 package repository;
 
+import domain.Customer;
 import domain.Order;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +12,11 @@ public class InMemOrderRepo implements OrderRepository {
 
     @Override
     public Order find(Long id) {
+        return null;
+    }
+
+    @Override
+    public List<Order> findByCustomer(Customer customer) {
         return null;
     }
 

@@ -14,7 +14,8 @@ import java.util.Set;
 @Scope("prototype")
 @Entity
 @NamedQueries({
-@NamedQuery(name = "Customer.findByName", query = "SELECT c from Customer c WHERE c.name = :name")
+@NamedQuery(name = "Customer.findByName", query = "SELECT c from Customer c " +
+        "WHERE c.name = :name")
 })
 public class Customer implements Serializable{
     @Id

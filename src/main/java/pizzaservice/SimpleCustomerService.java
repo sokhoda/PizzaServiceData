@@ -3,6 +3,7 @@ package pizzaservice;
 import domain.Address;
 import domain.Customer;
 import domain.LoyaltyCard;
+import domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import repository.CustomerRepository;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 public class SimpleCustomerService implements CustomerService {
     @Autowired
@@ -42,6 +44,7 @@ public class SimpleCustomerService implements CustomerService {
     public Customer findByLoyaltyCard(LoyaltyCard loyaltyCard) {
         return customerRepository.findByLoyaltyCard(loyaltyCard);
     }
+
 
     @Transactional
     @Override

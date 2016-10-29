@@ -5,10 +5,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pizzaservice.states.OrderStateCycle;
 import pizzaservice.states.State;
-import pizzaservice.states.StateEn;
 
 import javax.persistence.*;
-import java.io.*;
+import java.io.Serializable;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -16,6 +15,10 @@ import java.util.TreeSet;
 @Component
 @Scope("prototype")
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Order.findByCustomer", query = "SELECT ord from " +
+                "Order ord WHERE ord.customer= :customer")
+})
 @Table(name = "TB_ORDER") @Access(AccessType.FIELD)
 public class Order implements Serializable {
     @Id
@@ -44,12 +47,12 @@ public class Order implements Serializable {
     @Column(name = "QUANTITY")
     private Map<Pizza, Integer> pizzaMap;
 
-    @Enumerated(EnumType.STRING)
-    private StateEn state;
+//    @Enumerated(EnumType.STRING)
+//    private StateEn state;
 
     //    @OneToOne
 //    @JoinColumn(name = "OrderStateCycle_ID")
-    @Transient
+    @Embedded
     @Autowired
     private OrderStateCycle orderStateCycle;
 
@@ -113,12 +116,12 @@ public class Order implements Serializable {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "\nOrder{" +
                 "id=" + id +
                 ", cheque=" + cheque +
-                ", customer=" + customer +
-                ", pizzaMap=" + pizzaMap +
+                ",\ncustomer=" + customer +
                 ",\norderStateCycle=" + orderStateCycle +
+                ", pizzaMap=" + pizzaMap +
                 '}';
     }
 
@@ -190,11 +193,4 @@ public class Order implements Serializable {
         this.orderStateCycle = orderStateCycle;
     }
 
-    public StateEn getState() {
-        return state;
-    }
-
-    public void setState(StateEn state) {
-        this.state = state;
-    }
 }

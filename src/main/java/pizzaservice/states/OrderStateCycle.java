@@ -10,6 +10,7 @@ import java.io.Serializable;
 //
 //@Entity
 @Component
+@Embeddable @Access(AccessType.FIELD)
 public class OrderStateCycle implements Serializable{
 //    @Id
 //    @TableGenerator(
@@ -24,13 +25,13 @@ public class OrderStateCycle implements Serializable{
 //            "orderStateCycleGen")
 //    private Long id;
 
-    private State newSt;
+    private static State newSt;
 
-    private State inProgressSt;
+    private static State inProgressSt;
 
-    private State cancelledSt;
+    private static State cancelledSt;
 
-    private State doneSt;
+    private static State doneSt;
 
 //    @Enumerated(EnumType.STRING)
     private State curState;

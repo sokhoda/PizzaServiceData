@@ -13,6 +13,7 @@ import repository.OrderRepository;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SimpleOrderService implements OrderService {
@@ -38,6 +39,8 @@ public class SimpleOrderService implements OrderService {
         this.pizzaService = pizzaService;
         this.orderRepo = orderRepo;
     }
+
+
 
     @Transactional
     @Override
@@ -96,23 +99,38 @@ public class SimpleOrderService implements OrderService {
 
     @Override
     public Order find(Long id) {
-        Order order = orderRepo.find(id);
-        OrderStateCycle orderStateCycle1 = orderStateCycle;
-        orderStateCycle1.getCurState().setName(order.getState());
-        order.setOrderStateCycle(orderStateCycle1);
-        return order;
+        return orderRepo.find(id);
     }
+//    @Override
+//    public Order find(Long id) {
+//        Order order = orderRepo.find(id);
+//        OrderStateCycle orderStateCycle1 = orderStateCycle;
+//        orderStateCycle1.getCurState().setName(order.getState());
+//        order.setOrderStateCycle(orderStateCycle1);
+//        return order;
+//    }
+
+    @Override
+    public List<Order> findByCustomer(Customer customer) {
+        return orderRepo.findByCustomer(customer);
+    }
+
+//    @Transactional
+//    @Override
+//    public Order save(Order order) {
+//        if (order != null){
+//            OrderStateCycle orderStateCycle = order.getOrderStateCycle();
+//            order.setState(orderStateCycle.getCurState().getName());
+//            order = orderRepo.save(order);
+//            order.setOrderStateCycle(orderStateCycle);
+//        }
+//        return order;
+//    }
 
     @Transactional
     @Override
-    public Order save(Order order) {
-        if (order != null){
-            OrderStateCycle orderStateCycle = order.getOrderStateCycle();
-            order.setState(orderStateCycle.getCurState().getName());
-            order = orderRepo.save(order);
-            order.setOrderStateCycle(orderStateCycle);
-        }
-        return order;
+    public Order save(Order order){
+        return orderRepo.save(order);
     }
 
     @Override

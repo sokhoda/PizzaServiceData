@@ -23,12 +23,6 @@ public class JPALoyaltyCardRepo implements LoyaltyCardRepository {
         return em.find(LoyaltyCard.class, id);
     }
 
-//    @Override
-//    public LoyaltyCard read(Long id) {
-//        TypedQuery<LoyaltyCard> query = em.createQuery("SELECT p from LoyaltyCard p WHERE p.id = :id ", LoyaltyCard.class);
-//        return query.setParameter("id", id).getSingleResult();
-//    }
-
     @Override
     @Transactional
     public LoyaltyCard save(LoyaltyCard LoyaltyCard) {

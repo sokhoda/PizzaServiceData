@@ -2,6 +2,7 @@ package repository;
 
 import domain.Customer;
 import domain.LoyaltyCard;
+import domain.Order;
 import domain.Pizza;
 import infrastructure.JPQLQueries;
 import org.springframework.stereotype.Repository;
@@ -37,15 +38,18 @@ public class JPACustomerRepo implements CustomerRepository {
         return query.setParameter("name", name).getSingleResult();
     }
 
+
     @Override
     public Customer findByLoyaltyCard(LoyaltyCard loyaltyCard) {
         return JPQLQueries.selectSimpleResult(Customer.class, em, "SELECT c from " +
-                "Customer c ", "WHERE c.name = :name", new Object[]{loyaltyCard});
+                "Customer c ", "WHERE c.loyaltyCard.id = :id", new
+                Object[]{loyaltyCard.getId()});
     }
 
     @Override
     public Customer save(Customer Customer) {
         return em.merge(Customer);
     }
+
 
 }

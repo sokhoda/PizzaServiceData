@@ -1,5 +1,6 @@
 package repository;
 
+import domain.Customer;
 import domain.Order;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import pizzaservice.states.OrderStateCycle;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Repository("orderRepository")
 public class JPAOrderRepo implements OrderRepository {
@@ -27,6 +30,13 @@ public class JPAOrderRepo implements OrderRepository {
     @Override
     public Order find(Long id) {
         return em.find(Order.class, id);
+    }
+
+    @Override
+    public List<Order> findByCustomer(Customer customer) {
+        TypedQuery<Order> query = em.createNamedQuery("Order" +
+                ".findByCustomer", Order.class);
+        return  query.setParameter("customer", customer).getResultList();
     }
 
     @Override

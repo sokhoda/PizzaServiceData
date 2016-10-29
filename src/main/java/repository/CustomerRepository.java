@@ -15,4 +15,5 @@ public interface CustomerRepository {
     Customer findByLoyaltyCard(LoyaltyCard loyaltyCard);
 
     Customer save(Customer customer);
+
 }

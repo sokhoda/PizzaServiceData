@@ -3,6 +3,9 @@ package pizzaservice;
 import domain.Address;
 import domain.Customer;
 import domain.LoyaltyCard;
+import domain.Order;
+
+import java.util.List;
 
 /**
  * Created by s_okhoda on 13.10.2016.
