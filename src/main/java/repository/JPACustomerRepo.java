@@ -28,20 +28,20 @@ public class JPACustomerRepo implements CustomerRepository {
     }
 
     @Override
-    public Customer findByName(String name) {
+    public List<Customer> findByName(String name) {
 //        TypedQuery<Customer> query = em.createQuery("SELECT c from Customer c " +
 //                "WHERE c.name = :name", Customer.class);
 //        return query.setParameter("name", name).getSingleResult();
 
         TypedQuery<Customer> query = em.createNamedQuery("Customer.findByName",
                 Customer.class);
-        return query.setParameter("name", name).getSingleResult();
+        return query.setParameter("name", name).getResultList();
     }
 
 
     @Override
-    public Customer findByLoyaltyCard(LoyaltyCard loyaltyCard) {
-        return JPQLQueries.selectSimpleResult(Customer.class, em, "SELECT c from " +
+    public List<Customer> findByLoyaltyCard(LoyaltyCard loyaltyCard) {
+        return JPQLQueries.selectResultList(Customer.class, em, "SELECT c from " +
                 "Customer c ", "WHERE c.loyaltyCard.id = :id", new
                 Object[]{loyaltyCard.getId()});
     }

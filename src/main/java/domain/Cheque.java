@@ -70,11 +70,7 @@ public class Cheque implements Serializable{
 
         Cheque cheque = (Cheque) o;
 
-        if (id != null ? !id.equals(cheque.id) : cheque.id != null)
-            return false;
         if (title != null ? !title.equals(cheque.title) : cheque.title != null)
-            return false;
-        if (date != null ? !date.equals(cheque.date) : cheque.date != null)
             return false;
         if (totalSum != null ? !totalSum.equals(cheque.totalSum) : cheque.totalSum != null)
             return false;
@@ -84,8 +80,7 @@ public class Cheque implements Serializable{
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
+        int result = title != null ? title.hashCode() : 0;
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (totalSum != null ? totalSum.hashCode() : 0);
         result = 31 * result + (discountList != null ? discountList.hashCode() : 0);

@@ -1,6 +1,5 @@
 package infrastructure;
 
-import domain.Oak;
 import domain.Pizza;
 import domain.PizzaType;
 
@@ -15,7 +14,6 @@ public class JPAAppRunner {
                 ("jpa");
         EntityManager em = emf.createEntityManager();
         Pizza pizza = new Pizza(null, "Tomato", 90., PizzaType.VEGETERIAN);
-        Oak oak = new Oak(null, "ukrainian", 20);
 
         EntityTransaction et = em.getTransaction();
         et.begin();

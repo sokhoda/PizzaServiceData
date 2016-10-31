@@ -31,12 +31,12 @@ public class InMemCustomerRepo implements CustomerRepository {
     }
 
     @Override
-    public Customer findByName(String name) {
+    public List<Customer> findByName(String name) {
         return null;
     }
 
     @Override
-    public Customer findByLoyaltyCard(LoyaltyCard loyaltyCard) {
+    public List<Customer> findByLoyaltyCard(LoyaltyCard loyaltyCard) {
         return null;
     }
 

@@ -42,10 +42,30 @@ public class LoyaltyCard implements Serializable{
     public String toString() {
         return "LoyaltyCard{" +
                 "id=" + id +
-                ", customer={name=" + customer.getName() +
-                ", address=" + customer.getAddress() +
+                ", customer={name=" + (customer == null ? "" : customer.getName()) +
+                ", address=" + (customer == null ? "" : customer.getAddress()) +
                 "}, sum=" + sum +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        LoyaltyCard that = (LoyaltyCard) o;
+
+        if (customer != null ? !customer.equals(that.customer) : that.customer != null)
+            return false;
+        return sum != null ? sum.equals(that.sum) : that.sum == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = customer != null ? customer.hashCode() : 0;
+        result = 31 * result + (sum != null ? sum.hashCode() : 0);
+        return result;
     }
 
     public Long getId() {

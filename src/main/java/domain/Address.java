@@ -57,6 +57,41 @@ public class Address implements Serializable {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Address address = (Address) o;
+
+        if (zipCode != null ? !zipCode.equals(address.zipCode) : address.zipCode != null)
+            return false;
+        if (City != null ? !City.equals(address.City) : address.City != null)
+            return false;
+        if (strName != null ? !strName.equals(address.strName) : address.strName != null)
+            return false;
+        if (type != null ? !type.equals(address.type) : address.type != null)
+            return false;
+        if (buildingNo != null ? !buildingNo.equals(address.buildingNo) : address.buildingNo != null)
+            return false;
+        if (appNo != null ? !appNo.equals(address.appNo) : address.appNo != null)
+            return false;
+        return customer != null ? customer.equals(address.customer) : address.customer == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = zipCode != null ? zipCode.hashCode() : 0;
+        result = 31 * result + (City != null ? City.hashCode() : 0);
+        result = 31 * result + (strName != null ? strName.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (buildingNo != null ? buildingNo.hashCode() : 0);
+        result = 31 * result + (appNo != null ? appNo.hashCode() : 0);
+        result = 31 * result + (customer != null ? customer.hashCode() : 0);
+        return result;
+    }
+
     public String getStrName() {
         return strName;
     }

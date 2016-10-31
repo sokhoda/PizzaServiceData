@@ -6,6 +6,8 @@ import domain.Order;
 import java.util.List;
 
 public interface OrderService {
+    void addTotalSumToCustomerLCard(Order order);
+
     Order placeNewOrder(Customer customer, Long... pizzasID);
 
     Order addPizzas(Order order, Long... idNoPair);

@@ -26,8 +26,7 @@ public class JPALoyaltyCardRepo implements LoyaltyCardRepository {
     @Override
     @Transactional
     public LoyaltyCard save(LoyaltyCard LoyaltyCard) {
-        LoyaltyCard newLoyaltyCard = em.merge(LoyaltyCard);
-        return newLoyaltyCard;
+        return em.merge(LoyaltyCard);
     }
 
 }

@@ -72,6 +72,7 @@ public class SpringJPAAppRunner {
                 ChequeProducer.class);
         System.out.println("Customer::\n" + customer);
         order = chequeProducer.placeCheque(order);
+
         System.out.println(order);
         System.out.println("Cheque::\n" + order.getCheque());
 

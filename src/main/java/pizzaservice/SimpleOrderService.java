@@ -40,6 +40,12 @@ public class SimpleOrderService implements OrderService {
         this.orderRepo = orderRepo;
     }
 
+    @Override
+    public void addTotalSumToCustomerLCard(Order order){
+        if (order != null){
+            order.addTotalSumToCustomerLCard();
+        }
+    }
 
 
     @Transactional
@@ -101,31 +107,12 @@ public class SimpleOrderService implements OrderService {
     public Order find(Long id) {
         return orderRepo.find(id);
     }
-//    @Override
-//    public Order find(Long id) {
-//        Order order = orderRepo.find(id);
-//        OrderStateCycle orderStateCycle1 = orderStateCycle;
-//        orderStateCycle1.getCurState().setName(order.getState());
-//        order.setOrderStateCycle(orderStateCycle1);
-//        return order;
-//    }
 
     @Override
     public List<Order> findByCustomer(Customer customer) {
         return orderRepo.findByCustomer(customer);
     }
 
-//    @Transactional
-//    @Override
-//    public Order save(Order order) {
-//        if (order != null){
-//            OrderStateCycle orderStateCycle = order.getOrderStateCycle();
-//            order.setState(orderStateCycle.getCurState().getName());
-//            order = orderRepo.save(order);
-//            order.setOrderStateCycle(orderStateCycle);
-//        }
-//        return order;
-//    }
 
     @Transactional
     @Override
@@ -139,5 +126,14 @@ public class SimpleOrderService implements OrderService {
                 "orderRepo=" + orderRepo +
                 ", pizzaService=" + pizzaService +
                 '}';
+    }
+
+
+    public void setPizzaService(PizzaService pizzaService) {
+        this.pizzaService = pizzaService;
+    }
+
+    public void setOrderRepo(OrderRepository orderRepo) {
+        this.orderRepo = orderRepo;
     }
 }

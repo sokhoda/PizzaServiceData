@@ -70,6 +70,18 @@ public class OrderStateCycle implements Serializable{
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OrderStateCycle that = (OrderStateCycle) o;
+
+        return curState != null ? curState.equals(that.curState) : that.curState == null;
+
+    }
+
+
     //    @Override
 //    public String toString() {
 //        return "OrderStateCycle{" +

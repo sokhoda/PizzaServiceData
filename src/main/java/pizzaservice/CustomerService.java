@@ -3,7 +3,6 @@ package pizzaservice;
 import domain.Address;
 import domain.Customer;
 import domain.LoyaltyCard;
-import domain.Order;
 
 import java.util.List;
 
@@ -15,9 +14,9 @@ public interface CustomerService {
 
     Customer find(Long id);
 
-    Customer findByName(String name);
+    List<Customer> findByName(String name);
 
-    Customer findByLoyaltyCard(LoyaltyCard loyaltyCard);
+    List<Customer> findByLoyaltyCard(LoyaltyCard loyaltyCard);
 
     Customer placeNewCustomer(String name, Address address, LoyaltyCard
             loyaltyCard);

@@ -126,15 +126,6 @@ public class Order implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (customer != null ? customer.hashCode() : 0);
-        result = 31 * result + (pizzaMap != null ? pizzaMap.hashCode() : 0);
-        result = 31 * result + (orderStateCycle != null ? orderStateCycle.hashCode() : 0);
-        return result;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -182,10 +173,6 @@ public class Order implements Serializable {
 
     public void setPizzaMap(Map<Pizza, Integer> pizzaMap) {
         this.pizzaMap = pizzaMap;
-    }
-
-    public OrderStateCycle getOrderStateCycle() {
-        return orderStateCycle;
     }
 
 

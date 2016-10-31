@@ -3,7 +3,6 @@ package pizzaservice;
 import domain.Address;
 import domain.Customer;
 import domain.LoyaltyCard;
-import domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +23,9 @@ public class SimpleCustomerService implements CustomerService {
         this.customerRepository = customerRepository;
     }
 
+    public SimpleCustomerService() {
+    }
+
     @Transactional
     @Override
     public Customer save(Customer customer){
@@ -36,12 +38,12 @@ public class SimpleCustomerService implements CustomerService {
     }
 
     @Override
-    public Customer findByName(String name) {
+    public List<Customer> findByName(String name) {
         return customerRepository.findByName(name);
     }
 
     @Override
-    public Customer findByLoyaltyCard(LoyaltyCard loyaltyCard) {
+    public List<Customer> findByLoyaltyCard(LoyaltyCard loyaltyCard) {
         return customerRepository.findByLoyaltyCard(loyaltyCard);
     }
 
@@ -59,5 +61,13 @@ public class SimpleCustomerService implements CustomerService {
      Customer createNewCustomer() {
         throw new IllegalStateException("Customer createNewCustomer method " +
                 "not overridden");
+    }
+
+    public CustomerRepository getCustomerRepository() {
+        return customerRepository;
+    }
+
+    public void setCustomerRepository(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
     }
 }

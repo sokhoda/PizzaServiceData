@@ -1,66 +1,74 @@
 package pizzaservice.cheque;
 
-import domain.*;
+import domain.Cheque;
+import domain.Order;
+import infrastructure.UnitTestData;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.AdditionalAnswers;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pizzaservice.ChequeService;
 import pizzaservice.OrderService;
 import pizzaservice.discount.DiscountCalculator;
 
-import java.util.*;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
-public class SimpleChequeProducerTest {
+public class SimpleChequeProducerTest extends UnitTestData {
     @Mock
     private DiscountCalculator discountCalculator;
     @Mock
     private OrderService orderService;
-    private SimpleChequeProducer scp;
+    @Mock
     private ChequeService chequeService;
 
+    @InjectMocks
+    private SimpleChequeProducer sChequeProducer;
+
     @Before
-    public void setUp() throws Exception {
+    public void init() throws Exception {
         MockitoAnnotations.initMocks(this);
-        scp = new SimpleChequeProducer(discountCalculator, orderService, chequeService);
     }
 
     @Test
     public void testPlaceCheque() throws Exception {
-        Order order = getSimpleOrder();
+
+        SimpleChequeProducer sChequeProducer = spy(SimpleChequeProducer.class);
+        sChequeProducer.setDiscountCalculator(discountCalculator);
+        sChequeProducer.setChequeService(chequeService);
+        sChequeProducer.setOrderService(orderService);
+
+        Order order = expectedOrder;
+        Cheque expectedCheque = new Cheque();
+        expectedCheque.setTotalSum(order.calcTotalSum());
+        expectedOrder.setCheque(expectedCheque);
 
         Cheque cheque = new Cheque();
-        System.out.println(cheque);
-
-        SimpleChequeProducer scpSpy = spy(scp);
 
 //      GIVEN
-        doNothing().when(discountCalculator).handleDiscount(order, cheque);
-        doReturn(cheque).when(scpSpy).createNewCheque();
+        doReturn(cheque).when(sChequeProducer).createNewCheque();
+        doReturn(cheque).when(discountCalculator).handleDiscount(order, cheque);
+        given(chequeService.save(any())).will(AdditionalAnswers.returnsFirstArg());
+        given(orderService.save(any())).will(AdditionalAnswers.returnsFirstArg());
+        doNothing().when(orderService).addTotalSumToCustomerLCard(any());
 
 //      WHEN
-        order = scpSpy.placeCheque(order);
-        Cheque actualCheque = order.getCheque();
+        Order actualOrder = sChequeProducer.placeCheque(order);
 
 //      THEN
-        assertThat(actualCheque, is(cheque));
-        verify(scpSpy).createNewCheque();
+        assertThat(actualOrder, is(expectedOrder));
+        verify(sChequeProducer).createNewCheque();
         verify(discountCalculator).handleDiscount(order, cheque);
-        verify(orderService).save(order);
+        verify(chequeService).save(cheque);
+        verify(orderService).save(actualOrder);
     }
 
-    private Order getSimpleOrder() {
-        final Map<Pizza, Integer> pizzaMap  = new HashMap<>();
-        Pizza pizza = new Pizza(2L, "Chicken", 120., PizzaType.MEAT);
-        Address address = new Address("0343", "Kyov","Customer", "Str", "18",
-                "2");
-        Customer customer = new Customer("Alex", address, new LoyaltyCard(0.));
-
-        pizzaMap.put(new Pizza(1L, "Tomato", 90., PizzaType.VEGETERIAN), 1);
-        return new Order(null, customer, pizzaMap);
+    @Test(expected = IllegalStateException.class)
+    public void createNewCheque() throws Exception {
+        sChequeProducer.createNewCheque();
     }
 }

@@ -18,6 +18,9 @@ public class DiscountCalculator {
         addHandler(new GeneralLoyaltyCardDiscountHandler());
     }
 
+    public DiscountCalculator() {
+    }
+
     public void addHandler(DiscountHandler handler) {
         if (prevHandler != null) {
             prevHandler.setNext(handler);

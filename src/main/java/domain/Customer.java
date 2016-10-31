@@ -65,6 +65,29 @@ public class Customer implements Serializable{
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        if (name != null ? !name.equals(customer.name) : customer.name != null)
+            return false;
+        if (address != null ? !address.equals(customer.address) : customer.address != null)
+            return false;
+        return loyaltyCard != null ? loyaltyCard.equals(customer.loyaltyCard) : customer.loyaltyCard == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (loyaltyCard != null ? loyaltyCard.hashCode() : 0);
+        return result;
+    }
+
     public Set<Address> getAddress() {
         return address;
     }

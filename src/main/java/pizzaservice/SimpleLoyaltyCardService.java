@@ -2,17 +2,30 @@ package pizzaservice;
 
 import domain.Customer;
 import domain.LoyaltyCard;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import repository.LoyaltyCardRepository;
 
 public class SimpleLoyaltyCardService implements LoyaltyCardService{
 
+    @Autowired
+    LoyaltyCardRepository loyaltyCardRepository;
 
-    @Override
-    public LoyaltyCard find(Long id) {
-        return null;
+    public SimpleLoyaltyCardService(LoyaltyCardRepository loyaltyCardRepository) {
+        this.loyaltyCardRepository = loyaltyCardRepository;
+    }
+
+    public SimpleLoyaltyCardService() {
     }
 
     @Override
+    public LoyaltyCard find(Long id) {
+        return loyaltyCardRepository.find(id);
+    }
+
+    @Transactional
+    @Override
     public LoyaltyCard save(LoyaltyCard loyaltyCard) {
-        return null;
+        return loyaltyCardRepository.save(loyaltyCard);
     }
 }

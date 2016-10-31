@@ -22,6 +22,10 @@ public class SimpleChequeProducer implements ChequeProducer {
         this.chequeService = chequeService;
     }
 
+    public SimpleChequeProducer() {
+    }
+
+    @Transactional
     @Override
     public Order placeCheque(Order order){
         Order newOrder = DomainHandleHelper.clone(order);
@@ -31,7 +35,7 @@ public class SimpleChequeProducer implements ChequeProducer {
         cheque = chequeService.save(cheque);
         newOrder.setCheque(cheque);
 
-        newOrder.addTotalSumToCustomerLCard();
+        orderService.addTotalSumToCustomerLCard(newOrder);
 
         return orderService.save(newOrder);
     }
@@ -40,5 +44,15 @@ public class SimpleChequeProducer implements ChequeProducer {
         throw new IllegalStateException("Container couldn`t create Proxy");
     }
 
+    public void setDiscountCalculator(DiscountCalculator discountCalculator) {
+        this.discountCalculator = discountCalculator;
+    }
 
+    public void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    public void setChequeService(ChequeService chequeService) {
+        this.chequeService = chequeService;
+    }
 }

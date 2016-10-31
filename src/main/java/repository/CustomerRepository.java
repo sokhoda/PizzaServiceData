@@ -10,9 +10,9 @@ import java.util.List;
 public interface CustomerRepository {
     Customer find(Long id);
 
-    Customer findByName(String name);
+    List<Customer> findByName(String name);
 
-    Customer findByLoyaltyCard(LoyaltyCard loyaltyCard);
+    List<Customer> findByLoyaltyCard(LoyaltyCard loyaltyCard);
 
     Customer save(Customer customer);
 
