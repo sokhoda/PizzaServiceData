@@ -7,6 +7,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pizzaservice.states.OrderStateCycle;
 import repository.OrderRepository;
@@ -15,7 +16,7 @@ import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Service("orderService")
 public class SimpleOrderService implements OrderService {
     public static final int DISCOUNT_THRESHOLD = 4;
     public static final int DISCOUNT_MOST_EXPENS_PIZZA_PERCENTAGE = 30;

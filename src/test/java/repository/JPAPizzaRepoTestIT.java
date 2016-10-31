@@ -2,6 +2,7 @@ package repository;
 
 import domain.Pizza;
 import domain.PizzaType;
+import infrastructure.RepoTestConfig;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

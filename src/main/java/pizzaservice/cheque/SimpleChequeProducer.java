@@ -4,11 +4,12 @@ import domain.Cheque;
 import domain.Order;
 import infrastructure.DomainHandleHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pizzaservice.ChequeService;
 import pizzaservice.OrderService;
 import pizzaservice.discount.DiscountCalculator;
-
+@Service("chequeProducer")
 public class SimpleChequeProducer implements ChequeProducer {
     private DiscountCalculator discountCalculator;
     private OrderService orderService;
