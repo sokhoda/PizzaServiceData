@@ -3,6 +3,7 @@ package repository;
 import domain.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.AdditionalAnswers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pizzaservice.OrderService;
@@ -17,7 +18,9 @@ import java.util.Map;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class SimpleOrderServiceTest {
     @Mock
@@ -35,13 +38,15 @@ public class SimpleOrderServiceTest {
     @Test
     public void testAddPizzas() throws Exception {
         final Map<Pizza, Integer> pizzaMap = new HashMap<>();
-        Pizza pizza = new Pizza(2L, "Chicken", 120., PizzaType.MEAT);
+        Pizza pizza2 = new Pizza(2L, "Chicken", 120., PizzaType.MEAT);
         pizzaMap.put(new Pizza(1L, "Tomato", 90., PizzaType.VEGETERIAN), 1);
         Order order = new Order(null, null, pizzaMap);
-        pizzaMap.put(pizza, 1);
+        pizzaMap.put(pizza2, 1);
 
         //GIVEN
-        given(pizzaService.find(2L)).willReturn(pizza);
+        given(pizzaService.find(2L)).willReturn(pizza2);
+        given(inMemOrderRepo.save(any())).will(AdditionalAnswers.returnsFirstArg());
+
 
         //WHEN
         Order actualOrder = orderService.addPizzas(order, 2L, 1L);
