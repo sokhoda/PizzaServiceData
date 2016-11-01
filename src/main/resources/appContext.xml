@@ -28,30 +28,6 @@
     </bean>
 
 
-    <!--customer description-->
-    <!--<bean id="customer" class="domain.Customer">-->
-        <!--<constructor-arg name="name" value="Maria Petrenko"/>-->
-        <!--<constructor-arg name="address" ref="address"/>-->
-        <!--<property name="loyaltyCard" ref="loyaltyCard"/>-->
-    <!--</bean>-->
-
-    <!--<bean id="address" class="domain.Address">-->
-        <!--<constructor-arg name="name" value="Kudryashova"/>-->
-        <!--<constructor-arg name="type" value="str"/>-->
-        <!--<constructor-arg name="buildingNo" value="18-A"/>-->
-        <!--<constructor-arg name="appNo" value="1"/>-->
-    <!--</bean>-->
-
-    <!--<bean id="loyaltyCard" class="domain.LoyaltyCard">-->
-        <!--<constructor-arg name="sum" value="0."/>-->
-    <!--</bean>-->
-
-    <!--<bean name="order" class="domain.Order" scope="prototype"/>-->
-
-    <!--pizzaservice.states description-->
-    <!--service description-->
-    <!--<bean name="pizzaService" class="pizzaservice.SimplePizzaService"-->
-          <!--autowire="constructor"/>-->
 
     <bean id="chequeProducer" class="pizzaservice.cheque.SimpleChequeProducer">
         <lookup-method name="createNewCheque" bean="cheque"/>

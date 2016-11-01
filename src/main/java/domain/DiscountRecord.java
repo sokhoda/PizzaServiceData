@@ -88,4 +88,12 @@ public class DiscountRecord implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Cheque getCheque() {
+        return cheque;
+    }
+
+    public void setCheque(Cheque cheque) {
+        this.cheque = cheque;
+    }
 }

@@ -30,26 +30,24 @@ public class SimpleChequeServiceTest extends UnitTestData{
     }
 
     @Test
-    @Ignore
     public void save() throws Exception {
 //       GIVEN
         given(chequeRepo.save(any())).will(AdditionalAnswers.returnsFirstArg());
 //        WHEN
-//        Cheque actualCustomer = sChequeService.save(testLoyaltyCard);
+        Cheque actualCheque = sChequeService.save(testCheque);
 //        THEN
-//        assertThat(actualCustomer, is(testLoyaltyCard));
+        assertThat(actualCheque, is(testCheque));
         verify(chequeRepo).save(any());
     }
 
     @Test
-    @Ignore
     public void find() throws Exception {
 //        GIVEN
-//        given(chequeRepo.find(1L)).willReturn(testLoyaltyCard);
+        given(chequeRepo.find(1L)).willReturn(testCheque);
 //        WHEN
-        Cheque actualLoyaltyCard = sChequeService.find(1L);
+        Cheque actualCheque = sChequeService.find(1L);
 //        THEN
-        assertThat(actualLoyaltyCard, is(testLoyaltyCard));
+        assertThat(actualCheque, is(testCheque));
         verify(chequeRepo).find(1L);
     }
 

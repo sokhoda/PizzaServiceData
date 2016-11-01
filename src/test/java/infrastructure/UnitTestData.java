@@ -18,11 +18,15 @@ public class UnitTestData {
     protected LoyaltyCard testLoyaltyCard;
     protected Address testAddress;
     protected String testCustomerName;
+    protected Cheque testCheque;
+    protected DiscountRecord testDiscountRecord;
 
     {
         initTestLoyaltyCard();
         initTestCustomer();
         initExpectedOrder();
+        initTestCheque();
+        initTestDiscontRecord();
     }
 
     private void initTestCustomer() {
@@ -37,6 +41,17 @@ public class UnitTestData {
 
     private void initTestLoyaltyCard() {
         testLoyaltyCard = new LoyaltyCard(0.);
+    }
+
+    private void initTestDiscontRecord() {
+        testDiscountRecord = new DiscountRecord();
+        testDiscountRecord.setId(1L);
+        testDiscountRecord.setCheque(testCheque);
+    }
+
+    private void initTestCheque(){
+        testCheque = new Cheque();
+        testCheque.setId(1L);
     }
 
     private void initExpectedOrder() {

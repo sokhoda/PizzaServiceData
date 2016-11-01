@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import repository.ChequeRepository;
 
-@Service
+@Service("chequeService")
 public class SimpleChequeService implements ChequeService {
     @Autowired
     @Qualifier("chequeRepository")
@@ -26,7 +26,6 @@ public class SimpleChequeService implements ChequeService {
         return chequeRepository.save(cheque);
 
     }
-
 
     @Override
     public Cheque find(Long id) {
