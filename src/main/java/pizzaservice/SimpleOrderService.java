@@ -13,13 +13,9 @@ import repository.OrderRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @Service("orderService")
 public class SimpleOrderService implements OrderService {
-    public static final int DISCOUNT_THRESHOLD = 4;
-    public static final int DISCOUNT_MOST_EXPENS_PIZZA_PERCENTAGE = 30;
-    public static final int DISCOUNT_MAX_ORDER_SUM_PERCENTAGE = 30;
-    public static final int DISCOUNT_LOYALTY_CARD_SUM_PERCENTAGE = 10;
-
     @Autowired
     private PizzaService pizzaService = null;
     @Autowired
@@ -39,12 +35,11 @@ public class SimpleOrderService implements OrderService {
     }
 
     @Override
-    public void addTotalSumToCustomerLCard(Orders order){
-        if (order != null){
+    public void addTotalSumToCustomerLCard(Orders order) {
+        if (order != null) {
             order.addTotalSumToCustomerLCard();
         }
     }
-
 
     @Transactional
     @Override
@@ -61,8 +56,6 @@ public class SimpleOrderService implements OrderService {
         newOrder.setCustomer(customer);
         newOrder.setPizzaMap(pizzaMap);
         newOrder.setOrderStateCycle(createNewOrderStateCycle());
-//        newOrder.setOrderStateCycle(new OrderStateCycle());
-//                new Order(customer, pizzas, new OrderStateCycle());
 
         return save(newOrder);
     }
@@ -114,7 +107,7 @@ public class SimpleOrderService implements OrderService {
 
     @Transactional
     @Override
-    public Orders save(Orders order){
+    public Orders save(Orders order) {
         return orderRepo.save(order);
     }
 

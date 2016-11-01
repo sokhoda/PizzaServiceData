@@ -56,7 +56,6 @@ public class LoyaltyCard implements Serializable{
         LoyaltyCard that = (LoyaltyCard) o;
 
         return sum != null ? sum.equals(that.sum) : that.sum == null;
-
     }
 
     @Override

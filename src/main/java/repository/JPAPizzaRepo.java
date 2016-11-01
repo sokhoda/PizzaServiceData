@@ -1,7 +1,6 @@
 package repository;
 
 import domain.Pizza;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

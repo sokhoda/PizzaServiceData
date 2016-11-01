@@ -1,6 +1,5 @@
 package pizzaservice.states;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**

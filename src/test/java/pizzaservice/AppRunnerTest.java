@@ -1,7 +1,6 @@
 package pizzaservice;
 
 import org.junit.Test;
-import pizzaservice.AppRunner;
 
 public class AppRunnerTest {
     @Test

@@ -1,11 +1,10 @@
 package pizzaservice;
 
-import domain.Orders;
 import domain.Pizza;
+import infrastructure.RepoTestConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import infrastructure.RepoTestConfig;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
 import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class SimplePizzaServiceTestIT extends RepoTestConfig{
     @Autowired
@@ -31,7 +29,6 @@ public class SimplePizzaServiceTestIT extends RepoTestConfig{
         Pizza expectedPizza = pizzaService.save(testPizza1);
         //THEN
         assertNotNull(expectedPizza.getId());
-
     }
 
     @Test
@@ -54,5 +51,4 @@ public class SimplePizzaServiceTestIT extends RepoTestConfig{
         //THEN
         assertThat(actualPizzaList,is(expectedPizzaList));
     }
-
 }

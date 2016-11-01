@@ -66,38 +66,38 @@ public class SpringJPAAppRunner {
         System.out.println("\n\n\n\n\n\n !!!" + orderRepository.findByCustomer
                 (customer1));
 
-//        for (int i = 0; i < 3; i++) {
-//            init(pizzaService, addressService);
-//        }
-//
-//        Pizza pizza = pizzaRepository.read(5L);
-//        System.out.println(pizza);
-//        Customer customer = customerRepository.find(1L);
-//        OrderStateCycle orderStateCycle = (OrderStateCycle)appContext.getBean
-//                ("orderStateCycle");
-//        System.out.println(orderStateCycle+ "!!!!!!!!!!!!!!!!!!!!!!");
-//        System.out.println();
-//        OrderService orderService =  appContext.getBean("orderService", OrderService.class);
-//        Orders order = orderService.placeNewOrder(customer, 1L, 2L, 4L);
-//        order = orderService.addPizzas(order, 1L, 2L);
-//
-//        ChequeProducer chequeProducer = appContext.getBean("chequeProducer",
-//                ChequeProducer.class);
-//        System.out.println("Customer::\n" + customer);
-//        order = chequeProducer.placeCheque(order);
-//
-//        System.out.println(order);
-//        System.out.println("Cheque::\n" + order.getCheque());
-//
-//        System.out.println("Customer::" + customer);
-//        Orders order2 = orderService.placeNewOrder(customer,  3L, 6L);
-//        order2 = chequeProducer.placeCheque(order2);
-//        order2.nextState();
-//        order2 = orderService.save(order2);
-//        System.out.println(order2);
-//        System.out.println("Cheque::\n" + order2.getCheque());
-//
-//        System.out.println(orderService.findByCustomer(customer));
+        for (int i = 0; i < 3; i++) {
+            init(pizzaService, addressService);
+        }
+
+        Pizza pizza = pizzaRepository.read(5L);
+        System.out.println(pizza);
+        Customer customer = customerRepository.find(1L);
+        OrderStateCycle orderStateCycle = (OrderStateCycle)appContext.getBean
+                ("orderStateCycle");
+        System.out.println(orderStateCycle+ "!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println();
+        OrderService orderService =  appContext.getBean("orderService", OrderService.class);
+        Orders order = orderService.placeNewOrder(customer, 1L, 2L, 4L);
+        order = orderService.addPizzas(order, 1L, 2L);
+
+        ChequeProducer chequeProducer = appContext.getBean("chequeProducer",
+                ChequeProducer.class);
+        System.out.println("Customer::\n" + customer);
+        order = chequeProducer.placeCheque(order);
+
+        System.out.println(order);
+        System.out.println("Cheque::\n" + order.getCheque());
+
+        System.out.println("Customer::" + customer);
+        Orders order2 = orderService.placeNewOrder(customer,  3L, 6L);
+        order2 = chequeProducer.placeCheque(order2);
+        order2.nextState();
+        order2 = orderService.save(order2);
+        System.out.println(order2);
+        System.out.println("Cheque::\n" + order2.getCheque());
+
+        System.out.println(orderService.findByCustomer(customer));
 //+++++++++++++++++++++++++++++++++++++++++++++++
 //        System.out.println(order + "\n" + order2);
 //        order = orderService.save(order);

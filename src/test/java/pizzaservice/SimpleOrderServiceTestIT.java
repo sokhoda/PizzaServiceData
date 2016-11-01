@@ -1,17 +1,18 @@
 package pizzaservice;
 
-import domain.*;
-import org.junit.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import domain.Orders;
 import infrastructure.RepoTestConfig;
-import pizzaservice.states.StateEn;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.Types;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class SimpleOrderServiceTestIT extends RepoTestConfig {
     @Autowired

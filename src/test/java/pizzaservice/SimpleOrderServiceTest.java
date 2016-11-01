@@ -1,6 +1,8 @@
 package pizzaservice;
 
-import domain.*;
+import domain.LoyaltyCard;
+import domain.Orders;
+import infrastructure.UnitTestData;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.AdditionalAnswers;
@@ -9,14 +11,13 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pizzaservice.states.OrderStateCycle;
 import repository.OrderRepository;
-import infrastructure.UnitTestData;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -28,8 +29,6 @@ public class SimpleOrderServiceTest extends UnitTestData {
     private PizzaService pizzaService;
     @Mock
     private OrderStateCycle orderStateCycle;
-
-
     @InjectMocks
     private SimpleOrderService simpleOrderService;
 
@@ -37,7 +36,6 @@ public class SimpleOrderServiceTest extends UnitTestData {
     public void init() {
         MockitoAnnotations.initMocks(this);
     }
-
 
     @Test
     public void addPizzas() throws Exception {
@@ -50,33 +48,26 @@ public class SimpleOrderServiceTest extends UnitTestData {
         //GIVEN
         given(pizzaService.find(2L)).willReturn(testPizza2);
         given(orderRepo.save(any())).will(AdditionalAnswers.returnsFirstArg());
-
-
         //WHEN
         Orders actualOrder = simpleOrderService.addPizzas(order, 2L, 1L);
-
         //THEN
         assertThat(actualOrder, is(expectedOrder));
         verify(pizzaService).find(2L);
         verify(orderRepo).save(any());
     }
 
-
     @Test
     public void placeNewOrder() throws Exception {
         SimpleOrderService sOrderService = spy(SimpleOrderService.class);
         sOrderService.setPizzaService(pizzaService);
         sOrderService.setOrderRepo(orderRepo);
-
 //      GIVEN
         given(orderRepo.save(any())).will(AdditionalAnswers.returnsFirstArg());
-
 //      WHEN
         when(pizzaService.find(1L)).thenReturn(testPizza1);
         doReturn(new Orders()).when(sOrderService).createNewOrder();
         doReturn(new OrderStateCycle()).when(sOrderService).createNewOrderStateCycle();
         Orders actualOrder = sOrderService.placeNewOrder(testCustomer, 1L);
-
 //      THEN
         assertThat(actualOrder, is(expectedOrder));
         verify(pizzaService).find(1L);
@@ -84,7 +75,6 @@ public class SimpleOrderServiceTest extends UnitTestData {
         verify(sOrderService).createNewOrderStateCycle();
         verify(orderRepo).save(any());
     }
-
 
     @Test(expected = IllegalStateException.class)
     public void testCreateNewOrder() throws Exception {
@@ -98,7 +88,6 @@ public class SimpleOrderServiceTest extends UnitTestData {
 
     @Test
     public void find() throws Exception {
-
 //        GIVEN
         given(orderRepo.find(1L)).willReturn(expectedOrder);
 //        WHEN
@@ -112,7 +101,6 @@ public class SimpleOrderServiceTest extends UnitTestData {
     public void addTotalSumToCustomerLCard() throws Exception {
         LoyaltyCard expectedLoyaltyCard = new LoyaltyCard();
         expectedLoyaltyCard.setSum(expectedOrder.calcTotalSum());
-
 //        GIVEN
 //        WHEN
         simpleOrderService.addTotalSumToCustomerLCard(expectedOrder);
@@ -137,15 +125,12 @@ public class SimpleOrderServiceTest extends UnitTestData {
 
     @Test
     public void save() throws Exception {
-
 //      GIVEN
         given(orderRepo.save(any())).will(AdditionalAnswers.returnsFirstArg());
-//        WHEN
+//      WHEN
         final Orders actualOrder = simpleOrderService.save(expectedOrder);
-//        THEN
+//      THEN
         assertThat(actualOrder, is(expectedOrder));
         verify(orderRepo).save(any());
     }
-
-
 }

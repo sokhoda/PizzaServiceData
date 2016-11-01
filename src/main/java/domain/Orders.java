@@ -19,7 +19,8 @@ import java.util.TreeSet;
         @NamedQuery(name = "Order.findByCustomer", query =
                 "SELECT ord from Orders ord WHERE ord.customer = :customer")
 })
-@Table(name = "TB_ORDER") @Access(AccessType.FIELD)
+@Table(name = "TB_ORDER")
+@Access(AccessType.FIELD)
 public class Orders implements Serializable {
     @Id
     @TableGenerator(
@@ -47,11 +48,6 @@ public class Orders implements Serializable {
     @Column(name = "QUANTITY")
     private Map<Pizza, Integer> pizzaMap;
 
-//    @Enumerated(EnumType.STRING)
-//    private StateEn state;
-
-    //    @OneToOne
-//    @JoinColumn(name = "OrderStateCycle_ID")
     @Autowired
     @Embedded
     private OrderStateCycle orderStateCycle;

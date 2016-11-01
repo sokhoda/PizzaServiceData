@@ -1,10 +1,9 @@
 package infrastructure.converters;
 
 import javax.persistence.AttributeConverter;
-import java.util.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Date;
 
 public class DateConverter implements AttributeConverter<LocalDateTime, Date> {
     @Override

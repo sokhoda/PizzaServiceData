@@ -24,7 +24,6 @@ import static org.mockito.Mockito.*;
 public class SimpleCustomerServiceTest extends UnitTestData {
     @Mock
     private CustomerRepository customerRepo;
-
     @InjectMocks
     private SimpleCustomerService simpleCustomerService;
 
@@ -73,7 +72,6 @@ public class SimpleCustomerServiceTest extends UnitTestData {
 
     @Test
     public void findByLoyaltyCard() throws Exception {
-
         List<Customer> expectedCustomerList = new ArrayList<>(Arrays
                 .asList(testCustomer));
 //        GIVEN
@@ -83,22 +81,18 @@ public class SimpleCustomerServiceTest extends UnitTestData {
 //        THEN
         assertThat(actualCustomerList, is(expectedCustomerList));
         verify(customerRepo).findByLoyaltyCard(testLoyaltyCard);
-
     }
 
     @Test
     public void placeNewCustomer() throws Exception {
         SimpleCustomerService sCustomerService = spy(SimpleCustomerService.class);
         sCustomerService.setCustomerRepository(customerRepo);
-
 //      GIVEN
         given(customerRepo.save(any())).will(AdditionalAnswers.returnsFirstArg());
-
 //      WHEN
         doReturn(new Customer()).when(sCustomerService).createNewCustomer();
         Customer actualCustomer = sCustomerService.placeNewCustomer(testCustomerName,
                 testAddress, testLoyaltyCard);
-
 //      THEN
         assertThat(actualCustomer, is(testCustomer));
         verify(sCustomerService).createNewCustomer();
@@ -109,5 +103,4 @@ public class SimpleCustomerServiceTest extends UnitTestData {
     public void createNewCustomer() throws Exception {
         simpleCustomerService.createNewCustomer();
     }
-
 }

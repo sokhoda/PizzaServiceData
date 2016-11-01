@@ -1,6 +1,8 @@
 package repository;
 
-import domain.*;
+import domain.Address;
+import domain.Customer;
+import domain.LoyaltyCard;
 import infrastructure.Benchmark;
 import org.springframework.stereotype.Repository;
 

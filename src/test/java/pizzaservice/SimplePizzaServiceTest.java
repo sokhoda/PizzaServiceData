@@ -1,6 +1,7 @@
 package pizzaservice;
 
 import domain.Pizza;
+import infrastructure.UnitTestData;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.AdditionalAnswers;
@@ -8,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import repository.PizzaRepository;
-import infrastructure.UnitTestData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,15 +23,13 @@ import static org.mockito.Mockito.verify;
 public class SimplePizzaServiceTest extends UnitTestData {
     @Mock
     private PizzaRepository pizzaRepo;
-
     @InjectMocks
-    SimplePizzaService simplePizzaService;
+    private SimplePizzaService simplePizzaService;
 
     @Before
     public  void init() {
         MockitoAnnotations.initMocks(this);
     }
-
 
     @Test
     public void testFind() throws Exception {
@@ -42,16 +40,15 @@ public class SimplePizzaServiceTest extends UnitTestData {
 //        THEN
         assertThat(actualPizza, is(testPizza1));
         verify(pizzaRepo).find(1L);
-
     }
 
     @Test
     public void save() throws Exception {
 //       GIVEN
         given(pizzaRepo.save(any())).will(AdditionalAnswers.returnsFirstArg());
-//        WHEN
+//       WHEN
         final Pizza actualPizza = simplePizzaService.save(testPizza1);
-//        THEN
+//       THEN
         assertThat(actualPizza, is(testPizza1));
         verify(pizzaRepo).save(any());
     }
@@ -60,15 +57,12 @@ public class SimplePizzaServiceTest extends UnitTestData {
     public void findAll() throws Exception {
         List<Pizza> expectedPizzaList = new ArrayList<>(Arrays.asList
                 (testPizza1, testPizza2));
-
-        //        GIVEN
+//        GIVEN
         given(pizzaRepo.findAll()).willReturn(expectedPizzaList);
 //        WHEN
         List<Pizza> actualPizzaList = simplePizzaService.findAll();
 //        THEN
         assertThat(actualPizzaList,is(expectedPizzaList));
         verify(pizzaRepo).findAll();
-
     }
-
 }

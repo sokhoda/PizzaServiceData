@@ -5,8 +5,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import javax.transaction.Transaction;
-import java.util.List;
 
 @Repository("chequeRepository")
 public class JPAChequeRepo implements ChequeRepository {

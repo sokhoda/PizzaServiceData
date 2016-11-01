@@ -1,6 +1,5 @@
 package pizzaservice;
 
-import domain.Customer;
 import domain.LoyaltyCard;
 import infrastructure.UnitTestData;
 import org.junit.Before;
@@ -13,7 +12,6 @@ import repository.LoyaltyCardRepository;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;

@@ -19,7 +19,7 @@ import java.util.Map;
         "classpath:/inMemoryRepoContextH2.xml"
 })
 @Rollback(value = false)
-public class RepoTestConfig extends AbstractTransactionalJUnit4SpringContextTests{
+public class RepoTestConfig extends AbstractTransactionalJUnit4SpringContextTests {
 
     protected final Pizza testPizza1 = new Pizza(1L, "Tomato", 90., PizzaType
             .VEGETERIAN);
@@ -40,7 +40,7 @@ public class RepoTestConfig extends AbstractTransactionalJUnit4SpringContextTest
 
     private void initTestCustomer() {
         testCustomerName = "Alex";
-        testCustomer = new Customer(testCustomerName,  testLoyaltyCard);
+        testCustomer = new Customer(testCustomerName, testLoyaltyCard);
         testAddress = new Address("03004", "Kyiv", "CustomStreetName", "Str",
                 "18", "2", testCustomer);
         testAddress.setId(1L);
@@ -58,7 +58,6 @@ public class RepoTestConfig extends AbstractTransactionalJUnit4SpringContextTest
         orderStateCycle.setCurState(new NewState());
         expectedOrder = new Orders(testCustomer, pizzaMap, orderStateCycle);
     }
-
 
 
     public void insertOrder() {

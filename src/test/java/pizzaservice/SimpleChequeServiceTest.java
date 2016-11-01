@@ -1,7 +1,6 @@
 package pizzaservice;
 
 import domain.Cheque;
-import domain.LoyaltyCard;
 import infrastructure.UnitTestData;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -14,7 +13,6 @@ import repository.ChequeRepository;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
@@ -23,9 +21,8 @@ public class SimpleChequeServiceTest extends UnitTestData{
 
     @Mock
     private ChequeRepository chequeRepo;
-
     @InjectMocks
-    SimpleChequeService sChequeService;
+    private SimpleChequeService sChequeService;
 
     @Before
     public void init() {

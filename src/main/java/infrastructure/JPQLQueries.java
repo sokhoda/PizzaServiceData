@@ -1,7 +1,5 @@
 package infrastructure;
 
-import domain.Customer;
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;

@@ -10,7 +10,7 @@ public class DomainHandleHelper<T> {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(bos);
-            oos.writeObject((Object) obj);
+            oos.writeObject(obj);
             oos.flush();
             oos.close();
             bos.close();
