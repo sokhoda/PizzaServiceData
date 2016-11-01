@@ -3,6 +3,8 @@ package repository;
 import domain.Pizza;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -27,6 +29,7 @@ public class JPAPizzaRepo implements PizzaRepository {
         return query.setParameter("id", id).getSingleResult();
     }
 
+    @Transactional
     @Override
     public Pizza save(Pizza pizza) {
         return em.merge(pizza);

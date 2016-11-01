@@ -12,7 +12,7 @@ public interface OrderService {
 
     Order addPizzas(Order order, Long... idNoPair);
 
-    Order find(Long Order);
+    Order find(Long id);
 
     List<Order> findByCustomer(Customer customer);
 

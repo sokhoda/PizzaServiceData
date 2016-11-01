@@ -80,13 +80,6 @@ public class Customer implements Serializable{
 
     }
 
-    @Override
-    public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (loyaltyCard != null ? loyaltyCard.hashCode() : 0);
-        return result;
-    }
 
     public Set<Address> getAddress() {
         return address;

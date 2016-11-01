@@ -25,15 +25,14 @@ public class OrderStateCycle implements Serializable{
 //            "orderStateCycleGen")
 //    private Long id;
 
-    private static State newSt;
+    private  State newSt;
 
-    private static State inProgressSt;
+    private  State inProgressSt;
 
-    private static State cancelledSt;
+    private  State cancelledSt;
 
-    private static State doneSt;
-
-//    @Enumerated(EnumType.STRING)
+    private  State doneSt;
+@OneToOne(cascade = CascadeType.MERGE)
     private State curState;
 
     public OrderStateCycle(State newSt, State inProgressSt, State cancelledSt, State doneSt) {

@@ -48,7 +48,8 @@ public class Address implements Serializable {
     @Override
     public String toString() {
         return "Address{" +
-                "zipCode='" + zipCode + '\'' +
+                "id=" + id +
+                ", zipCode='" + zipCode + '\'' +
                 ", City='" + City + '\'' +
                 ", strName='" + strName + '\'' +
                 ", type='" + type + '\'' +
@@ -78,18 +79,6 @@ public class Address implements Serializable {
             return false;
         return customer != null ? customer.equals(address.customer) : address.customer == null;
 
-    }
-
-    @Override
-    public int hashCode() {
-        int result = zipCode != null ? zipCode.hashCode() : 0;
-        result = 31 * result + (City != null ? City.hashCode() : 0);
-        result = 31 * result + (strName != null ? strName.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (buildingNo != null ? buildingNo.hashCode() : 0);
-        result = 31 * result + (appNo != null ? appNo.hashCode() : 0);
-        result = 31 * result + (customer != null ? customer.hashCode() : 0);
-        return result;
     }
 
     public String getStrName() {

@@ -43,10 +43,12 @@ public class JPAPizzaRepoTestIT extends RepoTestConfig {
         //WHEN
 //        Pizza actualPizza = (Pizza) jdbcTemplate.queryForObject(
 //                "SELECT * from PIZZA", null, new PizzaRowMapper());
-        List<Pizza> actualPizza =  jdbcTemplate.query(
-                "SELECT * from PIZZA", new BeanPropertyRowMapper(Pizza.class));
+//        List<Pizza> actualPizza =  jdbcTemplate.query(
+//                "SELECT * from PIZZA", new BeanPropertyRowMapper(Pizza.class));
 
-        System.out.println("size=" + actualPizza.isEmpty());
+        List<Pizza> actualPizza = jdbcTemplate.queryForList("SELECT * FROM " +
+                "PIZZA", Pizza.class);
+        System.out.println("size=" + actualPizza);
         //THEN
 //        assertThat(actualPizza.get(0), is(expectedPizza));
     }
@@ -55,8 +57,7 @@ public class JPAPizzaRepoTestIT extends RepoTestConfig {
     public void testFind() throws Exception {
         Pizza expectedPizza = testPizza;
         Object[] params = {13, "Oleksandr's", 1230, "SEA"};
-        int[] types = {Types.INTEGER, Types.VARCHAR, Types.INTEGER, Types
-                .VARCHAR};
+        int[] types = {Types.INTEGER, Types.VARCHAR, Types.INTEGER, Types.VARCHAR};
 
         jdbcTemplate.update("INSERT INTO pizza (id, name, price, type) VALUES" +
                 "(?,?,?,?)", params, types);

@@ -52,8 +52,8 @@ public class Order implements Serializable {
 
     //    @OneToOne
 //    @JoinColumn(name = "OrderStateCycle_ID")
-    @Embedded
     @Autowired
+    @Embedded
     private OrderStateCycle orderStateCycle;
 
     public Order() {
@@ -132,7 +132,6 @@ public class Order implements Serializable {
 
         Order order = (Order) o;
 
-        if (id != null ? !id.equals(order.id) : order.id != null) return false;
         if (cheque != null ? !cheque.equals(order.cheque) : order.cheque != null)
             return false;
         if (customer != null ? !customer.equals(order.customer) : order.customer != null)
