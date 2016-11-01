@@ -3,7 +3,7 @@ package pizzaservice.discount;
 import domain.Cheque;
 import domain.DiscountRecord;
 import domain.LoyaltyCard;
-import domain.Order;
+import domain.Orders;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,7 +16,7 @@ public class GeneralLoyaltyCardDiscountHandler implements DiscountHandler {
     }
 
     @Override
-    public void handleDiscount(Order order, Cheque cheque) {
+    public void handleDiscount(Orders order, Cheque cheque) {
         LoyaltyCard loyaltyCard = order.getCustomer().getLoyaltyCard();
         if (loyaltyCard != null) {
             Double discount1 = order.calcTotalSum() *
@@ -27,7 +27,7 @@ public class GeneralLoyaltyCardDiscountHandler implements DiscountHandler {
                     DISCOUNT_LOYALTY_CARD_SUM_PERCENTAGE + "% discount of " +
                     "LoyaltyCard Sum";
             cheque.getDiscountList().add(new DiscountRecord(discountName,
-                    discountSum));
+                    discountSum, cheque));
         }
     }
 }

@@ -37,6 +37,6 @@ public class JPAPizzaRepo implements PizzaRepository {
 
     @Override
     public List<Pizza> findAll() {
-        return em.createQuery("SELECT p FROM Pizza", Pizza.class).getResultList();
+        return em.createQuery("SELECT p FROM Pizza p ", Pizza.class).getResultList();
     }
 }

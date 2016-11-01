@@ -1,7 +1,7 @@
 package pizzaservice.cheque;
 
 import domain.Cheque;
-import domain.Order;
+import domain.Orders;
 import infrastructure.DomainHandleHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +28,8 @@ public class SimpleChequeProducer implements ChequeProducer {
 
     @Transactional
     @Override
-    public Order placeCheque(Order order){
-        Order newOrder = DomainHandleHelper.clone(order);
+    public Orders placeCheque(Orders order){
+        Orders newOrder = DomainHandleHelper.clone(order);
         Cheque cheque = createNewCheque();
         cheque.setTotalSum(newOrder.calcTotalSum());
         cheque = discountCalculator.handleDiscount(newOrder, cheque);

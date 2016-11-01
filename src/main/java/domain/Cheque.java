@@ -1,5 +1,6 @@
 package domain;
 
+import infrastructure.converters.DateConverter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +30,7 @@ public class Cheque implements Serializable{
 
     private String title;
 
+    @Convert(converter = DateConverter.class)
     private LocalDateTime date;
 
     private Double totalSum;
@@ -49,6 +51,10 @@ public class Cheque implements Serializable{
     public Cheque(String title, LocalDateTime date) {
         this.title = title;
         this.date = date;
+    }
+
+    public Cheque(LocalDateTime date) {
+        this(DEFAULT_TITLE, date);
     }
 
     @Override
@@ -78,15 +84,6 @@ public class Cheque implements Serializable{
 
     }
 
-    @Override
-    public int hashCode() {
-        int result = title != null ? title.hashCode() : 0;
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (totalSum != null ? totalSum.hashCode() : 0);
-        result = 31 * result + (discountList != null ? discountList.hashCode() : 0);
-        return result;
-    }
-
     public Double getTotalSum() {
         return totalSum;
     }
@@ -94,7 +91,6 @@ public class Cheque implements Serializable{
     public void setTotalSum(Double totalSum) {
         this.totalSum = totalSum;
     }
-
     public Double calcDueSum(){
         Double discountSum = 0.;
         for (DiscountRecord discountRecord : discountList) {
@@ -107,9 +103,6 @@ public class Cheque implements Serializable{
         return discountSum;
     }
 
-    public Cheque(LocalDateTime date) {
-        this(DEFAULT_TITLE, date);
-    }
 
     public Long getId() {
         return id;

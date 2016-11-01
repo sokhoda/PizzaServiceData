@@ -6,25 +6,18 @@ import java.io.Serializable;
 /**
  * Created by s_okhoda on 10.10.2016.
  */
-@Entity
 public abstract class State implements Serializable{
-    @Id
-    @TableGenerator(
-            name = "stateGen",
-            table = "ID_GEN",
-            pkColumnName = "GEN_KEY",
-            pkColumnValue = "state_ID",
-            valueColumnName = "GEN_VALUE",
-            initialValue = 0,
-            allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator =
-            "stateGen")
-    private Long id;
-    @Enumerated(EnumType.STRING)
-    protected StateEn name;
 
+    protected StateEn name;
     public abstract State nextState(OrderStateCycle context);
     public abstract State previousState(OrderStateCycle context);
+
+    public State() {
+    }
+
+    public State(StateEn name) {
+        this.name = name;
+    }
 
     public State setStateAndReturn(OrderStateCycle context, State state){
         context.setCurState(state);
@@ -44,5 +37,21 @@ public abstract class State implements Serializable{
         return "State{" +
                 "name=" + name +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        State state = (State) o;
+
+        return name == state.name;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
     }
 }

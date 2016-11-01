@@ -1,6 +1,6 @@
 package dao;
 
-import domain.Order;
+import domain.Orders;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,7 +11,7 @@ public class SimpleOrderDao implements OrderDao {
     CustomerDao customerDao = new SimpleCustomerDao();
 
     @Override
-    public Order find(Long id) {
+    public Orders find(Long id) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory
                 ("jpa");
         EntityManager em = emf.createEntityManager();
@@ -20,7 +20,7 @@ public class SimpleOrderDao implements OrderDao {
     }
 
     @Override
-    public Long save(Order order) {
+    public Long save(Orders order) {
         Long id = null;
         if (order == null) {
             return id;

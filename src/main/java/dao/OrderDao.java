@@ -1,9 +1,9 @@
 package dao;
 
-import domain.Order;
+import domain.Orders;
 
 public interface OrderDao {
-    Order find(Long id);
+    Orders find(Long id);
 
-    Long save(Order order);
+    Long save(Orders order);
 }

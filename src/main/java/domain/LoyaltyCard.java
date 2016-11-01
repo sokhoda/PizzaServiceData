@@ -26,7 +26,7 @@ public class LoyaltyCard implements Serializable{
             "LOYALTYCARDGen")
     private Long id;
 
-    @OneToOne(mappedBy = "loyaltyCard" )
+    @OneToOne(mappedBy = "loyaltyCard")
     private Customer customer;
 
     private Double sum;
@@ -55,17 +55,13 @@ public class LoyaltyCard implements Serializable{
 
         LoyaltyCard that = (LoyaltyCard) o;
 
-        if (customer != null ? !customer.equals(that.customer) : that.customer != null)
-            return false;
         return sum != null ? sum.equals(that.sum) : that.sum == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = customer != null ? customer.hashCode() : 0;
-        result = 31 * result + (sum != null ? sum.hashCode() : 0);
-        return result;
+        return sum != null ? sum.hashCode() : 0;
     }
 
     public Long getId() {

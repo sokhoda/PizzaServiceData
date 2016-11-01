@@ -25,7 +25,7 @@
         <constructor-arg name="sum" value="0."/>
     </bean>
 
-    <bean name="order" class="domain.Order" scope="prototype"/>
+    <bean name="order" class="domain.Orders" scope="prototype"/>
 
     <!--pizzaservice.states description-->
     <!--service description-->

@@ -2,7 +2,7 @@ package pizzaservice;
 
 import domain.Cheque;
 import domain.Customer;
-import domain.Order;
+import domain.Orders;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pizzaservice.cheque.ChequeProducer;
@@ -44,7 +44,7 @@ OrderStateCycle orderStateCycle = appContext.getBean("orderStateCycle",
                 ChequeProducer.class);
         OrderService orderService =  appContext.getBean("orderService", OrderService.class);
         System.out.println(orderService);
-        Order order = orderService.placeNewOrder(customer, 1L, 2L, 3L);
+        Orders order = orderService.placeNewOrder(customer, 1L, 2L, 3L);
         order = orderService.addPizzas(order, 1L, 2L);
 
         order = chequeProducer.placeCheque(order);

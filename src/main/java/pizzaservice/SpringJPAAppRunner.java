@@ -6,6 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pizzaservice.cheque.ChequeProducer;
 import pizzaservice.states.OrderStateCycle;
 import repository.CustomerRepository;
+import repository.OrderRepository;
 import repository.PizzaRepository;
 
 import java.util.Arrays;
@@ -15,7 +16,7 @@ import java.util.Random;
 public class SpringJPAAppRunner {
     private static Random random = new Random();
     public static void init(PizzaService pizzaService,
-                            CustomerService customerService) {
+                            AddressService addressService) {
         if (pizzaService == null) return;
         pizzaService.save(new Pizza(null, "Tomato", (double)random.nextInt
                 (1000), PizzaType.VEGETERIAN));
@@ -23,11 +24,13 @@ public class SpringJPAAppRunner {
                 (1000), PizzaType.MEAT));
         pizzaService.save(new Pizza(null, "Fish", (double)random.nextInt
                 (1000), PizzaType.SEA));
-        Customer customer = new Customer("Anna Guyvan", new Address
-                ("01032","Kyiv", "Iwana Pidkovy", "Str.",  String.valueOf
-                        (random.nextInt(1000)), "18"), new
-                LoyaltyCard(0.));
-        customerService.save(customer);
+
+        Customer customer = new Customer("Anna Guyvan",  new LoyaltyCard(0.));
+        Address address = new Address
+                ("01032", "Kyiv", "Iwana Pidkovy", "Str.", String.valueOf
+                        (random.nextInt(1000)), String.valueOf
+                        (random.nextInt(90)), customer);
+        addressService.save(address);
     }
 
     public static void main(String[] args) {
@@ -44,6 +47,8 @@ public class SpringJPAAppRunner {
         System.out.println(Arrays.toString(appContext.getBeanDefinitionNames()));
 
         CustomerService customerService = appContext.getBean("customerService", CustomerService.class);
+        AddressService addressService = appContext.getBean("addressService",
+                AddressService.class);
 //        Customer customer = customerService.find(1L);
 //        System.out.println(customer);
 //
@@ -53,39 +58,47 @@ public class SpringJPAAppRunner {
                 ("pizzaRepository");
         PizzaService pizzaService = (PizzaService) appContext.getBean
                 ("pizzaService");
-        for (int i = 0; i < 3; i++) {
-            init(pizzaService, customerService);
-        }
 
-        Pizza pizza = pizzaRepository.read(5L);
-        System.out.println(pizza);
-        Customer customer = customerRepository.find(1L);
-        OrderStateCycle orderStateCycle = (OrderStateCycle)appContext.getBean
-                ("orderStateCycle");
-        System.out.println(orderStateCycle+ "!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println();
-        OrderService orderService =  appContext.getBean("orderService", OrderService.class);
-        Order order = orderService.placeNewOrder(customer, 1L, 2L, 4L);
-        order = orderService.addPizzas(order, 1L, 2L);
+        OrderRepository orderRepository = appContext.getBean
+                ("orderRepository", OrderRepository.class);
+        Customer customer1 = customerRepository.find(1L);
 
-        ChequeProducer chequeProducer = appContext.getBean("chequeProducer",
-                ChequeProducer.class);
-        System.out.println("Customer::\n" + customer);
-        order = chequeProducer.placeCheque(order);
+        System.out.println("\n\n\n\n\n\n !!!" + orderRepository.findByCustomer
+                (customer1));
 
-        System.out.println(order);
-        System.out.println("Cheque::\n" + order.getCheque());
-
-        System.out.println("Customer::" + customer);
-        Order order2 = orderService.placeNewOrder(customer,  3L, 6L);
-        order2 = chequeProducer.placeCheque(order2);
-        order2.nextState();
-        order2 = orderService.save(order2);
-        System.out.println(order2);
-        System.out.println("Cheque::\n" + order2.getCheque());
-
-        System.out.println(orderService.findByCustomer(customer));
-
+//        for (int i = 0; i < 3; i++) {
+//            init(pizzaService, addressService);
+//        }
+//
+//        Pizza pizza = pizzaRepository.read(5L);
+//        System.out.println(pizza);
+//        Customer customer = customerRepository.find(1L);
+//        OrderStateCycle orderStateCycle = (OrderStateCycle)appContext.getBean
+//                ("orderStateCycle");
+//        System.out.println(orderStateCycle+ "!!!!!!!!!!!!!!!!!!!!!!");
+//        System.out.println();
+//        OrderService orderService =  appContext.getBean("orderService", OrderService.class);
+//        Orders order = orderService.placeNewOrder(customer, 1L, 2L, 4L);
+//        order = orderService.addPizzas(order, 1L, 2L);
+//
+//        ChequeProducer chequeProducer = appContext.getBean("chequeProducer",
+//                ChequeProducer.class);
+//        System.out.println("Customer::\n" + customer);
+//        order = chequeProducer.placeCheque(order);
+//
+//        System.out.println(order);
+//        System.out.println("Cheque::\n" + order.getCheque());
+//
+//        System.out.println("Customer::" + customer);
+//        Orders order2 = orderService.placeNewOrder(customer,  3L, 6L);
+//        order2 = chequeProducer.placeCheque(order2);
+//        order2.nextState();
+//        order2 = orderService.save(order2);
+//        System.out.println(order2);
+//        System.out.println("Cheque::\n" + order2.getCheque());
+//
+//        System.out.println(orderService.findByCustomer(customer));
+//+++++++++++++++++++++++++++++++++++++++++++++++
 //        System.out.println(order + "\n" + order2);
 //        order = orderService.save(order);
 //        System.out.println(order + "\n" + order2);

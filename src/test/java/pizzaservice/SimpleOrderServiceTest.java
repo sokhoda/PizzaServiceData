@@ -2,7 +2,6 @@ package pizzaservice;
 
 import domain.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
@@ -44,9 +43,9 @@ public class SimpleOrderServiceTest extends UnitTestData {
     public void addPizzas() throws Exception {
 
         pizzaMap.put(testPizza1, 1);
-        Order order = new Order(null, null, pizzaMap);
+        Orders order = new Orders(null, null, pizzaMap);
         pizzaMap.put(testPizza2, 1);
-        Order expectedOrder = new Order(null, null, pizzaMap);
+        Orders expectedOrder = new Orders(null, null, pizzaMap);
 
         //GIVEN
         given(pizzaService.find(2L)).willReturn(testPizza2);
@@ -54,7 +53,7 @@ public class SimpleOrderServiceTest extends UnitTestData {
 
 
         //WHEN
-        Order actualOrder = simpleOrderService.addPizzas(order, 2L, 1L);
+        Orders actualOrder = simpleOrderService.addPizzas(order, 2L, 1L);
 
         //THEN
         assertThat(actualOrder, is(expectedOrder));
@@ -74,9 +73,9 @@ public class SimpleOrderServiceTest extends UnitTestData {
 
 //      WHEN
         when(pizzaService.find(1L)).thenReturn(testPizza1);
-        doReturn(new Order()).when(sOrderService).createNewOrder();
+        doReturn(new Orders()).when(sOrderService).createNewOrder();
         doReturn(new OrderStateCycle()).when(sOrderService).createNewOrderStateCycle();
-        Order actualOrder = sOrderService.placeNewOrder(testCustomer, 1L);
+        Orders actualOrder = sOrderService.placeNewOrder(testCustomer, 1L);
 
 //      THEN
         assertThat(actualOrder, is(expectedOrder));
@@ -103,7 +102,7 @@ public class SimpleOrderServiceTest extends UnitTestData {
 //        GIVEN
         given(orderRepo.find(1L)).willReturn(expectedOrder);
 //        WHEN
-        Order actualOrder = simpleOrderService.find(1L);
+        Orders actualOrder = simpleOrderService.find(1L);
 //        THEN
         assertThat(actualOrder, is(expectedOrder));
         verify(orderRepo).find(1L);
@@ -125,12 +124,12 @@ public class SimpleOrderServiceTest extends UnitTestData {
 
     @Test
     public void findByCustomer() throws Exception {
-        List<Order> expectedOrderList = new ArrayList<>(Arrays.asList
+        List<Orders> expectedOrderList = new ArrayList<>(Arrays.asList
                 (expectedOrder));
 //        GIVEN
         given(orderRepo.findByCustomer(testCustomer)).willReturn(expectedOrderList);
 //        WHEN
-        List<Order> actualOrderList = simpleOrderService.findByCustomer(testCustomer);
+        List<Orders> actualOrderList = simpleOrderService.findByCustomer(testCustomer);
 //        THEN
         assertThat(actualOrderList, is(expectedOrderList));
         verify(orderRepo).findByCustomer(testCustomer);
@@ -142,7 +141,7 @@ public class SimpleOrderServiceTest extends UnitTestData {
 //      GIVEN
         given(orderRepo.save(any())).will(AdditionalAnswers.returnsFirstArg());
 //        WHEN
-        final Order actualOrder = simpleOrderService.save(expectedOrder);
+        final Orders actualOrder = simpleOrderService.save(expectedOrder);
 //        THEN
         assertThat(actualOrder, is(expectedOrder));
         verify(orderRepo).save(any());

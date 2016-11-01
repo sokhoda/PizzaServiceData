@@ -16,11 +16,11 @@ import java.util.TreeSet;
 @Scope("prototype")
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Order.findByCustomer", query = "SELECT ord from " +
-                "Order ord WHERE ord.customer= :customer")
+        @NamedQuery(name = "Order.findByCustomer", query =
+                "SELECT ord from Orders ord WHERE ord.customer = :customer")
 })
 @Table(name = "TB_ORDER") @Access(AccessType.FIELD)
-public class Order implements Serializable {
+public class Orders implements Serializable {
     @Id
     @TableGenerator(
             name = "orderGen",
@@ -56,22 +56,22 @@ public class Order implements Serializable {
     @Embedded
     private OrderStateCycle orderStateCycle;
 
-    public Order() {
+    public Orders() {
     }
 
-    public Order(Long id, Customer customer, Map<Pizza, Integer> pizzaMap) {
+    public Orders(Long id, Customer customer, Map<Pizza, Integer> pizzaMap) {
         this.id = id;
         this.customer = customer;
         this.pizzaMap = pizzaMap;
     }
 
-    public Order(Customer customer, Map<Pizza, Integer> pizzaMap, OrderStateCycle orderStateCycle) {
+    public Orders(Customer customer, Map<Pizza, Integer> pizzaMap, OrderStateCycle orderStateCycle) {
         this.customer = customer;
         this.pizzaMap = pizzaMap;
         this.orderStateCycle = orderStateCycle;
     }
 
-    public Order(Customer customer, Map<Pizza, Integer> pizzaMap) {
+    public Orders(Customer customer, Map<Pizza, Integer> pizzaMap) {
         this.customer = customer;
         this.pizzaMap = pizzaMap;
     }
@@ -130,7 +130,7 @@ public class Order implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Order order = (Order) o;
+        Orders order = (Orders) o;
 
         if (cheque != null ? !cheque.equals(order.cheque) : order.cheque != null)
             return false;

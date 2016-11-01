@@ -10,39 +10,46 @@ import java.io.Serializable;
 @Component
 @Scope("prototype")
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Address.findByCityName", query = "SELECT a from " +
+                "Address a WHERE a.city = :city")
+})
 public class Address implements Serializable {
     @Id
     @TableGenerator(
-            name =  "addressGen",
+            name = "addressGen",
             table = "ID_GEN",
             pkColumnName = "GEN_KEY",
             pkColumnValue = "ADDRESS_ID",
             valueColumnName = "GEN_VALUE",
             initialValue = 0,
             allocationSize = 1)
-    @GeneratedValue(strategy= GenerationType.TABLE, generator = "addressGen")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "addressGen")
     private Long id;
 
     private String zipCode;
-    private String City;
+    private String city;
     private String strName;
     private String type;
     private String buildingNo;
     private String appNo;
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "Cust_ID")
     private Customer customer;
 
     public Address() {
     }
 
-    public Address(String zipCode, String city, String strName, String type, String buildingNo, String appNo) {
+    public Address(String zipCode, String city, String strName, String type,
+                   String buildingNo, String appNo, Customer customer) {
         this.zipCode = zipCode;
-        City = city;
+        this.city = city;
         this.strName = strName;
         this.type = type;
         this.buildingNo = buildingNo;
         this.appNo = appNo;
+        this.customer = customer;
     }
 
     @Override
@@ -50,7 +57,7 @@ public class Address implements Serializable {
         return "Address{" +
                 "id=" + id +
                 ", zipCode='" + zipCode + '\'' +
-                ", City='" + City + '\'' +
+                ", city='" + city + '\'' +
                 ", strName='" + strName + '\'' +
                 ", type='" + type + '\'' +
                 ", buildingNo='" + buildingNo + '\'' +
@@ -67,7 +74,7 @@ public class Address implements Serializable {
 
         if (zipCode != null ? !zipCode.equals(address.zipCode) : address.zipCode != null)
             return false;
-        if (City != null ? !City.equals(address.City) : address.City != null)
+        if (city != null ? !city.equals(address.city) : address.city != null)
             return false;
         if (strName != null ? !strName.equals(address.strName) : address.strName != null)
             return false;
@@ -75,10 +82,19 @@ public class Address implements Serializable {
             return false;
         if (buildingNo != null ? !buildingNo.equals(address.buildingNo) : address.buildingNo != null)
             return false;
-        if (appNo != null ? !appNo.equals(address.appNo) : address.appNo != null)
-            return false;
-        return customer != null ? customer.equals(address.customer) : address.customer == null;
+        return appNo != null ? appNo.equals(address.appNo) : address.appNo == null;
 
+    }
+
+    @Override
+    public int hashCode() {
+        int result = zipCode != null ? zipCode.hashCode() : 0;
+        result = 31 * result + (city != null ? city.hashCode() : 0);
+        result = 31 * result + (strName != null ? strName.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (buildingNo != null ? buildingNo.hashCode() : 0);
+        result = 31 * result + (appNo != null ? appNo.hashCode() : 0);
+        return result;
     }
 
     public String getStrName() {
@@ -122,10 +138,14 @@ public class Address implements Serializable {
     }
 
     public String getCity() {
-        return City;
+        return city;
     }
 
     public void setCity(String city) {
-        City = city;
+        this.city = city;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

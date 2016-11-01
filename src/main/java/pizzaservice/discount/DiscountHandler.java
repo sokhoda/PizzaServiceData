@@ -1,7 +1,7 @@
 package pizzaservice.discount;
 
 import domain.Cheque;
-import domain.Order;
+import domain.Orders;
 
 public interface DiscountHandler {
     public static final int DISCOUNT_THRESHOLD = 4;
@@ -11,5 +11,5 @@ public interface DiscountHandler {
 
     void setNext(DiscountHandler handler);
 
-    void handleDiscount(Order order, Cheque cheque);
+    void handleDiscount(Orders order, Cheque cheque);
 }

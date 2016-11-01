@@ -1,13 +1,11 @@
 package domain;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Component
@@ -31,7 +29,8 @@ public class Customer implements Serializable{
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customer", cascade = {CascadeType.MERGE},
+            fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Address> address = new HashSet<>();
 
     @OneToOne(orphanRemoval = true, cascade = CascadeType.MERGE)
@@ -41,18 +40,13 @@ public class Customer implements Serializable{
     public Customer() {
     }
 
-    public Customer(String name, Address address, LoyaltyCard loyaltyCard) {
-        this.name = name;
-        this.address.add(address);
-        this.loyaltyCard = loyaltyCard;
-    }
-
-    public Customer(String name, Address address) {
-        this(name, address, null);
-    }
-
     public Customer(String name) {
-        this(name, null, null);
+        this.name = name;
+    }
+
+    public Customer(String name,  LoyaltyCard loyaltyCard) {
+        this.name = name;
+        this.loyaltyCard = loyaltyCard;
     }
 
     @Override

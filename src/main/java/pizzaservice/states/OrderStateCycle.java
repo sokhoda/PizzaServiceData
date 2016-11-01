@@ -1,45 +1,32 @@
 package pizzaservice.states;
 
-import infrastructure.Benchmark;
-import org.springframework.beans.factory.annotation.Autowired;
+import infrastructure.converters.StateConverter;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.*;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Convert;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
-//
-//@Entity
+
 @Component
-@Embeddable @Access(AccessType.FIELD)
-public class OrderStateCycle implements Serializable{
-//    @Id
-//    @TableGenerator(
-//            name = "orderStateCycleGen",
-//            table = "ID_GEN",
-//            pkColumnName = "GEN_KEY",
-//            pkColumnValue = "ORDERSTATECYCLE_ID",
-//            valueColumnName = "GEN_VALUE",
-//            initialValue = 0,
-//            allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.TABLE, generator =
-//            "orderStateCycleGen")
-//    private Long id;
+@Embeddable
+@Access(AccessType.FIELD)
+public class OrderStateCycle implements Serializable {
+    private static State newSt;
+    private static State inProgressSt;
+    private static State cancelledSt;
+    private static State doneSt;
 
-    private  State newSt;
-
-    private  State inProgressSt;
-
-    private  State cancelledSt;
-
-    private  State doneSt;
-@OneToOne(cascade = CascadeType.MERGE)
+    @Convert(converter = StateConverter.class)
     private State curState;
 
     public OrderStateCycle(State newSt, State inProgressSt, State cancelledSt, State doneSt) {
-        this.newSt = newSt;
-        this.inProgressSt = inProgressSt;
-        this.cancelledSt = cancelledSt;
-        this.doneSt = doneSt;
+        OrderStateCycle.newSt = newSt;
+        OrderStateCycle.inProgressSt = inProgressSt;
+        OrderStateCycle.cancelledSt = cancelledSt;
+        OrderStateCycle.doneSt = doneSt;
     }
 
     public OrderStateCycle() {
@@ -81,13 +68,6 @@ public class OrderStateCycle implements Serializable{
     }
 
 
-    //    @Override
-//    public String toString() {
-//        return "OrderStateCycle{" +
-//                "curState=" + curState +
-//                '}';
-//    }
-
     public State getCurState() {
         return curState;
     }
@@ -100,31 +80,16 @@ public class OrderStateCycle implements Serializable{
         return newSt;
     }
 
-    public void setNewSt(State newSt) {
-        this.newSt = newSt;
-    }
-
     public State getInProgressSt() {
         return inProgressSt;
-    }
-
-    public void setInProgressSt(State inProgressSt) {
-        this.inProgressSt = inProgressSt;
     }
 
     public State getCancelledSt() {
         return cancelledSt;
     }
 
-    public void setCancelledSt(State cancelledSt) {
-        this.cancelledSt = cancelledSt;
-    }
-
     public State getDoneSt() {
         return doneSt;
     }
 
-    public void setDoneSt(State doneSt) {
-        this.doneSt = doneSt;
-    }
 }

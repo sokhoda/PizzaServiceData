@@ -1,7 +1,7 @@
 package pizzaservice.cheque;
 
 import domain.Cheque;
-import domain.Order;
+import domain.Orders;
 import infrastructure.UnitTestData;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +42,7 @@ public class SimpleChequeProducerTest extends UnitTestData {
         sChequeProducer.setChequeService(chequeService);
         sChequeProducer.setOrderService(orderService);
 
-        Order order = expectedOrder;
+        Orders order = expectedOrder;
         Cheque expectedCheque = new Cheque();
         expectedCheque.setTotalSum(order.calcTotalSum());
         expectedOrder.setCheque(expectedCheque);
@@ -57,7 +57,7 @@ public class SimpleChequeProducerTest extends UnitTestData {
         doNothing().when(orderService).addTotalSumToCustomerLCard(any());
 
 //      WHEN
-        Order actualOrder = sChequeProducer.placeCheque(order);
+        Orders actualOrder = sChequeProducer.placeCheque(order);
 
 //      THEN
         assertThat(actualOrder, is(expectedOrder));

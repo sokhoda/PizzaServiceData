@@ -2,8 +2,6 @@ package repository;
 
 import domain.Customer;
 import domain.LoyaltyCard;
-import domain.Order;
-import domain.Pizza;
 
 import java.util.List;
 

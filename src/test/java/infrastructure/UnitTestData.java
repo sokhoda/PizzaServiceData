@@ -1,11 +1,11 @@
 package infrastructure;
 
 import domain.*;
+import pizzaservice.states.NewState;
 import pizzaservice.states.OrderStateCycle;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.StringJoiner;
 
 public class UnitTestData {
     protected final Pizza testPizza1 = new Pizza(1L, "Tomato", 90., PizzaType
@@ -14,7 +14,7 @@ public class UnitTestData {
             .MEAT);
     protected final Map<Pizza, Integer> pizzaMap = new HashMap<>();
     protected Customer testCustomer;
-    protected Order expectedOrder;
+    protected Orders expectedOrder;
     protected LoyaltyCard testLoyaltyCard;
     protected Address testAddress;
     protected String testCustomerName;
@@ -27,10 +27,12 @@ public class UnitTestData {
 
     private void initTestCustomer() {
         testCustomerName = "Alex";
+        testCustomer = new Customer(testCustomerName,  testLoyaltyCard);
         testAddress = new Address("03004", "Kyiv", "CustomStreetName", "Str",
-                "18", "2");
-        testCustomer = new Customer(testCustomerName,  testAddress,
-                testLoyaltyCard);
+                "18", "2", testCustomer);
+        testAddress.setId(1L);
+        testCustomer.getAddress().add(testAddress);
+        testCustomer.setId(1L);
     }
 
     private void initTestLoyaltyCard() {
@@ -39,7 +41,8 @@ public class UnitTestData {
 
     private void initExpectedOrder() {
         pizzaMap.put(testPizza1, 1);
-        expectedOrder = new Order(testCustomer, pizzaMap, new OrderStateCycle
-                ());
+        OrderStateCycle orderStateCycle = new OrderStateCycle();
+        orderStateCycle.setCurState(new NewState());
+        expectedOrder = new Orders(testCustomer, pizzaMap, orderStateCycle);
     }
 }

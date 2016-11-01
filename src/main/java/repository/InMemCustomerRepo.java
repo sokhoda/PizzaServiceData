@@ -14,9 +14,10 @@ public class InMemCustomerRepo implements CustomerRepository {
 
     @PostConstruct
     public void init() {
-        customerList.add(new Customer("Anna Guyvan", new Address
-                ("01032","Kyiv", "Iwana " +
-                "Pidkovy", "Str.", "8","18"), new LoyaltyCard(0.)));
+        Customer customer = new Customer("Anna Guyvan", new LoyaltyCard(0.));
+        Address address = new Address("01032", "Kyiv", "Iwana " +
+                        "Pidkovy", "Str.", "8", "18", customer);
+        customerList.add(customer);
     }
 
 

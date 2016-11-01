@@ -1,8 +1,8 @@
 package pizzaservice.cheque;
 
-import domain.Order;
+import domain.Orders;
 
 public interface ChequeProducer {
 
-    Order placeCheque(Order order);
+    Orders placeCheque(Orders order);
 }

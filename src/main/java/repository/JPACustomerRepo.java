@@ -2,11 +2,8 @@ package repository;
 
 import domain.Customer;
 import domain.LoyaltyCard;
-import domain.Order;
-import domain.Pizza;
 import infrastructure.JPQLQueries;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,10 +26,6 @@ public class JPACustomerRepo implements CustomerRepository {
 
     @Override
     public List<Customer> findByName(String name) {
-//        TypedQuery<Customer> query = em.createQuery("SELECT c from Customer c " +
-//                "WHERE c.name = :name", Customer.class);
-//        return query.setParameter("name", name).getSingleResult();
-
         TypedQuery<Customer> query = em.createNamedQuery("Customer.findByName",
                 Customer.class);
         return query.setParameter("name", name).getResultList();

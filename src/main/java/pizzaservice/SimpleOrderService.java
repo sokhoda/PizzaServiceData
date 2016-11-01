@@ -1,10 +1,8 @@
 package pizzaservice;
 
 import domain.Customer;
-import domain.Order;
+import domain.Orders;
 import domain.Pizza;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -12,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pizzaservice.states.OrderStateCycle;
 import repository.OrderRepository;
 
-import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +39,7 @@ public class SimpleOrderService implements OrderService {
     }
 
     @Override
-    public void addTotalSumToCustomerLCard(Order order){
+    public void addTotalSumToCustomerLCard(Orders order){
         if (order != null){
             order.addTotalSumToCustomerLCard();
         }
@@ -51,7 +48,7 @@ public class SimpleOrderService implements OrderService {
 
     @Transactional
     @Override
-    public Order placeNewOrder(Customer customer, Long... pizzasID) {
+    public Orders placeNewOrder(Customer customer, Long... pizzasID) {
         Map<Pizza, Integer> pizzaMap = new HashMap<>();
         Pizza pizza;
         for (Long id : pizzasID) {
@@ -60,7 +57,7 @@ public class SimpleOrderService implements OrderService {
                 pizzaMap.put(pizza, 1);
             }
         }
-        Order newOrder = createNewOrder();
+        Orders newOrder = createNewOrder();
         newOrder.setCustomer(customer);
         newOrder.setPizzaMap(pizzaMap);
         newOrder.setOrderStateCycle(createNewOrderStateCycle());
@@ -71,7 +68,7 @@ public class SimpleOrderService implements OrderService {
     }
 
 
-    Order createNewOrder() {
+    Orders createNewOrder() {
         throw new IllegalStateException("Container couldn't create Proxy");
     }
 
@@ -81,8 +78,8 @@ public class SimpleOrderService implements OrderService {
 
     @Transactional
     @Override
-    public Order addPizzas(final Order order, final Long... idNoPair) {
-        Order resultOrder = null;
+    public Orders addPizzas(final Orders order, final Long... idNoPair) {
+        Orders resultOrder = null;
         Pizza currentPizza = null;
         if (order != null) {
             Map<Pizza, Integer> pizzaMap = order.getPizzaMap();
@@ -105,19 +102,19 @@ public class SimpleOrderService implements OrderService {
     }
 
     @Override
-    public Order find(Long id) {
+    public Orders find(Long id) {
         return orderRepo.find(id);
     }
 
     @Override
-    public List<Order> findByCustomer(Customer customer) {
+    public List<Orders> findByCustomer(Customer customer) {
         return orderRepo.findByCustomer(customer);
     }
 
 
     @Transactional
     @Override
-    public Order save(Order order){
+    public Orders save(Orders order){
         return orderRepo.save(order);
     }
 

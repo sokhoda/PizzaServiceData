@@ -1,16 +1,15 @@
 package pizzaservice;
 
 import domain.Customer;
-import domain.Order;
+import domain.Orders;
 import infrastructure.ApplicationContext;
 import infrastructure.Context;
 import infrastructure.JavaConfig;
-import repository.PizzaRepository;
 
 public class AppRunner {
     public static void main(String[] args) {
         Customer customer = null;
-        Order order;
+        Orders order;
 //
 //        SimpleOrderService orderService = new SimpleOrderService();
 ////        System.out.println(SimpleOrderService.getCustomerList());

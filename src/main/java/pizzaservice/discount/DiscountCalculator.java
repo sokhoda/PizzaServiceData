@@ -1,7 +1,7 @@
 package pizzaservice.discount;
 
 import domain.Cheque;
-import domain.Order;
+import domain.Orders;
 import infrastructure.DomainHandleHelper;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +31,7 @@ public class DiscountCalculator {
         prevHandler = handler;
     }
 
-    public Cheque handleDiscount(Order order, Cheque cheque){
+    public Cheque handleDiscount(Orders order, Cheque cheque){
         Cheque newCheque = DomainHandleHelper.clone(cheque);
         firstHandler.handleDiscount(order, newCheque);
         return newCheque;

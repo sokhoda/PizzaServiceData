@@ -1,15 +1,9 @@
 package repository;
 
 import domain.Customer;
-import domain.Order;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import domain.Orders;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pizzaservice.states.OrderStateCycle;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,20 +22,20 @@ public class JPAOrderRepo implements OrderRepository {
 
 
     @Override
-    public Order find(Long id) {
-        return em.find(Order.class, id);
+    public Orders find(Long id) {
+        return em.find(Orders.class, id);
     }
 
     @Override
-    public List<Order> findByCustomer(Customer customer) {
-        TypedQuery<Order> query = em.createNamedQuery("Order" +
-                ".findByCustomer", Order.class);
+    public List<Orders> findByCustomer(Customer customer) {
+        TypedQuery<Orders> query = em.createNamedQuery("Order" +
+                ".findByCustomer", Orders.class);
         return  query.setParameter("customer", customer).getResultList();
     }
 
     @Override
     @Transactional
-    public Order save(Order order) {
+    public Orders save(Orders order) {
         return em.merge(order);
     }
 

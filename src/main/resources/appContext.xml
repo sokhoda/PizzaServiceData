@@ -57,7 +57,7 @@
         <lookup-method name="createNewCheque" bean="cheque"/>
     </bean>
     <bean name="orderService" class="pizzaservice.SimpleOrderService">
-        <lookup-method name="createNewOrder" bean="order"/>
+        <lookup-method name="createNewOrder" bean="orders"/>
         <lookup-method name="createNewOrderStateCycle" bean="orderStateCycle"/>
     </bean>
 

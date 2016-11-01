@@ -1,27 +1,27 @@
 package repository;
 
 import domain.Customer;
-import domain.Order;
+import domain.Orders;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 @Repository
 public class InMemOrderRepo implements OrderRepository {
-    private final List<Order> orderList = new ArrayList<>();
+    private final List<Orders> orderList = new ArrayList<>();
 
     @Override
-    public Order find(Long id) {
+    public Orders find(Long id) {
         return null;
     }
 
     @Override
-    public List<Order> findByCustomer(Customer customer) {
+    public List<Orders> findByCustomer(Customer customer) {
         return null;
     }
 
     @Override
-    public Order save(Order newOrder) {
+    public Orders save(Orders newOrder) {
         orderList.add(newOrder);
         return newOrder;
     }

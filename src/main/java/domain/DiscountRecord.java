@@ -9,7 +9,11 @@ import java.io.Serializable;
 @Component
 @Scope("prototype")
 @Entity
-public class DiscountRecord implements Serializable{
+@NamedQueries({
+        @NamedQuery(name = "DiscountRecord.findByCheque", query = "SELECT dr from DiscountRecord dr " +
+                "WHERE dr.cheque = :cheque")
+})
+public class DiscountRecord implements Serializable {
     @Id
     @TableGenerator(
             name = "discountRecGen",
@@ -24,16 +28,18 @@ public class DiscountRecord implements Serializable{
 
     private String name;
     private Double sum;
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "Cheque_ID")
     private Cheque cheque;
 
     public DiscountRecord() {
     }
 
-    public DiscountRecord(String name, Double sum) {
+    public DiscountRecord(String name, Double sum, Cheque cheque) {
         this.name = name;
         this.sum = sum;
+        this.cheque = cheque;
     }
 
     @Override
@@ -42,6 +48,21 @@ public class DiscountRecord implements Serializable{
                 "name='" + name + '\'' +
                 ", sum=" + sum +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DiscountRecord that = (DiscountRecord) o;
+
+        if (name != null ? !name.equals(that.name) : that.name != null)
+            return false;
+        if (sum != null ? !sum.equals(that.sum) : that.sum != null)
+            return false;
+        return cheque != null ? cheque.equals(that.cheque) : that.cheque == null;
+
     }
 
     public String getName() {

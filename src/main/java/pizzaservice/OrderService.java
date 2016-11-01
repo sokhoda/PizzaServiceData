@@ -1,21 +1,21 @@
 package pizzaservice;
 
 import domain.Customer;
-import domain.Order;
+import domain.Orders;
 
 import java.util.List;
 
 public interface OrderService {
-    void addTotalSumToCustomerLCard(Order order);
+    void addTotalSumToCustomerLCard(Orders order);
 
-    Order placeNewOrder(Customer customer, Long... pizzasID);
+    Orders placeNewOrder(Customer customer, Long... pizzasID);
 
-    Order addPizzas(Order order, Long... idNoPair);
+    Orders addPizzas(Orders order, Long... idNoPair);
 
-    Order find(Long id);
+    Orders find(Long id);
 
-    List<Order> findByCustomer(Customer customer);
+    List<Orders> findByCustomer(Customer customer);
 
-    Order save(Order order);
+    Orders save(Orders order);
 
 }
