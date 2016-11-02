@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pizzaservice.states.OrderStateCycle;
+import pizzaservice.states.State;
 import repository.OrderRepository;
 
 import java.time.LocalDateTime;
@@ -110,11 +111,22 @@ public class SimpleOrderService implements OrderService {
         return  orderRepo.findByDateBetween(fromDate, toDate);
     }
 
+    @Override
+    public List<Orders> findByDateBetweenByState(LocalDateTime fromDate,
+                                                 LocalDateTime toDate, State
+                                                             state){
+        return  orderRepo.findByDateBetweenByState(fromDate, toDate, state);
+    }
 
     @Transactional
     @Override
     public Orders save(Orders order) {
         return orderRepo.save(order);
+    }
+
+    @Override
+    public List<Orders> findByCustomerByState(Customer customer, State state){
+        return orderRepo.findByCustomerByState(customer, state);
     }
 
     @Override

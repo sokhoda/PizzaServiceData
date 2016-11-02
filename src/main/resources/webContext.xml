@@ -14,5 +14,8 @@
 
     <!--<bean class="infrastructure.BenchmarkBeanPostProcessor"/>-->
 
+    <bean name="handlerMappingStrategy" class="web.infrastructure.SimpleURLHandlerMapping">
+
+    </bean>
 
 </beans>

@@ -3,6 +3,8 @@ package repository;
 import domain.Customer;
 import domain.Orders;
 import org.springframework.stereotype.Repository;
+import pizzaservice.states.State;
+import pizzaservice.states.StateEn;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,5 +33,16 @@ public class InMemOrderRepo implements OrderRepository {
     public List<Orders> findByDateBetween(LocalDateTime fromDate, LocalDateTime toDate) {
         return null;
     }
+
+    @Override
+    public List<Orders> findByCustomerByState(Customer customer, State state) {
+        return null;
+    }
+
+    @Override
+    public List<Orders> findByDateBetweenByState(LocalDateTime fromDate, LocalDateTime toDate, State state) {
+        return null;
+    }
+
 
 }

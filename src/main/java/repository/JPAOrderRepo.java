@@ -5,6 +5,8 @@ import domain.Customer;
 import domain.Orders;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import pizzaservice.states.State;
+import pizzaservice.states.StateEn;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,7 +36,7 @@ public class JPAOrderRepo implements OrderRepository {
     public List<Orders> findByCustomer(Customer customer) {
         TypedQuery<Orders> query = em.createNamedQuery("Order" +
                 ".findByCustomer", Orders.class);
-        return  query.setParameter("customer", customer).getResultList();
+        return query.setParameter("customer", customer).getResultList();
     }
 
     @Override
@@ -46,8 +48,25 @@ public class JPAOrderRepo implements OrderRepository {
     @Override
     public List<Orders> findByDateBetween(LocalDateTime fromDate, LocalDateTime toDate) {
         TypedQuery<Orders> query = em.createNamedQuery("Order.findByDateBetween", Orders.class);
-        return  query.setParameter("fromDate", fromDate)
+        return query.setParameter("fromDate", fromDate)
                 .setParameter("toDate", toDate)
+                .getResultList();
+    }
+
+    @Override
+    public List<Orders> findByCustomerByState(Customer customer, State state) {
+        TypedQuery<Orders> query = em.createNamedQuery("Order.findByCustomerByState", Orders.class);
+        return query.setParameter("customer", customer)
+                .setParameter("state", state)
+                .getResultList();
+    }
+
+    @Override
+    public List<Orders> findByDateBetweenByState(LocalDateTime fromDate, LocalDateTime toDate, State state) {
+        TypedQuery<Orders> query = em.createNamedQuery("Order.findByDateBetweenByState", Orders.class);
+        return query.setParameter("fromDate", fromDate)
+                .setParameter("toDate", toDate)
+                .setParameter("state", state)
                 .getResultList();
     }
 }

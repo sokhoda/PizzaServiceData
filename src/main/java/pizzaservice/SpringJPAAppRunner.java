@@ -4,7 +4,10 @@ import domain.*;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pizzaservice.cheque.ChequeProducer;
+import pizzaservice.states.InProgressState;
+import pizzaservice.states.NewState;
 import pizzaservice.states.OrderStateCycle;
+import pizzaservice.states.StateEn;
 import repository.CustomerRepository;
 import repository.OrderRepository;
 import repository.PizzaRepository;
@@ -17,17 +20,18 @@ import java.util.Random;
 
 public class SpringJPAAppRunner {
     private static Random random = new Random();
+
     public static void init(PizzaService pizzaService,
                             AddressService addressService) {
         if (pizzaService == null) return;
-        pizzaService.save(new Pizza(null, "Tomato", (double)random.nextInt
+        pizzaService.save(new Pizza(null, "Tomato", (double) random.nextInt
                 (1000), PizzaType.VEGETERIAN));
-        pizzaService.save(new Pizza(null, "Chicken", (double)random.nextInt
+        pizzaService.save(new Pizza(null, "Chicken", (double) random.nextInt
                 (1000), PizzaType.MEAT));
-        pizzaService.save(new Pizza(null, "Fish", (double)random.nextInt
+        pizzaService.save(new Pizza(null, "Fish", (double) random.nextInt
                 (1000), PizzaType.SEA));
 
-        Customer customer = new Customer("Anna Guyvan",  new LoyaltyCard(0.));
+        Customer customer = new Customer("Anna Guyvan", new LoyaltyCard(0.));
         Address address = new Address
                 ("01032", "Kyiv", "Iwana Pidkovy", "Str.", String.valueOf
                         (random.nextInt(1000)), String.valueOf
@@ -51,34 +55,40 @@ public class SpringJPAAppRunner {
         CustomerService customerService = appContext.getBean("customerService", CustomerService.class);
         AddressService addressService = appContext.getBean("addressService",
                 AddressService.class);
-//        Customer customer = customerService.find(1L);
+        Customer customer2 = customerService.find(2L);
 //        System.out.println(customer);
 //
         CustomerRepository customerRepository = (CustomerRepository)
                 appContext.getBean("customerRepository");
-        PizzaRepository pizzaRepository = (PizzaRepository)appContext.getBean
+        PizzaRepository pizzaRepository = (PizzaRepository) appContext.getBean
                 ("pizzaRepository");
         PizzaService pizzaService = (PizzaService) appContext.getBean
                 ("pizzaService");
 
-        OrderService orderService =  appContext.getBean("orderService", OrderService.class);
+        OrderService orderService = appContext.getBean("orderService", OrderService.class);
         OrderRepository orderRepository = appContext.getBean
                 ("orderRepository", OrderRepository.class);
+        Customer customer1 = customerRepository.find(1L);
 
-        LocalDateTime fromDate = LocalDateTime.of(2016, 9, 10, 0, 0);
-        LocalDateTime toDate =  LocalDateTime.of(2016, 11, 10, 0, 0);
+        LocalDateTime fromDate = LocalDateTime.of(2016, 9, 4, 0, 0);
+        LocalDateTime toDate = LocalDateTime.of(2016, 11, 10, 0, 0);
         List<Orders> orderList = orderService.findByDateBetween(fromDate,
                 toDate);
-            System.out.println(orderList) ;
+//        orderList = orderService.findByCustomerByState(customer1, new
+//                NewState());
 
-//        Customer customer1 = customerRepository.find(1L);
+        orderList = orderService.findByDateBetweenByState(fromDate,
+                toDate, null);
+
+        System.out.println(orderList);
+
 //
 //        System.out.println("\n\n\n\n\n\n !!!" + orderRepository.findByCustomer
 //                (customer1));
 //
-////        for (int i = 0; i < 3; i++) {
-////            init(pizzaService, addressService);
-////        }
+//        for (int i = 0; i < 3; i++) {
+//            init(pizzaService, addressService);
+//        }
 //
 //        Pizza pizza = pizzaRepository.read(5L);
 //        System.out.println(pizza);

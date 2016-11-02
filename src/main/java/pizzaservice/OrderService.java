@@ -2,6 +2,7 @@ package pizzaservice;
 
 import domain.Customer;
 import domain.Orders;
+import pizzaservice.states.State;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,6 +20,12 @@ public interface OrderService {
 
     List<Orders> findByDateBetween(LocalDateTime fromDate, LocalDateTime toDate);
 
+    List<Orders> findByDateBetweenByState(LocalDateTime fromDate,
+                                          LocalDateTime toDate, State
+                                                  state);
+
     Orders save(Orders order);
 
+    List<Orders> findByCustomerByState(Customer customer, State
+            stateEn);
 }

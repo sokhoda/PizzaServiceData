@@ -62,13 +62,17 @@ public class DispatcherServlet extends HttpServlet {
 
     public void processRequest(HttpServletRequest req, HttpServletResponse
             resp) {
-        String url = req.getRequestURI();
-        String controllerName = getControllerName(url);
 
-        MyController controller = (MyController) webContext.getBean(controllerName);
+
+        HandlerMapping handlerMapping = webContext.getBean
+                ("handlerMappingStrategy", HandlerMapping.class);
+//                new SimpleURLHandlerMapping(webContext);
+
+
+        MyController controller = handlerMapping.getController(req);
+//                (MyController) webContext.getBean(controllerName);
         System.out.println(Arrays.toString(webContext.getBeanDefinitionNames()));
-        //getController
-        // (controllerName);
+
         if (controller != null) {
             controller.handleRequest(req, resp);
         }
@@ -81,7 +85,5 @@ public class DispatcherServlet extends HttpServlet {
 //        }
     }
 
-    private String getControllerName(String url) {
-        return url.substring(url.lastIndexOf("/"));
-    }
+
 }
