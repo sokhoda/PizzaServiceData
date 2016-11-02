@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -42,6 +43,12 @@ public class JPACustomerRepo implements CustomerRepository {
     @Override
     public Customer save(Customer Customer) {
         return em.merge(Customer);
+    }
+
+    @Override
+    public int delete(Customer customer) {
+        Query query = em.createNamedQuery("Customer.delete");
+        return query.setParameter("customer", customer).executeUpdate();
     }
 
 

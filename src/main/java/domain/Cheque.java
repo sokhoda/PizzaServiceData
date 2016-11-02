@@ -59,7 +59,7 @@ public class Cheque implements Serializable{
 
     @Override
     public String toString() {
-        return "Cheque{" +
+        return "\nCheque{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", date=" + date +

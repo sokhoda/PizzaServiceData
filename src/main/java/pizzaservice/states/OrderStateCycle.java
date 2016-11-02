@@ -32,6 +32,10 @@ public class OrderStateCycle implements Serializable {
     public OrderStateCycle() {
     }
 
+    public OrderStateCycle(State curState) {
+        this.curState = curState;
+    }
+
     @PostConstruct
     public void init() {
         this.curState = newSt;
@@ -64,7 +68,6 @@ public class OrderStateCycle implements Serializable {
         OrderStateCycle that = (OrderStateCycle) o;
 
         return curState != null ? curState.equals(that.curState) : that.curState == null;
-
     }
 
 

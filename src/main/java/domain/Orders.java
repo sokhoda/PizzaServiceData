@@ -17,7 +17,10 @@ import java.util.TreeSet;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Order.findByCustomer", query =
-                "SELECT ord from Orders ord WHERE ord.customer = :customer")
+                "SELECT ord from Orders ord WHERE ord.customer = :customer"),
+        @NamedQuery(name = "Order.findByDateBetween", query =
+                "SELECT ord from Orders ord " +
+                    "WHERE ord.cheque.date BETWEEN :fromDate AND :toDate")
 })
 @Table(name = "TB_ORDER")
 @Access(AccessType.FIELD)

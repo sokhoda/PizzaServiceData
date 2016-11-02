@@ -47,6 +47,11 @@ public class SimpleCustomerService implements CustomerService {
         return customerRepository.findByLoyaltyCard(loyaltyCard);
     }
 
+    @Override
+    public int delete(Customer customer){
+        return customerRepository.delete(customer);
+    }
+
     @Transactional
     @Override
     public Customer placeNewCustomer(String name, Address address, LoyaltyCard loyaltyCard) {
@@ -60,10 +65,6 @@ public class SimpleCustomerService implements CustomerService {
     Customer createNewCustomer() {
         throw new IllegalStateException("Customer createNewCustomer method " +
                 "not overridden");
-    }
-
-    public CustomerRepository getCustomerRepository() {
-        return customerRepository;
     }
 
     public void setCustomerRepository(CustomerRepository customerRepository) {

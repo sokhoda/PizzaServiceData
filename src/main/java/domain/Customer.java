@@ -12,10 +12,12 @@ import java.util.Set;
 @Scope("prototype")
 @Entity
 @NamedQueries({
-@NamedQuery(name = "Customer.findByName", query = "SELECT c from Customer c " +
-        "WHERE c.name = :name")
+        @NamedQuery(name = "Customer.findByName", query = "SELECT c from Customer c " +
+                "WHERE c.name = :name"),
+        @NamedQuery(name = "Customer.delete", query = "DELETE FROM Customer" +
+        " c WHERE c = :customer")
 })
-public class Customer implements Serializable{
+public class Customer implements Serializable {
     @Id
     @TableGenerator(
             name = "customerGen",
@@ -25,7 +27,7 @@ public class Customer implements Serializable{
             valueColumnName = "GEN_VALUE",
             initialValue = 0,
             allocationSize = 1)
-    @GeneratedValue(strategy= GenerationType.TABLE, generator = "customerGen")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "customerGen")
     private Long id;
     private String name;
 
@@ -44,7 +46,7 @@ public class Customer implements Serializable{
         this.name = name;
     }
 
-    public Customer(String name,  LoyaltyCard loyaltyCard) {
+    public Customer(String name, LoyaltyCard loyaltyCard) {
         this.name = name;
         this.loyaltyCard = loyaltyCard;
     }

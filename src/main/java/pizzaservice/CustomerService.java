@@ -18,6 +18,8 @@ public interface CustomerService {
 
     List<Customer> findByLoyaltyCard(LoyaltyCard loyaltyCard);
 
+    int delete(Customer customer);
+
     Customer placeNewCustomer(String name, Address address, LoyaltyCard
             loyaltyCard);
 }

@@ -1,5 +1,6 @@
 package repository;
 
+import domain.Cheque;
 import domain.Customer;
 import domain.Orders;
 import org.springframework.stereotype.Repository;
@@ -8,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Repository("orderRepository")
@@ -39,5 +43,11 @@ public class JPAOrderRepo implements OrderRepository {
         return em.merge(order);
     }
 
-
+    @Override
+    public List<Orders> findByDateBetween(LocalDateTime fromDate, LocalDateTime toDate) {
+        TypedQuery<Orders> query = em.createNamedQuery("Order.findByDateBetween", Orders.class);
+        return  query.setParameter("fromDate", fromDate)
+                .setParameter("toDate", toDate)
+                .getResultList();
+    }
 }

@@ -3,6 +3,7 @@ package pizzaservice;
 import domain.Customer;
 import domain.Orders;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface OrderService {
@@ -15,6 +16,8 @@ public interface OrderService {
     Orders find(Long id);
 
     List<Orders> findByCustomer(Customer customer);
+
+    List<Orders> findByDateBetween(LocalDateTime fromDate, LocalDateTime toDate);
 
     Orders save(Orders order);
 

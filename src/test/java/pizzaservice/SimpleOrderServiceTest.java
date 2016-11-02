@@ -4,14 +4,17 @@ import domain.LoyaltyCard;
 import domain.Orders;
 import infrastructure.UnitTestData;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import pizzaservice.states.NewState;
 import pizzaservice.states.OrderStateCycle;
 import repository.OrderRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,9 +67,10 @@ public class SimpleOrderServiceTest extends UnitTestData {
 //      GIVEN
         given(orderRepo.save(any())).will(AdditionalAnswers.returnsFirstArg());
 //      WHEN
+        OrderStateCycle orderStateCycle = new OrderStateCycle(new NewState());
         when(pizzaService.find(1L)).thenReturn(testPizza1);
         doReturn(new Orders()).when(sOrderService).createNewOrder();
-        doReturn(new OrderStateCycle()).when(sOrderService).createNewOrderStateCycle();
+        doReturn(orderStateCycle).when(sOrderService).createNewOrderStateCycle();
         Orders actualOrder = sOrderService.placeNewOrder(testCustomer, 1L);
 //      THEN
         assertThat(actualOrder, is(expectedOrder));
@@ -128,9 +132,15 @@ public class SimpleOrderServiceTest extends UnitTestData {
 //      GIVEN
         given(orderRepo.save(any())).will(AdditionalAnswers.returnsFirstArg());
 //      WHEN
+//      WHEN
         final Orders actualOrder = simpleOrderService.save(expectedOrder);
 //      THEN
         assertThat(actualOrder, is(expectedOrder));
         verify(orderRepo).save(any());
+    }
+
+    @Test
+    @Ignore
+    public void testFindByDateBetween() throws Exception {
     }
 }

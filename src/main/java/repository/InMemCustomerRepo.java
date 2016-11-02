@@ -49,6 +49,11 @@ public class InMemCustomerRepo implements CustomerRepository {
             return newCustomer;
     }
 
+    @Override
+    public int delete(Customer customer) {
+        return 0;
+    }
+
 //    @Override
 //    public List<Customer> getCustomerList() {
 //        return customerList;

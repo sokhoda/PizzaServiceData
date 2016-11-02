@@ -14,4 +14,5 @@ public interface CustomerRepository {
 
     Customer save(Customer customer);
 
+    int delete(Customer customer);
 }

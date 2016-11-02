@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <name>pizzaService</name>
     <description>My Spring Alb project</description>
-    <packaging>war</packaging>
+    <!--<packaging>war</packaging>-->
 
     <groupId>com.epam</groupId>
     <artifactId>PizzaService</artifactId>

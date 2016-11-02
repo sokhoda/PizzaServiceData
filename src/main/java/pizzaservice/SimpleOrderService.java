@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pizzaservice.states.OrderStateCycle;
 import repository.OrderRepository;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,6 +103,11 @@ public class SimpleOrderService implements OrderService {
     @Override
     public List<Orders> findByCustomer(Customer customer) {
         return orderRepo.findByCustomer(customer);
+    }
+
+    @Override
+    public List<Orders> findByDateBetween(LocalDateTime fromDate, LocalDateTime toDate){
+        return  orderRepo.findByDateBetween(fromDate, toDate);
     }
 
 

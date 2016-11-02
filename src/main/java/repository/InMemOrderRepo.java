@@ -4,6 +4,7 @@ import domain.Customer;
 import domain.Orders;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 @Repository
@@ -24,6 +25,11 @@ public class InMemOrderRepo implements OrderRepository {
     public Orders save(Orders newOrder) {
         orderList.add(newOrder);
         return newOrder;
+    }
+
+    @Override
+    public List<Orders> findByDateBetween(LocalDateTime fromDate, LocalDateTime toDate) {
+        return null;
     }
 
 }

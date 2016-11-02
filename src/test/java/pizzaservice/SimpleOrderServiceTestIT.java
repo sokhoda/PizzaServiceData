@@ -7,6 +7,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -24,13 +26,18 @@ public class SimpleOrderServiceTestIT extends RepoTestConfig {
     }
 
     @Test
-    @Ignore
     public void placeNewOrder() throws Exception {
+        insertPizza(testPizza1);
+//        Orders expectedOrder1 = orderService.save(expectedOrder);
+        //WHEN
+        Orders actualOrder = orderService.placeNewOrder(testCustomer, 1L);
+        //THEN
+        assertThat(actualOrder, is(expectedOrder));
     }
 
     @Test
     public void findByCustomer() throws Exception {
-        insertPizza();
+        insertPizza(testPizza1);
         Orders expectedOrder1 = orderService.save(expectedOrder);
         //WHEN
         List<Orders> actualOrder = orderService.findByCustomer(testCustomer);
@@ -40,7 +47,7 @@ public class SimpleOrderServiceTestIT extends RepoTestConfig {
 
     @Test
     public void save() throws Exception {
-        insertPizza();
+        insertPizza(testPizza1);
 //        WHEN
         Orders actualOrder = orderService.save(expectedOrder);
 //        THEN
@@ -54,6 +61,16 @@ public class SimpleOrderServiceTestIT extends RepoTestConfig {
         //WHEN
         Orders actualOrder = orderService.find(1L);
         //THEN
-        assertTrue(actualOrder.equals(expectedOrder));
+        assertThat(actualOrder, is(expectedOrder));
+    }
+
+    @Test
+    @Ignore
+    public void testFindByDateBetween() throws Exception {
+        LocalDateTime fromDate = LocalDateTime.of(2016, 9, 10, 0, 0);
+        LocalDateTime toDate =  LocalDateTime.of(2016, 10, 10, 0, 0);
+        List<Orders> orderList = orderService.findByDateBetween(fromDate,
+                toDate);
+        System.out.println(orderList);
     }
 }

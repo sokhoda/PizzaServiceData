@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.List;
 
 public class DispatcherServlet extends HttpServlet {
@@ -65,6 +66,7 @@ public class DispatcherServlet extends HttpServlet {
         String controllerName = getControllerName(url);
 
         MyController controller = (MyController) webContext.getBean(controllerName);
+        System.out.println(Arrays.toString(webContext.getBeanDefinitionNames()));
         //getController
         // (controllerName);
         if (controller != null) {

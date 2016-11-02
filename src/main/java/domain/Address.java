@@ -148,4 +148,12 @@ public class Address implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
 }

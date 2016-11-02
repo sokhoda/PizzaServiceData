@@ -33,7 +33,7 @@ public class SimplePizzaServiceTestIT extends RepoTestConfig{
 
     @Test
     public void find() throws Exception {
-        insertPizza();
+        insertPizza(testPizza1);
         //WHEN
         Pizza actualPizza = pizzaService.find(1L);
         //THEN
@@ -42,8 +42,8 @@ public class SimplePizzaServiceTestIT extends RepoTestConfig{
 
     @Test
     public void findAll() throws Exception {
-        insertPizza();
-        insertPizza2();
+        insertPizza(testPizza1);
+        insertPizza(testPizza2);
 //        GIVEN
         List<Pizza> expectedPizzaList = Arrays.asList(testPizza1, testPizza2);
         //WHEN

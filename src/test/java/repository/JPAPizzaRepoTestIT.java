@@ -2,10 +2,11 @@ package repository;
 
 import domain.Pizza;
 import infrastructure.RepoTestConfig;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.CoreMatchers.is;
@@ -16,38 +17,29 @@ public class JPAPizzaRepoTestIT extends RepoTestConfig {
     @Autowired
     private PizzaRepository pizzaRepository;
 
-    @Test
-    public void testSavePizza() throws Exception {
-        //GIVEN
-        //WHEN
-        Pizza actualPizza = pizzaRepository.save(testPizza1);
-        //THEN
-        assertNotNull(actualPizza.getId());
+    @Before
+    public void clearTable(){
+        clearAllTables();
     }
 
     @Test
-    public void testSavePizza2() throws Exception {
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public void testSave() throws Exception {
         //GIVEN
-        Pizza expectedPizza = testPizza1;
-        Long id = pizzaRepository.save(testPizza1).getId();
-
-        System.out.println(pizzaRepository.find(id));
         //WHEN
-//        List<Pizza> actualPizza =  jdbcTemplate.query(
-//                "SELECT * from PIZZA", new BeanPropertyRowMapper(Pizza.class));
+        Pizza actualPizza = pizzaRepository.save(testPizza1);
+        Pizza expectedPizza = getExpectedPizza(actualPizza.getId());
 
-        List<Pizza> actualPizza = jdbcTemplate.queryForList("SELECT * FROM " +
-                "PIZZA", Pizza.class);
-        System.out.println("size=" + actualPizza);
         //THEN
-//        assertThat(actualPizza.get(0), is(expectedPizza));
+        assertThat(actualPizza, is(expectedPizza));
+        assertNotNull(actualPizza);
     }
 
     @Test
     public void testFind() throws Exception {
-        insertPizza();
+        insertPizza(testPizza1);
         //WHEN
-        Pizza actualPizza = pizzaRepository.find(1L);
+        Pizza actualPizza = pizzaRepository.find(testPizza1.getId());
         //THEN
         assertThat(actualPizza, is(testPizza1));
     }
