@@ -3,7 +3,6 @@ package infrastructure;
 import domain.*;
 import org.junit.runner.RunWith;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
@@ -97,7 +96,7 @@ public class RepoTestConfig extends AbstractTransactionalJUnit4SpringContextTest
     public Long insertPizza(Pizza testPizza) {
         Long id = null;
         if (testPizza != null) {
-            id = testPizza.getId();
+            id = testPizza.getPizzaId();
             Object[] params = {id, testPizza.getName(), testPizza.getPrice(),
                     testPizza.getType()};
             int[] types = {Types.INTEGER, Types.VARCHAR, Types.INTEGER, Types.VARCHAR};

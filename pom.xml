@@ -72,6 +72,12 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.framework.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.hateoas/spring-hateoas -->
+        <dependency>
+            <groupId>org.springframework.hateoas</groupId>
+            <artifactId>spring-hateoas</artifactId>
+            <version>0.21.0.RELEASE</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <dependency>

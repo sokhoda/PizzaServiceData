@@ -11,7 +11,7 @@ public class PizzaRowMapper implements RowMapper {
 
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
         Pizza pizza = new Pizza();
-        pizza.setId(rs.getLong("id"));
+        pizza.setPizzaId(rs.getLong("pizzaId"));
         pizza.setName(rs.getString("name"));
         pizza.setPrice(rs.getDouble("price"));
         pizza.setType(PizzaType.valueOf(rs.getString("type")));

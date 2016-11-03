@@ -1,10 +1,12 @@
 package domain;
 
+import org.springframework.hateoas.ResourceSupport;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class Pizza implements Serializable{
+public class Pizza extends ResourceSupport implements Serializable{
     @Id
     @TableGenerator(
             name = "pizzaGen",
@@ -15,7 +17,7 @@ public class Pizza implements Serializable{
             initialValue = 0,
     allocationSize = 1)
     @GeneratedValue(strategy= GenerationType.TABLE, generator = "pizzaGen")
-    private Long id;
+    private Long pizzaId;
 
     private String name;
 
@@ -25,7 +27,7 @@ public class Pizza implements Serializable{
     private PizzaType type;
 
     public Pizza(Long id, String name, Double price, PizzaType type) {
-        this.id = id;
+        this.pizzaId = id;
         this.name = name;
         this.price = price;
         this.type = type;
@@ -37,7 +39,7 @@ public class Pizza implements Serializable{
     @Override
     public String toString() {
         return "\nPizza{" +
-                "id=" + id +
+                "pizzaId=" + pizzaId +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", type=" + type +
@@ -67,12 +69,12 @@ public class Pizza implements Serializable{
         return result;
     }
 
-    public Long getId() {
-        return id;
+    public Long getPizzaId(){
+        return pizzaId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPizzaId(Long pizzaId){
+        this.pizzaId = pizzaId;
     }
 
     public String getName() {

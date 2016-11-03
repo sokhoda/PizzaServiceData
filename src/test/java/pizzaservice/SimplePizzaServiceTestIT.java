@@ -28,7 +28,7 @@ public class SimplePizzaServiceTestIT extends RepoTestConfig{
         //WHEN
         Pizza expectedPizza = pizzaService.save(testPizza1);
         //THEN
-        assertNotNull(expectedPizza.getId());
+        assertNotNull(expectedPizza.getPizzaId());
     }
 
     @Test

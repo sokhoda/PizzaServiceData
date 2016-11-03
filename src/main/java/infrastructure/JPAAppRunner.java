@@ -17,13 +17,13 @@ public class JPAAppRunner {
 
         EntityTransaction et = em.getTransaction();
         et.begin();
-        System.out.println("before persist " +  pizza.getId());
+        System.out.println("before persist " +  pizza.getPizzaId());
         em.persist(pizza);
         Pizza pizza2 = em.getReference(Pizza.class, 25L);
 //        em.merge(pizza);
 //        pizza.setStrName("224324234");
         System.out.println(pizza2);
-        System.out.println("after persist " +  pizza.getId());
+        System.out.println("after persist " +  pizza.getPizzaId());
 //        em.persist(oak);
         et.commit();
 

@@ -24,6 +24,10 @@ public interface OrderService {
                                           LocalDateTime toDate, State
                                                   state);
 
+    List<Orders> findByDateBetweenByStateByCustomer(LocalDateTime fromDate,
+                                                    LocalDateTime toDate, State state,
+                                                    Customer customer);
+
     Orders save(Orders order);
 
     List<Orders> findByCustomerByState(Customer customer, State

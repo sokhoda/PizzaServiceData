@@ -70,7 +70,7 @@ public class SpringJPAAppRunner {
                 ("orderRepository", OrderRepository.class);
         Customer customer1 = customerRepository.find(1L);
 
-        LocalDateTime fromDate = LocalDateTime.of(2016, 9, 4, 0, 0);
+        LocalDateTime fromDate = LocalDateTime.of(2016, 10, 4, 0, 0);
         LocalDateTime toDate = LocalDateTime.of(2016, 11, 10, 0, 0);
         List<Orders> orderList = orderService.findByDateBetween(fromDate,
                 toDate);
@@ -78,18 +78,22 @@ public class SpringJPAAppRunner {
 //                NewState());
 
         orderList = orderService.findByDateBetweenByState(fromDate,
-                toDate, null);
-
+                toDate, new InProgressState());
         System.out.println(orderList);
 
+//        orderList = orderService.findByDateBetweenByStateByCustomer(fromDate,
+//                toDate, new NewState(), customer1);
+//        System.out.println(orderList);
 //
+//
+////
 //        System.out.println("\n\n\n\n\n\n !!!" + orderRepository.findByCustomer
 //                (customer1));
-//
+
 //        for (int i = 0; i < 3; i++) {
 //            init(pizzaService, addressService);
 //        }
-//
+
 //        Pizza pizza = pizzaRepository.read(5L);
 //        System.out.println(pizza);
 //        Customer customer = customerRepository.find(1L);
@@ -134,7 +138,7 @@ public class SpringJPAAppRunner {
 //        pizza.setType(PizzaType.MEAT);
 //        pizza = pizzaService.save(pizza);
 //        System.out.println(pizza);
-//        System.out.println(pizza.getId());
+//        System.out.println(pizza.getPizzaId());
 //OrderStateCycle orderStateCycle = appContext.getBean("orderStateCycle",
 //        OrderStateCycle.class);
 //        System.out.println(orderStateCycle.toString());

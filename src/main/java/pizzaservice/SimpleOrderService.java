@@ -114,8 +114,15 @@ public class SimpleOrderService implements OrderService {
     @Override
     public List<Orders> findByDateBetweenByState(LocalDateTime fromDate,
                                                  LocalDateTime toDate, State
-                                                             state){
+                                                         state){
         return  orderRepo.findByDateBetweenByState(fromDate, toDate, state);
+    }
+    @Override
+    public List<Orders> findByDateBetweenByStateByCustomer(LocalDateTime fromDate,
+                                                           LocalDateTime toDate, State state,
+                                                           Customer customer){
+        return orderRepo.findByDateBetweenByStateByCustomer(fromDate, toDate, state,
+                customer);
     }
 
     @Transactional

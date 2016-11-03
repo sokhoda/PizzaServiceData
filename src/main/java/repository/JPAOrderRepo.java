@@ -1,19 +1,18 @@
 package repository;
 
-import domain.Cheque;
 import domain.Customer;
 import domain.Orders;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pizzaservice.states.State;
-import pizzaservice.states.StateEn;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 @Repository("orderRepository")
@@ -68,5 +67,21 @@ public class JPAOrderRepo implements OrderRepository {
                 .setParameter("toDate", toDate)
                 .setParameter("state", state)
                 .getResultList();
+    }
+
+    @Override
+    public List<Orders> findByDateBetweenByStateByCustomer(
+            LocalDateTime fromDate, LocalDateTime toDate, State state, Customer customer) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+
+        CriteriaQuery<Orders> cq = cb.createQuery(Orders.class);
+        Root<Orders> order = cq.from(Orders.class);
+        cq.select(order).
+                where(cb.between(order.get("cheque").get("date"), fromDate,
+                        toDate));
+
+        TypedQuery<Orders> query = em.createQuery(cq);
+        List<Orders> orderList = query.getResultList();
+        return orderList;
     }
 }

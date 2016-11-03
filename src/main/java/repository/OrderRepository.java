@@ -3,7 +3,6 @@ package repository;
 import domain.Customer;
 import domain.Orders;
 import pizzaservice.states.State;
-import pizzaservice.states.StateEn;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,6 +19,9 @@ public interface OrderRepository {
     List<Orders> findByCustomerByState(Customer customer, State state);
 
     List<Orders> findByDateBetweenByState(LocalDateTime fromDate, LocalDateTime toDate, State state);
+
+    List<Orders> findByDateBetweenByStateByCustomer(
+            LocalDateTime fromDate, LocalDateTime toDate, State state, Customer customer);
 
 
 //    List<Order> getOrderList();

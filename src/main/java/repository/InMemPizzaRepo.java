@@ -27,7 +27,7 @@ public class InMemPizzaRepo implements PizzaRepository {
         Pizza result = null;
         if (id != null) {
             int i = 0;
-            while (i < pizzaList.size() && !pizzaList.get(i).getId().equals(id)) {
+            while (i < pizzaList.size() && !pizzaList.get(i).getPizzaId().equals(id)) {
                 i++;
             }
             result = i < pizzaList.size() ? pizzaList.get(i) : null;

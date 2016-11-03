@@ -25,7 +25,8 @@ public class JPAPizzaRepo implements PizzaRepository {
 
     @Override
     public Pizza read(Long id) {
-        TypedQuery<Pizza> query = em.createQuery("SELECT p from Pizza p WHERE p.id = :id ", Pizza.class);
+        TypedQuery<Pizza> query = em.createQuery("SELECT p from Pizza p WHERE" +
+                " p.pizzaId = :id ", Pizza.class);
         return query.setParameter("id", id).getSingleResult();
     }
 

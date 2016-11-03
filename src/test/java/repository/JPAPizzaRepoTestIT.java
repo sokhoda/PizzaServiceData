@@ -28,7 +28,7 @@ public class JPAPizzaRepoTestIT extends RepoTestConfig {
         //GIVEN
         //WHEN
         Pizza actualPizza = pizzaRepository.save(testPizza1);
-        Pizza expectedPizza = getExpectedPizza(actualPizza.getId());
+        Pizza expectedPizza = getExpectedPizza(actualPizza.getPizzaId());
 
         //THEN
         assertThat(actualPizza, is(expectedPizza));
@@ -39,7 +39,7 @@ public class JPAPizzaRepoTestIT extends RepoTestConfig {
     public void testFind() throws Exception {
         insertPizza(testPizza1);
         //WHEN
-        Pizza actualPizza = pizzaRepository.find(testPizza1.getId());
+        Pizza actualPizza = pizzaRepository.find(testPizza1.getPizzaId());
         //THEN
         assertThat(actualPizza, is(testPizza1));
     }

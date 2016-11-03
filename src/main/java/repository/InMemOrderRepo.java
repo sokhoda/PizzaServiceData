@@ -44,5 +44,10 @@ public class InMemOrderRepo implements OrderRepository {
         return null;
     }
 
+    @Override
+    public List<Orders> findByDateBetweenByStateByCustomer(LocalDateTime fromDate, LocalDateTime toDate, State state, Customer customer) {
+        return null;
+    }
+
 
 }
