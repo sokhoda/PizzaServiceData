@@ -1,10 +1,10 @@
 package domain;
 
 import org.springframework.hateoas.ResourceSupport;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.io.Serializable;
-
 @Entity
 public class Pizza extends ResourceSupport implements Serializable{
     @Id

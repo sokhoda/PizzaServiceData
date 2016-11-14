@@ -14,12 +14,12 @@ public class SimpleAddressService implements AddressService {
 
     @Override
     public Address find(Long id) {
-        return addressRepository.find(id);
+        return addressRepository.findOne(id);
     }
 
     @Override
-    public List<Address> findByCityName(String city) {
-        return addressRepository.findByCityName(city);
+    public List<Address> findByCity(String city) {
+        return addressRepository.findByCity(city);
     }
 
     @Override

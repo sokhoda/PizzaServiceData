@@ -29,6 +29,6 @@ public class SimpleChequeService implements ChequeService {
 
     @Override
     public Cheque find(Long id) {
-        return chequeRepository.find(id);
+        return chequeRepository.findOne(id);
     }
 }

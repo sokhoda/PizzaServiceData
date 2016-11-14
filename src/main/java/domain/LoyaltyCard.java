@@ -24,7 +24,7 @@ public class LoyaltyCard implements Serializable{
             allocationSize = 1)
     @GeneratedValue(strategy= GenerationType.TABLE, generator =
             "LOYALTYCARDGen")
-    private Long id;
+    private Long loyaltyId;
 
     @OneToOne(mappedBy = "loyaltyCard")
     private Customer customer;
@@ -40,8 +40,8 @@ public class LoyaltyCard implements Serializable{
 
     @Override
     public String toString() {
-        return "LoyaltyCard{" +
-                "id=" + id +
+        return "\nLoyaltyCard{" +
+                "id=" + loyaltyId +
                 ", customer={name=" + (customer == null ? "" : customer.getName()) +
                 ", address=" + (customer == null ? "" : customer.getAddress()) +
                 "}, sum=" + sum +
@@ -63,12 +63,12 @@ public class LoyaltyCard implements Serializable{
         return sum != null ? sum.hashCode() : 0;
     }
 
-    public Long getId() {
-        return id;
+    public Long getLoyaltyId() {
+        return loyaltyId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setLoyaltyId(Long loyaltyId) {
+        this.loyaltyId = loyaltyId;
     }
 
     public Double getSum() {

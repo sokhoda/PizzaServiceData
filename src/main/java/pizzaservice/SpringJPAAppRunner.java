@@ -1,22 +1,22 @@
 package pizzaservice;
 
 import domain.*;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import pizzaservice.cheque.ChequeProducer;
-import pizzaservice.states.InProgressState;
-import pizzaservice.states.NewState;
-import pizzaservice.states.OrderStateCycle;
-import pizzaservice.states.StateEn;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import repository.CustomerRepository;
-import repository.OrderRepository;
+import repository.LoyaltyCardRepository;
 import repository.PizzaRepository;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
+import java.util.*;
 
 public class SpringJPAAppRunner {
     private static Random random = new Random();
@@ -39,49 +39,87 @@ public class SpringJPAAppRunner {
         addressService.save(address);
     }
 
+    private static final Pageable EQ_PAGEABLE = new PageRequest(0, 3, new Sort
+            (Sort.Direction.ASC, "customer.name", "customer.id"));
+//             JpaSort.unsafe(Sort.Direction.DESC, "customer.name+0"));
+//            Sort(Sort.Direction.DESC, "customer.name+0"));
+//            Sort(Sort.Direction.DESC, "loyaltyId"));
+
+    public static Pageable modifySortProperty(Pageable pageable) {
+        Iterator<Sort.Order> it = pageable.getSort().iterator();
+        List<String> propertyNames = new ArrayList<>();
+        Sort.Order order = null;
+        while (it.hasNext()) {
+            order = it.next();
+            propertyNames.add(order.getProperty() + "+0");
+        }
+
+        return (order == null ? pageable :
+                new PageRequest(pageable.getPageNumber(), pageable
+                        .getPageSize(), JpaSort.unsafe(order.getDirection(),
+                        propertyNames)));
+    }
+
     public static void main(String[] args) {
         ConfigurableApplicationContext repoContext = new
                 ClassPathXmlApplicationContext("repoContext.xml");
 
-        ConfigurableApplicationContext appContext = new
-                ClassPathXmlApplicationContext(new String[]
-                {"appContext.xml"}, repoContext);
+//        ConfigurableApplicationContext appContext = new
+//                ClassPathXmlApplicationContext("appContext.xml");
+////
+//        ConfigurableApplicationContext appContext = new
+//                ClassPathXmlApplicationContext(new String[]
+//                {"appContext.xml"}, repoContext);
 
-        System.out.print("repoContext::");
-        System.out.println(Arrays.toString(repoContext.getBeanDefinitionNames()));
-        System.out.print("appContext::");
-        System.out.println(Arrays.toString(appContext.getBeanDefinitionNames()));
-
-        CustomerService customerService = appContext.getBean("customerService", CustomerService.class);
-        AddressService addressService = appContext.getBean("addressService",
-                AddressService.class);
-        Customer customer2 = customerService.find(2L);
-//        System.out.println(customer);
+//        System.out.print("repoContext::");
+//        System.out.println(Arrays.toString(repoContext.getBeanDefinitionNames()));
+//        System.out.print("appContext::");
+//        System.out.println(Arrays.toString(appContext.getBeanDefinitionNames()));
 //
-        CustomerRepository customerRepository = (CustomerRepository)
-                appContext.getBean("customerRepository");
-        PizzaRepository pizzaRepository = (PizzaRepository) appContext.getBean
-                ("pizzaRepository");
-        PizzaService pizzaService = (PizzaService) appContext.getBean
-                ("pizzaService");
+//        CustomerService customerService = appContext.getBean("customerService", CustomerService.class);
+//        AddressService addressService = appContext.getBean("addressService",
+//                AddressService.class);
+//        CustomerRepository customerRepository = repoContext.getBean
+//                ("customerRepository", CustomerRepository.class);
+        String colName = "lo.customer.name+0";
+        LoyaltyCardRepository loyaltyCardRepository = repoContext
+                .getBean("loyaltyCardRepository", LoyaltyCardRepository.class);
+//        System.out.println(loyaltyCardRepository.findBySumGreaterThan(0., colName));
+        Pageable modifiedPropertyPageable = modifySortProperty(EQ_PAGEABLE);
+        Page<LoyaltyCard> page = loyaltyCardRepository.findBySumGreaterThan(
+                0., modifiedPropertyPageable);
+        System.out.println(page.getContent());
+//        Page<LoyaltyCard> page = loyaltyCardRepository.findBySumGreaterThan(0.,
+//                colName, EQ_PAGEABLE);
 
-        OrderService orderService = appContext.getBean("orderService", OrderService.class);
-        OrderRepository orderRepository = appContext.getBean
-                ("orderRepository", OrderRepository.class);
-        Customer customer1 = customerRepository.find(1L);
 
-        LocalDateTime fromDate = LocalDateTime.of(2016, 10, 4, 0, 0);
-        LocalDateTime toDate = LocalDateTime.of(2016, 11, 10, 0, 0);
-        List<Orders> orderList = orderService.findByDateBetween(fromDate,
-                toDate);
-//        orderList = orderService.findByCustomerByState(customer1, new
-//                NewState());
+//
+//        CustomerRepository customerRepository = (CustomerRepository)
+//                appContext.getBean("customerRepository");
+//        PizzaRepository pizzaRepository = (PizzaRepository) repoContext.getBean
+//                ("pizzaRepository");
+//        PizzaService pizzaService = (PizzaService) appContext.getBean
+//                ("pizzaService");
+//        System.out.println(pizzaRepository.findAll());
 
-        orderList = orderService.findByDateBetweenByState(fromDate,
-                toDate, new InProgressState());
-        System.out.println(orderList);
 
-//        orderList = orderService.findByDateBetweenByStateByCustomer(fromDate,
+//        OrderService orderService = appContext.getBean("orderService", OrderService.class);
+//        OrdersRepository orderRepository = appContext.getBean
+//                ("orderRepository", OrdersRepository.class);
+//        Customer customer1 = customerRepository.find(1L);
+//
+//        LocalDateTime fromDate = LocalDateTime.of(2016, 10, 4, 0, 0);
+//        LocalDateTime toDate = LocalDateTime.of(2016, 11, 10, 0, 0);
+//        List<Orders> orderList = orderService.findByDateBetween(fromDate,
+//                toDate);
+////        orderList = orderService.findByCustomerAndState(customer1, new
+////                NewState());
+//
+//        orderList = orderService.findByStateAndDateBetween(fromDate,
+//                toDate, new InProgressState());
+//        System.out.println(orderList);
+
+//        orderList = orderService.findByStateAndCustomerAndDateBetween(fromDate,
 //                toDate, new NewState(), customer1);
 //        System.out.println(orderList);
 //
@@ -170,7 +208,6 @@ public class SpringJPAAppRunner {
 //        System.out.println("found Cheque:\n" + chequeService.find(2L));
 
         repoContext.close();
-        appContext.close();
+//        appContext.close();
     }
-
 }

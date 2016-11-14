@@ -1,15 +1,14 @@
 package repository;
 
 import domain.Pizza;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface PizzaRepository {
-    Pizza find(Long id);
+public interface PizzaRepository  extends JpaRepository<Pizza, Long> {
 
-    Pizza read(Long id);
+//    Pizza read(Long id);
 
-    Pizza save(Pizza pizza);
 
-    List<Pizza> findAll();
 }

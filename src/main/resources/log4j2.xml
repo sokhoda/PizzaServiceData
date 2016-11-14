@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<Configuration> 
+  <Appenders> 
+    <File name="FileLogger" fileName="E:\E:\IdeaProjects\PizzaServiceData\MyWeb.log" append="true">
+      <PatternLayout pattern="%d %t %-5p %c{2} %M() line:%L -  %m%n"/> 
+    </File> 
+  </Appenders> 
+  
+ <Loggers>
+     
+	<Root level="trace">
+		<AppenderRef ref="FileLogger"/> 
+	</Root>
+
+ </Loggers>
+ </Configuration>

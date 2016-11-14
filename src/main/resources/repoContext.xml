@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:context="http://www.springframework.org/schema/context"
 
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx.xsd">
+       http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--
+    Configure Spring Data JPA and set the base package of the
+    repository interfaces
+  -->
+    <jpa:repositories base-package="repository"/>
 
 
-
-    <context:component-scan base-package="repository"/>
+    <!--<context:component-scan base-package="repository"/>-->
     <context:property-placeholder
         system-properties-mode="OVERRIDE"
         location="classpath:jdbc.properties"/>
@@ -34,15 +38,23 @@
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
         </property>
+        <!-- Set base package of your entities -->
         <property name="packagesToScan" value="domain"/>
+        <!-- Set JPA properties -->
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="javax.persistence.schema-generation.database.action">none</prop>
+                <prop key="hibernate.ejb.use_class_enhancer">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
             </props>
         </property>
+        <!--&lt;!&ndash; Set share cache mode &ndash;&gt;-->
+        <!--<property name="sharedCacheMode" value="ENABLE_SELECTIVE"/>-->
+        <!--&lt;!&ndash; Set validation mode &ndash;&gt;-->
+        <!--<property name="validationMode" value="NONE"/>-->
     </bean>
 
     <bean id="transactionManager"
@@ -51,4 +63,6 @@
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
 </beans>

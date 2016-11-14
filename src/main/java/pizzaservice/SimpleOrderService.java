@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pizzaservice.states.OrderStateCycle;
 import pizzaservice.states.State;
-import repository.OrderRepository;
+import repository.OrdersRepository;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class SimpleOrderService implements OrderService {
     private PizzaService pizzaService = null;
     @Autowired
     @Qualifier(value = "orderRepository")
-    private OrderRepository orderRepo = null;
+    private OrdersRepository orderRepo = null;
 
     @Autowired
     private OrderStateCycle orderStateCycle;
@@ -31,7 +31,7 @@ public class SimpleOrderService implements OrderService {
     }
 
     public SimpleOrderService(PizzaService pizzaService,
-                              OrderRepository orderRepo) {
+                              OrdersRepository orderRepo) {
         this.pizzaService = pizzaService;
         this.orderRepo = orderRepo;
     }
@@ -98,7 +98,7 @@ public class SimpleOrderService implements OrderService {
 
     @Override
     public Orders find(Long id) {
-        return orderRepo.find(id);
+        return orderRepo.findOne(id);
     }
 
     @Override
@@ -108,21 +108,24 @@ public class SimpleOrderService implements OrderService {
 
     @Override
     public List<Orders> findByDateBetween(LocalDateTime fromDate, LocalDateTime toDate){
-        return  orderRepo.findByDateBetween(fromDate, toDate);
+//        return  orderRepo.findByDateBetween(fromDate, toDate);
+        return null;
     }
 
     @Override
     public List<Orders> findByDateBetweenByState(LocalDateTime fromDate,
                                                  LocalDateTime toDate, State
                                                          state){
-        return  orderRepo.findByDateBetweenByState(fromDate, toDate, state);
+//        return  orderRepo.findByStateAndDateBetween(state, fromDate, toDate );
+        return null;
     }
     @Override
     public List<Orders> findByDateBetweenByStateByCustomer(LocalDateTime fromDate,
                                                            LocalDateTime toDate, State state,
                                                            Customer customer){
-        return orderRepo.findByDateBetweenByStateByCustomer(fromDate, toDate, state,
-                customer);
+//        return orderRepo.findByStateAndCustomerAndDateBetween( state,
+//                customer, fromDate, toDate);
+        return null;
     }
 
     @Transactional
@@ -133,7 +136,8 @@ public class SimpleOrderService implements OrderService {
 
     @Override
     public List<Orders> findByCustomerByState(Customer customer, State state){
-        return orderRepo.findByCustomerByState(customer, state);
+//        return orderRepo.findByCustomerAndState(customer, state);
+        return null;
     }
 
     @Override
@@ -149,7 +153,7 @@ public class SimpleOrderService implements OrderService {
         this.pizzaService = pizzaService;
     }
 
-    public void setOrderRepo(OrderRepository orderRepo) {
+    public void setOrderRepo(OrdersRepository orderRepo) {
         this.orderRepo = orderRepo;
     }
 }

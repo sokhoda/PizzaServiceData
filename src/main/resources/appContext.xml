@@ -10,14 +10,21 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="domain"/>
-    <context:component-scan base-package="pizzaservice"/>
-    <!--<context:component-scan base-package="config"/>-->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <bean name="Pizza" class="MyFactoryBean"/>
+    <!--<context:component-scan base-package="domain"/>-->
+    <!--<context:component-scan base-package="pizzaservice"/>-->
+    <!--<context:component-scan base-package="config"/>-->
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
+
+    <!--<bean name="Pizza" class="MyFactoryBean"/>-->
 
     <!--<bean class="infrastructure.BenchmarkBeanPostProcessor"/>-->
+
+    <bean id="pizzaService" class="pizzaservice.SimplePizzaService"/>
+    <bean id="addressService" class="pizzaservice.SimpleAddressService"/>
+    <bean id="discountRecordService" class="pizzaservice.SimpleDiscountRecordService"/>
+    <bean id="loyaltyCardService"
+          class="pizzaservice.SimpleLoyaltyCardService"/>
 
     <bean id="orderStateCycle" scope="prototype"
           class="pizzaservice.states.OrderStateCycle">

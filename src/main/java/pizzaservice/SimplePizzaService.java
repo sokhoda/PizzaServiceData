@@ -31,7 +31,7 @@ public class SimplePizzaService implements PizzaService {
 
     @Override
     public Pizza find(Long id) {
-        return pizzaRepo.find(id);
+        return pizzaRepo.findOne(id);
     }
 
     @Override

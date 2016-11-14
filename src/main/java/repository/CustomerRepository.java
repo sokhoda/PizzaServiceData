@@ -2,17 +2,17 @@ package repository;
 
 import domain.Customer;
 import domain.LoyaltyCard;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
-
-public interface CustomerRepository {
-    Customer find(Long id);
+//PagingAndSortingRepository
+public interface CustomerRepository  extends JpaRepository<Customer, Long> {
 
     List<Customer> findByName(String name);
 
-    List<Customer> findByLoyaltyCard(LoyaltyCard loyaltyCard);
+//    List<Customer> findByLoyaltyCard(LoyaltyCard loyaltyCard);
 
-    Customer save(Customer customer);
-
-    int delete(Customer customer);
+//
+//    int delete(Customer customer);
 }

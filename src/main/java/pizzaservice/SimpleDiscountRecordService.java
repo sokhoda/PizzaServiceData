@@ -21,11 +21,12 @@ public class SimpleDiscountRecordService implements DiscountRecordService{
 
     @Override
     public DiscountRecord find(Long id) {
-        return discountRecordRepository.find(id);
+        return discountRecordRepository.findOne(id);
     }
 
     @Override
     public DiscountRecord save(DiscountRecord discountRecord) {
         return discountRecordRepository.save(discountRecord);
     }
+
 }

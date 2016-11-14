@@ -15,10 +15,10 @@ import java.util.List;
 
 @Service("customerService")
 public class SimpleCustomerService implements CustomerService {
-    @Autowired
-    @Qualifier("customerRepository")
+//    @Qualifier("customerRepository")
     private CustomerRepository customerRepository;
 
+    @Autowired
     public SimpleCustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
@@ -34,23 +34,27 @@ public class SimpleCustomerService implements CustomerService {
 
     @Override
     public Customer find(Long id) {
-        return customerRepository.find(id);
+        return customerRepository.findOne(id);
     }
 
     @Override
     public List<Customer> findByName(String name) {
-        return customerRepository.findByName(name);
+//        return customerRepository.findByName(name);
+        return null;
     }
 
     @Override
     public List<Customer> findByLoyaltyCard(LoyaltyCard loyaltyCard) {
-        return customerRepository.findByLoyaltyCard(loyaltyCard);
+//        return customerRepository.findByLoyaltyCard(loyaltyCard);
+        return null;
     }
 
     @Override
     public int delete(Customer customer){
-        return customerRepository.delete(customer);
+//        return customerRepository.delete(customer);
+        return 0;
     }
+
 
     @Transactional
     @Override
